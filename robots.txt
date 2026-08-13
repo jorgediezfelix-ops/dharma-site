@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /carrito.html
+
+# AJUSTAR: cambia el dominio por el definitivo antes de publicar
+Sitemap: https://dharma.mx/sitemap.xml
