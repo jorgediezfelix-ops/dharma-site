@@ -84,13 +84,13 @@ const DESTINOS = {
   cabo: {
     numero: '01', nombre: 'LOS CABOS', estado: 'BAJA CALIFORNIA SUR', coord: '23.05° N',
     claim: 'Desierto y océano en la misma postal.',
-    img: 'img/dest-cabo-real.jpg',
+    img: 'img/dest-cabo.jpg',
     picks: ['iguana-floreada', 'jaguar-de-palma', 'hecho-en-mexico']
   },
   vallarta: {
     numero: '02', nombre: 'PUERTO VALLARTA', estado: 'JALISCO', coord: '20.65° N',
     claim: 'Mariachi, agave y costa.',
-    img: 'img/dest-vallarta-real.jpg',
+    img: 'img/dest-vallarta.jpg',
     picks: ['mariachi', 'sonata', 'vale-m']
   },
   cozumel: {

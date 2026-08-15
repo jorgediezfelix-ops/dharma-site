@@ -3,3 +3,10 @@
 .claude/settings.local.json
 node_modules/
 Thumbs.db
+
+# Documentación interna de trabajo: el repositorio es público.
+_team/
+ANALISIS-CUMPLIMIENTO-ISO-WCAG.md
+
+# Configuración local del editor.
+.vscode/

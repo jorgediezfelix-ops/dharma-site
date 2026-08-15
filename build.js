@@ -6,6 +6,7 @@
 //   <!--#include header--> ... <!--/include-->
 //
 // Bloques disponibles:
+//   seo                     → title, description, canonical, Open Graph y JSON-LD
 //   header, footer          → parciales _header.html y _footer.html
 //   filtros                 → chips de filtrado del catálogo (desde products.js)
 //   productos               → las 51 piezas
@@ -14,11 +15,17 @@
 //   tecnicas                → fichas de técnicas de impresión
 //   lineas                  → tarjetas de las cuatro líneas
 //
-// Edita el parcial o products.js y vuelve a correr el script.
+// Además escribe, sin marcadores:
+//   pieza/<id>.html         → una ficha estática por pieza, con su propia URL
+//   sitemap.xml, robots.txt → derivados de SITE.origin en seo.js
+//
+// Edita el parcial, products.js o seo.js y vuelve a correr el script.
 
 const fs = require('fs');
 const path = require('path');
 const { PRODUCTS, LINEAS, TECNICAS, DESTINOS } = require('./products.js');
+const seo = require('./seo.js');
+const { SITE, PAGES } = seo;
 
 const dir = __dirname;
 const read = f => fs.readFileSync(path.join(dir, f), 'utf8').trim();
@@ -26,12 +33,12 @@ const read = f => fs.readFileSync(path.join(dir, f), 'utf8').trim();
 const DESTACADOS = ['jaguar-azteca', 'the-frida', 'storm-huichol', 'xolo-flock', 'mariachi', 'craneo-de-yute'];
 
 const card = (p, { badge = true } = {}) => `        <article class="product" data-linea="${p.linea}" data-tema="${p.tema}" data-tecnica="${p.tecnicas.join(' ')}">
-          <a class="product-media" href="pieza.html?p=${p.id}">
+          <a class="product-media" href="${seo.productUrl(p)}">
             <img src="${p.img}" alt="Playera ${p.name} — DHARMA" loading="lazy" decoding="async">
             ${badge ? `<span class="product-badge">${p.lineaNombre}</span>` : ''}
           </a>
           <small>${p.tecnicaNombre}</small>
-          <h3><a href="pieza.html?p=${p.id}">${p.name}</a></h3>
+          <h3><a href="${seo.productUrl(p)}">${p.name}</a></h3>
           <p>${p.tagline}</p>
           <div class="product-foot"><b>$${p.price} MXN</b><span class="product-link">VER PIEZA +</span></div>
         </article>`;
@@ -59,10 +66,10 @@ ${chips('TÉCNICA', 'tecnica', tecnicas.map(t => ({ value: t, label: TECNICAS[t]
       </div>`;
 };
 
-const tecnicasBlock = () => {
-  const orden = ['SERIGRAFIA', 'FLOCK', 'DENSIDAD', 'CORROSION', 'DESCARGA', 'GEL', 'PLASTISOL', 'PEDRERIA', 'NEON', 'SHIMMER', 'PUFF'];
-  return `      <div class="tech-grid">
-${orden.map((key, i) => {
+const ORDEN_TECNICAS = ['SERIGRAFIA', 'FLOCK', 'DENSIDAD', 'CORROSION', 'DESCARGA', 'GEL', 'PLASTISOL', 'PEDRERIA', 'NEON', 'SHIMMER', 'PUFF'];
+
+const tecnicasBlock = () => `      <div class="tech-grid">
+${ORDEN_TECNICAS.map((key, i) => {
     const t = TECNICAS[key];
     const piezas = all.filter(p => p.tecnicas.includes(key));
     const muestra = piezas[0];
@@ -78,7 +85,6 @@ ${orden.map((key, i) => {
         </article>`;
   }).join('\n')}
       </div>`;
-};
 
 const lineasBlock = () => `      <div class="card-grid">
 ${Object.values(LINEAS).map(l => `        <a class="world-card" style="background-image:url('${l.img}')" href="colecciones.html#${l.id}">
@@ -115,7 +121,7 @@ const destinosBlock = () => {
             <div class="dest-picks-row">
 ${d.picks.map(pid => {
     const p = PRODUCTS[pid];
-    return `              <a class="dest-pick" href="pieza.html?p=${p.id}">
+    return `              <a class="dest-pick" href="${seo.productUrl(p)}">
                 <img src="${p.img}" alt="${p.name}" loading="lazy" decoding="async">
                 <span><b>${p.name}</b><i>$${p.price.toLocaleString('es-MX')} MXN</i></span>
               </a>`;
@@ -136,7 +142,52 @@ ${picks}
       </div>`;
 };
 
+/* ——————————————————— bloque SEO ———————————————————
+ * Un solo marcador <!--#include seo--> por página; los metadatos y los datos
+ * estructurados salen de seo.js según el nombre del archivo.
+ */
+const seoBlock = (pageKey, html) => {
+  const meta = PAGES[pageKey];
+  if (!meta) {
+    console.warn(`  ! ${pageKey}.html: sin metadatos en seo.js → se omite el bloque SEO`);
+    return '';
+  }
+
+  const nodos = [seo.orgNode()];
+  if (pageKey === 'index') nodos.push(seo.webSiteNode());
+  if (meta.crumbs) nodos.push(seo.breadcrumbNode(meta.crumbs, [meta.crumb, meta.url]));
+
+  if (pageKey === 'catalogo') {
+    nodos.push(seo.itemListNode('Catálogo DHARMA', all.map(p => ({ name: p.name, url: seo.productUrl(p) }))));
+  }
+  if (pageKey === 'colecciones') {
+    nodos.push(seo.itemListNode('Colecciones DHARMA', Object.values(LINEAS)
+      .map(l => ({ name: `${l.nombre} · ${l.año}`, url: `colecciones.html#${l.id}` }))));
+  }
+  if (pageKey === 'tecnicas') {
+    nodos.push(seo.itemListNode('Técnicas de impresión DHARMA', ORDEN_TECNICAS
+      .map(k => ({ name: TECNICAS[k].nombre, url: `tecnicas.html#${k.toLowerCase()}` }))));
+  }
+  if (pageKey === 'destinos') {
+    nodos.push(seo.itemListNode('Destinos DHARMA', Object.entries(DESTINOS)
+      .map(([id, d]) => ({ name: d.nombre, url: `destinos.html#${id}` }))));
+  }
+  if (pageKey === 'contacto') {
+    nodos.push({
+      '@type': 'ContactPage',
+      name: meta.crumb,
+      url: seo.abs(meta.url),
+      mainEntity: { '@id': `${SITE.origin}/#organization` }
+    });
+  }
+  // Las preguntas frecuentes se leen del propio HTML para que nunca se desfasen.
+  nodos.push(seo.faqNode(html));
+
+  return seo.seoHead(meta, nodos);
+};
+
 const blocks = {
+  seo: seoBlock,
   header: () => read('_header.html'),
   footer: () => read('_footer.html'),
   filtros,
@@ -156,18 +207,22 @@ let touched = 0;
 for (const page of pages) {
   const file = path.join(dir, page);
   const original = fs.readFileSync(file, 'utf8');
+  const pageKey = page.replace(/\.html$/, '');
   const unknown = [];
 
-  const updated = original.replace(
-    /<!--#include ([\w:]+)-->[\s\S]*?<!--\/include-->/g,
-    (match, name) => {
-      if (!blocks[name]) {
-        unknown.push(name);
-        return match;
+  const updated = original
+    .replace(
+      /<!--#include ([\w:]+)-->[\s\S]*?<!--\/include-->/g,
+      (match, name) => {
+        if (!blocks[name]) {
+          unknown.push(name);
+          return match;
+        }
+        return `<!--#include ${name}-->\n${blocks[name](pageKey, original)}\n<!--/include-->`;
       }
-      return `<!--#include ${name}-->\n${blocks[name]()}\n<!--/include-->`;
-    }
-  );
+    )
+    // Un solo token de caché para CSS y JS, tomado de seo.js.
+    .replace(/(styles\.css|script\.js)\?v=[^"']*/g, `$1?v=${SITE.assetVersion}`);
 
   if (unknown.length) console.warn(`  ! ${page}: bloque desconocido → ${unknown.join(', ')}`);
   if (!/<!--#include /.test(original)) console.warn(`  ! ${page}: sin marcadores <!--#include ...-->`);
@@ -178,4 +233,80 @@ for (const page of pages) {
   }
 }
 
-console.log(`\n${touched} de ${pages.length} páginas actualizadas · ${all.length} piezas en catálogo.`);
+/* ——————————————————— fichas estáticas de producto ———————————————————
+ * Viven en pieza/<id>.html, así que los enlaces relativos de los parciales
+ * compartidos necesitan un ../ delante. Anclas, mailto y absolutas se quedan.
+ */
+const rebase = (html, prefijo) =>
+  html.replace(
+    /\b(href|src)="(?!https?:|\/\/|#|mailto:|tel:|data:)([^"]*)"/g,
+    (_, attr, url) => `${attr}="${prefijo}${url}"`
+  );
+
+// Piezas hermanas: mismo tema primero, luego misma técnica (igual que en script.js).
+const hermanasDe = p => {
+  const pool = all.filter(o => o.id !== p.id);
+  return [
+    ...pool.filter(o => o.tema === p.tema),
+    ...pool.filter(o => o.tema !== p.tema && o.tecnicas.some(t => p.tecnicas.includes(t)))
+  ].slice(0, 4);
+};
+
+const header = rebase(read('_header.html'), '../');
+const footer = rebase(read('_footer.html'), '../');
+const piezaDir = path.join(dir, 'pieza');
+fs.mkdirSync(piezaDir, { recursive: true });
+
+// Borra fichas de piezas que ya no existen en products.js.
+for (const f of fs.readdirSync(piezaDir)) {
+  if (f.endsWith('.html') && !PRODUCTS[f.replace(/\.html$/, '')]) {
+    fs.unlinkSync(path.join(piezaDir, f));
+    console.log(`  − pieza/${f} (ya no está en el catálogo)`);
+  }
+}
+
+for (const p of all) {
+  fs.writeFileSync(
+    path.join(piezaDir, `${p.id}.html`),
+    seo.productPage(p, {
+      linea: LINEAS[p.linea],
+      tecnicas: TECNICAS,
+      header,
+      footer,
+      relacionadas: hermanasDe(p)
+    })
+  );
+}
+
+/* ——————————————————— sitemap.xml y robots.txt ——————————————————— */
+
+const hoy = new Date().toISOString().slice(0, 10);
+
+const urls = [
+  ...Object.entries(PAGES)
+    .filter(([, m]) => !m.noindex)
+    .map(([key, m]) => ({ loc: seo.abs(m.url), priority: key === 'index' ? '1.0' : m.priority || '0.7' })),
+  ...all.map(p => ({ loc: seo.abs(seo.productUrl(p)), priority: '0.8' }))
+];
+
+fs.writeFileSync(path.join(dir, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generado por build.js · el dominio sale de SITE.origin en seo.js -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map(u => `  <url>
+    <loc>${u.loc}</loc>
+    <lastmod>${hoy}</lastmod>
+    <priority>${u.priority}</priority>
+  </url>`).join('\n')}
+</urlset>
+`);
+
+fs.writeFileSync(path.join(dir, 'robots.txt'), `# Generado por build.js · el dominio sale de SITE.origin en seo.js
+User-agent: *
+Allow: /
+Disallow: /carrito.html
+
+Sitemap: ${SITE.origin}/sitemap.xml
+`);
+
+console.log(`\n${touched} de ${pages.length} páginas actualizadas · ${all.length} fichas en pieza/ · ${urls.length} URLs en sitemap.xml`);
+console.log(`Dominio actual: ${SITE.origin} (cámbialo en seo.js → SITE.origin)`);

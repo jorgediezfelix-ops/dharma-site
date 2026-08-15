@@ -408,6 +408,12 @@ body.overlay-open,body.menu-open{overflow:hidden}
 .hero-copy{max-width:760px}
 .hero h1,.page-hero h1{letter-spacing:-.018em}
 .hero h1{margin-top:38px}
+/* Los renglones dorados quedan detrás del texto blanco cuando la
+   tipografía compacta hace que sus acentos invadan la línea anterior. */
+.hero-copy,.page-hero{isolation:isolate}
+.hero-copy>.kicker,.page-hero>.kicker{position:relative;z-index:4}
+.hero h1,.page-hero h1{position:relative;z-index:2;isolation:isolate}
+.hero h1 em,.page-hero h1 em{position:relative;z-index:-1}
 .hero-copy>p:not(.kicker){max-width:600px;font-size:15px;line-height:1.75;color:#dedbd4}
 .hero-proof{display:flex;flex-wrap:wrap;gap:10px 0;list-style:none;padding:0;margin:22px 0 0;color:#d7d2c8}
 .hero-proof li{font-size:9px;font-weight:600;letter-spacing:.15em;padding:0 16px;border-left:1px solid rgba(255,255,255,.3)}
@@ -588,8 +594,8 @@ body.overlay-open,body.menu-open{overflow:hidden}
 .page-hero h1{text-shadow:0 12px 50px rgba(0,0,0,.68)}
 .page-hero>p:last-child{text-shadow:0 2px 18px rgba(0,0,0,.9)}
 
-.technique-hero:before{background-image:url('img/cinematic-workshop.jpg');background-position:center 48%}
-.contact-hero:before{background-image:url('img/editorial-pareja.jpg');background-position:center 36%}
+.technique-hero:before{background-image:url('img/tecnicas-hero-calavera-bg.png?v=20260814-204242');background-position:center 50%}
+.contact-hero:before{background-image:url('img/contacto-hero-modelos-neon-bg.png');background-position:center 45%}
 .size-hero:before{background-image:url('img/editorial-pareja.jpg');background-position:center 38%}
 .shipping-hero:before{background-image:url('img/dest-bg.jpg');background-position:center 54%}
 .legal-hero:before{background-image:url('img/bg-colecciones.png');background-position:center 32%}
@@ -609,9 +615,9 @@ body.overlay-open,body.menu-open{overflow:hidden}
 /* Aperturas fotográficas de cada colección */
 .linea-head{min-height:470px;padding:clamp(34px,5vw,74px);border:1px solid rgba(255,255,255,.16);color:#f4f0e7;box-shadow:0 26px 70px rgba(0,0,0,.18),inset 0 0 110px rgba(0,0,0,.24);position:relative;overflow:hidden}
 #\32 026 .linea-head{background:linear-gradient(90deg,rgba(5,5,5,.95),rgba(5,5,5,.6) 48%,rgba(5,5,5,.14)),url('img/mockup-neon.jpg') center 42%/cover no-repeat}
-#caballero .linea-head{background:linear-gradient(90deg,rgba(5,5,5,.94),rgba(5,5,5,.62) 52%,rgba(5,5,5,.24)),url('img/editorial-caballero.jpg') center 25%/cover no-repeat}
-#dama .linea-head{background:linear-gradient(90deg,rgba(5,5,5,.94),rgba(5,5,5,.58) 52%,rgba(5,5,5,.2)),url('img/editorial-dama.jpg') center 22%/cover no-repeat}
-#liquidacion .linea-head{background:linear-gradient(90deg,rgba(5,5,5,.94),rgba(5,5,5,.62) 52%,rgba(5,5,5,.24)),url('img/editorial-liquidacion.jpg') center 24%/cover no-repeat}
+#caballero .linea-head{background:linear-gradient(90deg,rgba(5,5,5,.5),rgba(5,5,5,.58) 52%,rgba(5,5,5,.76)),url('img/caballero-jaguar-bg.png') center/cover no-repeat}
+#dama .linea-head{background:linear-gradient(90deg,rgba(5,5,5,.52),rgba(5,5,5,.6) 52%,rgba(5,5,5,.74)),url('img/dama-jaguar-bg.png') center/cover no-repeat}
+#liquidacion .linea-head{background:linear-gradient(90deg,rgba(5,5,5,.5),rgba(5,5,5,.59) 52%,rgba(5,5,5,.75)),url('img/liquidacion-jaguar-bg.png') center/cover no-repeat}
 .linea-head:after{content:"";position:absolute;inset:15px;border:1px solid rgba(255,255,255,.13);pointer-events:none}
 .linea-head>*{position:relative;z-index:1}
 .linea-head h2{text-shadow:0 10px 38px rgba(0,0,0,.6)}
@@ -622,6 +628,7 @@ body.overlay-open,body.menu-open{overflow:hidden}
 
 /* Módulos de proceso y oficio */
 .process,.steps-band{position:relative;isolation:isolate;color:#f4f0e7;background:linear-gradient(90deg,rgba(6,6,6,.96),rgba(6,6,6,.74) 58%,rgba(57,18,13,.45)),url('img/cinematic-workshop.jpg') center/cover no-repeat;box-shadow:inset 0 0 150px rgba(0,0,0,.38)}
+.process{background-image:linear-gradient(90deg,rgba(4,4,4,.35),rgba(4,4,4,.08)),url('img/tecnicas-process-bg.png')}
 .process:before,.steps-band:before{content:"";position:absolute;inset:20px;border:1px solid rgba(210,166,47,.2);pointer-events:none}
 .process>* ,.steps-band>*{position:relative;z-index:1}
 .process .kicker,.steps-band .kicker{color:var(--gold)}
@@ -652,6 +659,8 @@ body.overlay-open,body.menu-open{overflow:hidden}
 .product-detail{background:radial-gradient(circle at 85% 24%,rgba(210,166,47,.08),transparent 28%),#0b0b0b}
 
 /* Destinos y módulos de cierre */
+.destination-cabo{background-image:url('img/dest-cabo-.png')}
+.destination-vallarta{background-image:url('img/dest-vallarta-.png')}
 .destination{isolation:isolate;background-position:center calc(50% + var(--scene-shift,0px));box-shadow:inset 0 0 150px rgba(0,0,0,.35);transition:background-position .12s linear}
 .destination:before{background:linear-gradient(90deg,rgba(0,0,0,.92),rgba(0,0,0,.28) 62%,rgba(0,0,0,.52)),linear-gradient(0deg,rgba(0,0,0,.68),transparent 55%)}
 .destination:after{content:"";position:absolute;inset:18px;border:1px solid rgba(255,255,255,.18);pointer-events:none}
@@ -685,6 +694,9 @@ body.overlay-open,body.menu-open{overflow:hidden}
   .page-hero .kicker:before{width:28px}
   .linea{padding-left:16px;padding-right:16px}
   .linea-head{min-height:620px;padding:32px 24px;background-position:58% center!important}
+  #caballero .linea-head{background-position:30% center!important}
+  #dama .linea-head{background-position:28% center!important}
+  #liquidacion .linea-head{background-position:27% center!important}
   .linea-head:after,.process:before,.steps-band:before,.quote-section:before{inset:10px}
   .feature-copy:before{inset:10px}
   .process,.steps-band,.contact-grid{background-position:68% center}
@@ -698,6 +710,525 @@ body.overlay-open,body.menu-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){
   .page-hero:before,.hero-art{transform:none!important}
   .destination{background-position:center!important}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SHELL EDITORIAL V3 — HEADER + FOOTER GLOBAL
+   Navegación flotante, vidrio oscuro y cierre monumental.
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --shell-gold:#d8ab32;
+  --shell-glass:rgba(8,8,8,.82);
+  --shell-line:rgba(216,171,50,.28);
+}
+
+/* Header flotante */
+.site-header,
+.site-header.scrolled{
+  inset:12px 18px auto;
+  width:auto;
+  height:72px;
+  padding:0 clamp(18px,2.2vw,34px);
+  background:linear-gradient(135deg,rgba(16,16,16,.91),rgba(5,5,5,.78));
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 18px 52px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.05);
+  backdrop-filter:blur(22px) saturate(1.15);
+  -webkit-backdrop-filter:blur(22px) saturate(1.15);
+  isolation:isolate;
+  z-index:50;
+  transition:height .3s,background .3s,border-color .3s,box-shadow .3s,top .3s;
+}
+.site-header.scrolled{
+  top:8px;
+  height:64px;
+  background:rgba(6,6,6,.94);
+  border-color:rgba(216,171,50,.3);
+  box-shadow:0 20px 58px rgba(0,0,0,.48),0 0 0 1px rgba(0,0,0,.25);
+}
+.site-header:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:-1px;
+  width:clamp(90px,14vw,220px);
+  height:2px;
+  background:linear-gradient(90deg,var(--shell-gold),rgba(216,171,50,0));
+  box-shadow:0 0 18px rgba(216,171,50,.4);
+  pointer-events:none;
+}
+.scroll-progress{
+  top:auto;
+  bottom:-1px;
+  height:2px;
+  background:linear-gradient(90deg,#8e251f,var(--shell-gold),#f0d477);
+  box-shadow:0 0 12px rgba(216,171,50,.46);
+}
+.brand{
+  position:relative;
+  min-height:48px;
+  padding-right:clamp(15px,2vw,30px);
+  border-right:1px solid rgba(255,255,255,.12);
+  flex:0 0 auto;
+}
+.brand:after{
+  content:"";
+  position:absolute;
+  right:-3px;
+  top:50%;
+  width:5px;
+  height:5px;
+  background:var(--shell-gold);
+  transform:translateY(-50%) rotate(45deg);
+  box-shadow:0 0 12px rgba(216,171,50,.65);
+}
+.brand b{
+  display:block;
+  font:27px/.92 var(--f-display);
+  letter-spacing:.035em;
+  color:#f4f0e7;
+  text-shadow:0 4px 24px rgba(0,0,0,.65);
+}
+.brand small{
+  margin-top:6px;
+  color:var(--shell-gold);
+  font-size:7px;
+  font-weight:600;
+  letter-spacing:.32em;
+}
+.site-header .nav{
+  gap:3px;
+  padding:4px;
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.025);
+  box-shadow:inset 0 0 24px rgba(0,0,0,.2);
+}
+.site-header .nav a{
+  min-height:40px;
+  padding:0 clamp(9px,1.05vw,16px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#bdb8ae;
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:.14em;
+  transition:color .25s,background .25s,transform .25s;
+}
+.site-header .nav a:after{
+  left:50%;
+  right:50%;
+  bottom:5px;
+  height:1px;
+  box-shadow:0 0 10px rgba(216,171,50,.55);
+}
+.site-header .nav a:hover{
+  color:#f5f1e8;
+  background:rgba(255,255,255,.045);
+}
+.site-header .nav a:hover:after{
+  left:14px;
+  right:14px;
+}
+.site-header .nav a.active,
+.site-header .nav a[aria-current="page"]{
+  color:#0b0b0b;
+  background:var(--shell-gold);
+  box-shadow:0 8px 22px rgba(216,171,50,.16);
+}
+.site-header .nav a.active:after,
+.site-header .nav a[aria-current="page"]:after{display:none}
+.nav-tools{
+  gap:8px;
+  flex:0 0 auto;
+}
+.search-btn,.bag-btn{
+  min-height:42px;
+  padding:0 13px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.025);
+  color:#d2cdc3;
+  font-size:8px;
+  font-weight:600;
+  transition:border-color .25s,color .25s,background .25s,transform .25s;
+}
+.search-btn:hover,.bag-btn:hover{
+  color:var(--shell-gold);
+  border-color:rgba(216,171,50,.55);
+  background:rgba(216,171,50,.06);
+  transform:translateY(-2px);
+}
+.bag-count{
+  min-width:24px;
+  height:24px;
+  padding:0 6px;
+  border-radius:0;
+  background:var(--shell-gold);
+  color:#0b0b0b;
+  font-size:9px;
+  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
+}
+.bag-btn .bag-count{
+  display:grid;
+  place-items:center;
+}
+.bag-btn .bag-count{font-variant-numeric:tabular-nums}
+.menu-btn{
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.025);
+}
+.menu-btn:hover{border-color:var(--shell-gold)}
+.menu-btn span{background:#f4f0e7}
+
+/* Footer monumental */
+.footer-advanced{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  padding:0 var(--pad) 30px;
+  border-top:1px solid rgba(216,171,50,.5);
+  background:
+    radial-gradient(circle at 10% 12%,rgba(141,35,31,.24),transparent 28%),
+    radial-gradient(circle at 88% 8%,rgba(216,171,50,.13),transparent 24%),
+    linear-gradient(115deg,rgba(6,6,6,.98),rgba(12,10,9,.96) 52%,rgba(6,6,6,.99));
+  box-shadow:inset 0 1px rgba(255,255,255,.04),inset 0 90px 120px -110px rgba(216,171,50,.34);
+}
+.footer-advanced:before{
+  content:"DHARMA";
+  position:absolute;
+  z-index:-1;
+  right:-.035em;
+  top:-.16em;
+  font:clamp(170px,26vw,430px)/.8 var(--f-display);
+  letter-spacing:-.055em;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(216,171,50,.08);
+  opacity:.85;
+  pointer-events:none;
+}
+.footer-advanced:after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:linear-gradient(90deg,transparent,black 35%,black 82%,transparent);
+  pointer-events:none;
+}
+.footer-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:minmax(320px,1.5fr) minmax(145px,.62fr) minmax(145px,.62fr) minmax(290px,1.1fr);
+  gap:clamp(28px,4vw,68px);
+  padding:clamp(84px,9vw,130px) 0 clamp(64px,7vw,96px);
+  border-bottom:1px solid rgba(255,255,255,.14);
+}
+.footer-brand-col{
+  position:relative;
+  padding-right:clamp(16px,3vw,48px);
+}
+.footer-brand-col:before{
+  content:"ORIGEN · CDMX / 2026";
+  display:block;
+  margin-bottom:28px;
+  color:var(--shell-gold);
+  font-size:8px;
+  font-weight:600;
+  letter-spacing:.27em;
+}
+.footer-lockup{position:relative}
+.footer-lockup:after{
+  content:"";
+  display:block;
+  width:min(280px,72%);
+  height:3px;
+  margin-top:24px;
+  background:linear-gradient(90deg,var(--shell-gold),rgba(216,171,50,0));
+  box-shadow:0 0 18px rgba(216,171,50,.26);
+}
+.footer-brand{
+  font:clamp(84px,9.5vw,154px)/.72 var(--f-display);
+  letter-spacing:-.045em;
+  color:#f2eee5;
+  text-shadow:0 18px 52px rgba(0,0,0,.45);
+}
+.footer-brand span{
+  margin:18px 0 0 5px;
+  color:var(--shell-gold);
+  font:600 9px/1 var(--f-body);
+  letter-spacing:.42em;
+}
+.footer-brand-col>p{
+  max-width:46ch;
+  margin:30px 0 0;
+  color:#aaa49a;
+  font-size:13px;
+  line-height:1.85;
+}
+.footer-social{
+  gap:8px;
+  margin-top:28px;
+}
+.footer-social a{
+  min-height:40px;
+  padding:0 14px;
+  display:inline-flex;
+  align-items:center;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.02);
+  color:#c5c0b6;
+  font-size:8px;
+  font-weight:600;
+  letter-spacing:.16em;
+  transition:border-color .25s,color .25s,background .25s,transform .25s;
+}
+.footer-social a:hover{
+  padding-left:14px;
+  color:#0b0b0b;
+  border-color:var(--shell-gold);
+  background:var(--shell-gold);
+  transform:translateY(-3px);
+}
+.footer-col{padding-top:38px}
+.footer-col h4{
+  position:relative;
+  margin:0 0 24px;
+  padding:0 0 15px 19px;
+  border-bottom:1px solid rgba(255,255,255,.14);
+  color:var(--shell-gold);
+  font-size:8px;
+  font-weight:600;
+  letter-spacing:.24em;
+}
+.footer-col h4:before{
+  content:"";
+  position:absolute;
+  left:1px;
+  top:2px;
+  width:7px;
+  height:7px;
+  border:1px solid var(--shell-gold);
+  transform:rotate(45deg);
+}
+.footer-col>a{
+  position:relative;
+  padding:7px 22px 7px 0;
+  color:#aaa59b;
+  font-size:12px;
+  line-height:1.4;
+  transition:color .25s,padding .25s;
+}
+.footer-col>a:after{
+  content:"↗";
+  position:absolute;
+  right:5px;
+  color:var(--shell-gold);
+  opacity:0;
+  transform:translate(-5px,5px);
+  transition:opacity .25s,transform .25s;
+}
+.footer-col>a:hover{
+  padding-left:8px;
+  color:#f2eee5;
+}
+.footer-col>a:hover:after{
+  opacity:1;
+  transform:none;
+}
+.footer-news{
+  align-self:start;
+  padding:32px;
+  border:1px solid rgba(216,171,50,.32);
+  background:linear-gradient(145deg,rgba(216,171,50,.08),rgba(255,255,255,.018));
+  box-shadow:0 28px 70px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.04);
+}
+.footer-news h4{margin-bottom:20px}
+.footer-news>p{
+  color:#aca69c;
+  font-size:12px;
+  line-height:1.8;
+}
+.news-form{
+  min-height:58px;
+  margin-top:24px;
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(0,0,0,.22);
+  box-shadow:inset 0 0 24px rgba(0,0,0,.18);
+}
+.news-form:focus-within{
+  border-color:var(--shell-gold);
+  box-shadow:0 0 0 3px rgba(216,171,50,.08);
+}
+.news-form input{
+  padding:0 16px;
+  font-size:10px;
+}
+.news-btn{
+  position:relative;
+  min-width:118px;
+  padding:0 14px;
+  background:var(--shell-gold);
+  transition:filter .25s,box-shadow .25s;
+}
+.news-btn:hover{
+  filter:brightness(1.12);
+  box-shadow:0 0 28px rgba(216,171,50,.22);
+}
+.footer-meta-bar{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:24px;
+  margin:0;
+  padding:27px 0 0;
+  border:0;
+  color:#777168;
+  font-size:8px;
+  line-height:1.7;
+  letter-spacing:.17em;
+}
+.footer-meta-bar>span:last-child{text-align:right}
+.footer-legal{
+  justify-content:center;
+  gap:6px;
+  padding:4px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.02);
+}
+.footer-legal a{
+  min-height:32px;
+  padding:0 10px;
+  display:inline-flex;
+  align-items:center;
+  color:#948e84;
+  font-size:8px;
+}
+.footer-legal a:hover{
+  padding-left:10px;
+  color:var(--shell-gold);
+  background:rgba(216,171,50,.05);
+}
+
+@media(max-width:1180px){
+  .site-header .nav a{padding:0 9px;font-size:8px}
+  .search-btn,.bag-btn{padding:0 9px}
+  .footer-grid{grid-template-columns:1.25fr .6fr .6fr;}
+  .footer-news{grid-column:1/-1;display:grid;grid-template-columns:minmax(220px,.75fr) minmax(330px,1.25fr);gap:8px 38px;align-items:center}
+  .footer-news h4,.footer-news>p{grid-column:1}
+  .footer-news .news-form,.footer-news .news-ok{grid-column:2;grid-row:1/3}
+}
+
+@media(max-width:980px){
+  .site-header,.site-header.scrolled{
+    inset:9px 12px auto;
+    height:64px;
+    padding:0 14px 0 20px;
+  }
+  .site-header.scrolled{top:7px}
+  .brand{min-height:42px}
+  .brand b{font-size:23px}
+  .site-header .nav{
+    position:absolute;
+    inset:calc(100% + 8px) 0 auto;
+    height:calc(100svh - 90px);
+    padding:clamp(32px,7vh,70px) 28px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-start;
+    gap:0;
+    overflow-y:auto;
+    border:1px solid rgba(216,171,50,.28);
+    background:radial-gradient(circle at 86% 12%,rgba(216,171,50,.1),transparent 24%),rgba(7,7,7,.985);
+    box-shadow:0 26px 70px rgba(0,0,0,.54);
+    visibility:hidden;
+    opacity:0;
+    transform:translateY(-10px);
+    pointer-events:none;
+    transition:opacity .25s,transform .25s,visibility .25s;
+  }
+  .site-header .nav.open{
+    visibility:visible;
+    opacity:1;
+    transform:none;
+    pointer-events:auto;
+  }
+  .site-header .nav a{
+    width:100%;
+    min-height:0;
+    padding:14px 0;
+    justify-content:flex-start;
+    border-bottom:1px solid rgba(255,255,255,.12);
+    background:none;
+    color:#d5d0c6;
+    font:clamp(34px,7vw,54px)/.95 var(--f-display);
+    letter-spacing:.01em;
+  }
+  .site-header .nav a:hover{padding-left:12px;color:var(--shell-gold);background:none}
+  .site-header .nav a.active,.site-header .nav a[aria-current="page"]{color:var(--shell-gold);background:none;box-shadow:none}
+  .site-header .nav a:after{display:none}
+  .menu-btn{display:grid;flex:0 0 42px}
+  .footer-grid{grid-template-columns:1fr 1fr;padding-top:86px}
+  .footer-brand-col{grid-column:1/-1;padding-right:0}
+  .footer-brand-col>p{max-width:54ch}
+  .footer-news{grid-column:1/-1}
+  .footer-meta-bar{grid-template-columns:1fr 1fr}
+  .footer-legal{grid-column:1/-1;grid-row:1;justify-self:start}
+}
+
+@media(max-width:620px){
+  html{scroll-padding-top:82px}
+  .site-header,.site-header.scrolled{
+    inset:7px 7px auto;
+    height:60px;
+    padding:0 8px 0 12px;
+  }
+  .brand{min-height:38px;padding-right:13px;border-right:0}
+  .brand:after{display:none}
+  .brand b{font-size:21px}
+  .brand small{font-size:6px;letter-spacing:.24em}
+  .nav-tools{margin-left:auto;gap:6px}
+  .search-btn{width:38px;min-height:40px;padding:0;font-size:0}
+  .search-btn:before{content:"⌕";font:24px/1 var(--f-body);display:block;transform:rotate(-15deg)}
+  .bag-btn{min-height:40px;padding:0 7px;font-size:8px;gap:7px}
+  .bag-count{min-width:21px;height:21px;font-size:8px}
+  .menu-btn{width:40px;height:40px;flex-basis:40px}
+  .site-header .nav{height:calc(100svh - 81px);padding:28px 20px}
+  .site-header .nav a{font-size:clamp(34px,11vw,48px);padding:13px 0}
+  .footer-advanced{padding-left:20px;padding-right:20px}
+  .footer-advanced:before{top:.05em;font-size:150px}
+  .footer-advanced:after{background-size:46px 46px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:44px 22px;padding:76px 0 58px}
+  .footer-brand-col{grid-column:1/-1}
+  .footer-brand-col:before{margin-bottom:22px}
+  .footer-brand{font-size:clamp(76px,25vw,108px)}
+  .footer-brand-col>p{font-size:12.5px}
+  .footer-col{padding-top:0}
+  .footer-col>a{font-size:11px}
+  .footer-news{display:block;padding:24px;grid-column:1/-1}
+  .news-form{display:grid;grid-template-columns:1fr;min-height:0}
+  .news-form input{min-height:52px}
+  .news-btn{min-height:48px;width:100%}
+  .footer-meta-bar{display:grid;grid-template-columns:1fr;gap:17px;padding-top:24px}
+  .footer-meta-bar>span:last-child{text-align:left}
+  .footer-legal{grid-column:1;grid-row:auto;justify-content:flex-start}
+}
+
+@media(max-width:390px){
+  .brand small{display:none}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-brand-col,.footer-news{grid-column:1}
+  .footer-brand{font-size:78px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .site-header,.site-header *,
+  .footer-advanced,.footer-advanced *{transition:none!important}
 }
 
 
@@ -785,5 +1316,623 @@ body.overlay-open,body.menu-open{overflow:hidden}
 }
 
 /* ——— HERO DE DESTINOS: mockup real de la colección ——— */
-.destination-hero:before{background-image:url('img/mockup-neon.jpg')}
+.destination-hero:before{background-image:url('img/destinos-hero-jaguar-bg.png?v=20260814-201119')}
 .destination-hero:after{background:linear-gradient(90deg,rgba(8,8,8,.94) 0%,rgba(8,8,8,.72) 34%,rgba(8,8,8,.18) 72%,rgba(8,8,8,.55) 100%),linear-gradient(0deg,#0b0b0b 0%,transparent 45%)}
+
+/* ═══════════════════════════════════════════════════════════════
+   COLECCIONES + CATÁLOGO / CINEMA EDIT 2026
+   Portadas inmersivas, capítulos editoriales y galería nocturna.
+   Todo queda acotado a estas dos subpáginas.
+   ═══════════════════════════════════════════════════════════════ */
+body[data-page="colecciones"],body[data-page="catalogo"]{background:#070707}
+
+/* Portadas */
+.cinema-hero{min-height:100svh;padding:clamp(130px,14vh,170px) var(--pad) 34px;justify-content:flex-end;border-bottom-color:rgba(210,166,47,.5);overflow:hidden}
+.cinema-hero:before{inset:-4%;filter:saturate(1.04) contrast(1.17) brightness(.72);transform:scale(1.035);animation:cinemaHeroDrift 18s ease-out both}
+.collection-hero:before{background-image:url('img/colecciones-hero-modelos-bg.png');background-position:center 50%}
+.catalog-hero:before{background-image:url('img/catalogo-hero-ajolote-bg.png?v=20260814-204002');background-position:center 50%}
+.cinema-hero:after{background:linear-gradient(90deg,rgba(5,5,5,.97) 0%,rgba(5,5,5,.82) 35%,rgba(5,5,5,.17) 70%,rgba(5,5,5,.45) 100%),linear-gradient(0deg,#070707 0%,rgba(7,7,7,.12) 52%,rgba(7,7,7,.38) 100%)!important}
+.cinema-hero .kicker{margin:0 0 18px}
+.cinema-hero h1{max-width:970px;margin:0;line-height:.78;letter-spacing:-.035em}
+.collection-hero h1{font-size:clamp(88px,12vw,184px)}
+.catalog-hero h1{font-size:clamp(78px,9.4vw,148px)}
+.cinema-hero h1 em{color:#e1b42e;text-shadow:0 0 52px rgba(210,166,47,.19)}
+.cinema-hero>.hero-intro{max-width:610px;margin:32px 0 0;color:#d6d0c5;font-size:14px;line-height:1.85;text-shadow:0 3px 22px rgba(0,0,0,.92)}
+.cinema-hero .cinema-hero-index{position:absolute;z-index:0;right:clamp(18px,4vw,70px);bottom:64px;font:clamp(220px,30vw,470px)/.72 var(--f-display);color:transparent;-webkit-text-stroke:1px rgba(210,166,47,.16);opacity:.72;pointer-events:none;letter-spacing:-.06em}
+.cinema-hero-footer{display:flex;justify-content:space-between;align-items:end;gap:36px;margin-top:34px;padding-top:22px;border-top:1px solid rgba(255,255,255,.22);width:100%}
+.cinema-hero-footer>a{font-size:9px;font-weight:600;letter-spacing:.2em;color:var(--gold);white-space:nowrap}
+.cinema-hero-footer>a i{font-style:normal;font-size:16px;margin-left:13px;display:inline-block;transition:transform .3s}
+.cinema-hero-footer>a:hover i{transform:translateY(5px)}
+.cinema-stats{display:flex;justify-content:flex-end;gap:clamp(24px,4vw,60px);padding-right:68px}
+.cinema-stats span{font-size:8px;letter-spacing:.19em;color:#aaa;text-align:right;white-space:nowrap}
+.cinema-stats b{display:block;margin-bottom:5px;font:24px/1 var(--f-display);letter-spacing:.02em;color:#f3efe6}
+@keyframes cinemaHeroDrift{from{transform:scale(1.11)}to{transform:scale(1.035)}}
+
+/* Navegación de capítulos */
+.collection-chapters{position:sticky;top:68px;z-index:9;display:grid;grid-template-columns:repeat(4,1fr);background:rgba(7,7,7,.92);backdrop-filter:blur(18px);border-bottom:1px solid rgba(210,166,47,.28);box-shadow:0 20px 45px rgba(0,0,0,.25)}
+.collection-chapters a{min-height:98px;padding:22px clamp(18px,2.5vw,38px);display:grid;grid-template-columns:30px 1fr auto;gap:14px;align-items:center;border-right:1px solid rgba(255,255,255,.11);transition:background .3s,color .3s}
+.collection-chapters a:last-child{border-right:0}
+.collection-chapters a:hover{background:linear-gradient(135deg,rgba(210,166,47,.16),rgba(210,166,47,.02))}
+.collection-chapters b{font:22px/1 var(--f-display);color:transparent;-webkit-text-stroke:1px rgba(210,166,47,.8)}
+.collection-chapters span{font:18px/1 var(--f-display);letter-spacing:.025em}
+.collection-chapters small{display:block;margin-top:7px;font:7px/1.2 var(--f-body);letter-spacing:.2em;color:#817c70}
+.collection-chapters i{font-style:normal;color:var(--gold);transition:transform .3s}
+.collection-chapters a:hover i{transform:translate(4px,4px)}
+
+/* Capítulos de Colecciones */
+body[data-page="colecciones"] .linea{position:relative;isolation:isolate;overflow:hidden;color:#f2eee5;background:radial-gradient(circle at 88% 9%,rgba(210,166,47,.09),transparent 25%),linear-gradient(180deg,#0a0a0a,#0d0b0a 48%,#080808)}
+body[data-page="colecciones"] .linea.dark-section{background:radial-gradient(circle at 8% 10%,rgba(122,25,21,.18),transparent 29%),linear-gradient(180deg,#090909,#100a09 48%,#080808)}
+body[data-page="colecciones"] .linea>*{position:relative;z-index:1}
+body[data-page="colecciones"] .linea:after{position:absolute;z-index:0;right:-.03em;top:470px;font:clamp(260px,34vw,560px)/.7 var(--f-display);color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.025);pointer-events:none}
+body[data-page="colecciones"] #\32 026:after{content:"01"}
+body[data-page="colecciones"] #caballero:after{content:"02"}
+body[data-page="colecciones"] #dama:after{content:"03"}
+body[data-page="colecciones"] #liquidacion:after{content:"04"}
+body[data-page="colecciones"] .linea-head{min-height:540px;margin-bottom:76px;border-color:rgba(210,166,47,.28);box-shadow:0 35px 90px rgba(0,0,0,.5),inset 0 0 130px rgba(0,0,0,.3);transition:border-color .35s,transform .6s cubic-bezier(.2,.7,.3,1)}
+body[data-page="colecciones"] .linea-head:hover{border-color:rgba(210,166,47,.62);transform:translateY(-4px)}
+body[data-page="colecciones"] .linea-head:after{border-color:rgba(255,255,255,.2)}
+
+/* Catálogo nocturno */
+body[data-page="catalogo"] .catalog{position:relative;isolation:isolate;color:#f3efe6;background:radial-gradient(circle at 86% 5%,rgba(210,166,47,.12),transparent 22%),radial-gradient(circle at 8% 38%,rgba(116,21,18,.15),transparent 25%),linear-gradient(rgba(8,8,8,.88),rgba(8,8,8,.96)),url('img/bg-colecciones.png') center top/cover fixed no-repeat,#080808}
+body[data-page="catalogo"] .catalog:before{content:"ARCHIVO";position:absolute;z-index:-1;right:-.03em;top:180px;font:clamp(170px,25vw,410px)/.8 var(--f-display);color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.025);pointer-events:none}
+body[data-page="catalogo"] .catalog-title{grid-template-columns:minmax(110px,.22fr) 1fr minmax(280px,.7fr);align-items:end;padding-bottom:54px;border-bottom:1px solid rgba(255,255,255,.18)}
+body[data-page="catalogo"] .catalog-title>span{font:clamp(82px,11vw,164px)/.68 var(--f-display);color:transparent;-webkit-text-stroke:1px rgba(210,166,47,.85);text-shadow:0 0 35px rgba(210,166,47,.08)}
+body[data-page="catalogo"] .catalog-title h2{font-size:clamp(70px,8vw,124px);line-height:.82;color:#f3efe6}
+body[data-page="catalogo"] .catalog-title>p{color:#aaa59a;max-width:42ch}
+body[data-page="catalogo"] .filters{margin:0 0 66px;padding:28px;border:1px solid rgba(255,255,255,.15);background:linear-gradient(135deg,rgba(255,255,255,.045),rgba(255,255,255,.012));box-shadow:0 22px 60px rgba(0,0,0,.3);backdrop-filter:blur(12px)}
+body[data-page="catalogo"] .filter-group>span{color:#777267}
+body[data-page="catalogo"] .chip{border-color:rgba(255,255,255,.18);color:#c8c3b8;background:rgba(0,0,0,.2)}
+body[data-page="catalogo"] .chip:hover{border-color:var(--gold);color:var(--gold);background:rgba(210,166,47,.06)}
+body[data-page="catalogo"] .chip.on{background:var(--gold);border-color:var(--gold);color:#0b0b0b;box-shadow:0 0 24px rgba(210,166,47,.13)}
+body[data-page="catalogo"] .filter-count{color:#858074}
+body[data-page="catalogo"] .filter-count b{color:var(--gold)}
+body[data-page="catalogo"] .products.grid-4{grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,28px);grid-auto-flow:dense}
+
+/* Tarjetas de producto compartidas */
+body[data-page="colecciones"] .product,body[data-page="catalogo"] .product{position:relative;padding:12px 12px 22px;background:linear-gradient(145deg,rgba(255,255,255,.042),rgba(255,255,255,.012));border:1px solid rgba(255,255,255,.11);box-shadow:0 22px 48px rgba(0,0,0,.18);overflow:hidden;transition:transform .45s cubic-bezier(.2,.7,.3,1),border-color .35s,box-shadow .45s}
+body[data-page="colecciones"] .product:before,body[data-page="catalogo"] .product:before{content:"";position:absolute;z-index:2;left:0;top:0;width:0;height:2px;background:var(--gold);box-shadow:0 0 16px rgba(210,166,47,.55);transition:width .5s cubic-bezier(.2,.7,.3,1)}
+body[data-page="colecciones"] .product:hover,body[data-page="catalogo"] .product:hover{transform:translateY(-9px);border-color:rgba(210,166,47,.42);box-shadow:0 34px 70px rgba(0,0,0,.4)}
+body[data-page="colecciones"] .product:hover:before,body[data-page="catalogo"] .product:hover:before{width:100%}
+body[data-page="colecciones"] .product-media,body[data-page="catalogo"] .product-media{box-shadow:0 0 0 1px rgba(255,255,255,.05);background:#050505}
+body[data-page="colecciones"] .product-media:after,body[data-page="catalogo"] .product-media:after{background:linear-gradient(0deg,rgba(5,5,5,.52),transparent 36%),linear-gradient(130deg,rgba(210,166,47,.08),transparent 40%,rgba(0,0,0,.2));opacity:.65}
+body[data-page="colecciones"] .product-media img,body[data-page="catalogo"] .product-media img{filter:saturate(.9) contrast(1.08) brightness(.92);transition:transform .9s cubic-bezier(.2,.7,.3,1),filter .45s}
+body[data-page="colecciones"] .product:hover .product-media img,body[data-page="catalogo"] .product:hover .product-media img{transform:scale(1.065);filter:saturate(1.08) contrast(1.06) brightness(1)}
+body[data-page="colecciones"] .product h3,body[data-page="catalogo"] .product h3{font-size:clamp(22px,2.1vw,31px);color:#f3efe6}
+body[data-page="colecciones"] .product>p,body[data-page="catalogo"] .product>p{color:#89857d}
+body[data-page="colecciones"] .product-foot,body[data-page="catalogo"] .product-foot{border-top-color:rgba(255,255,255,.13)}
+body[data-page="colecciones"] .product-foot .product-link,body[data-page="catalogo"] .product-foot .product-link{color:#827e74}
+body[data-page="colecciones"] .product:hover .product-foot .product-link,body[data-page="catalogo"] .product:hover .product-foot .product-link{color:var(--gold)}
+
+/* Cierres de campaña */
+body[data-page="colecciones"] .closing{background-image:url('img/tecnicas-hero-bg.png');background-position:center 48%;border-top:1px solid rgba(210,166,47,.34)}
+body[data-page="catalogo"] .closing{background-image:url('img/mockup-neon.jpg');background-position:center 48%;border-top:1px solid rgba(210,166,47,.34)}
+body[data-page="colecciones"] .closing:before,body[data-page="catalogo"] .closing:before{background:linear-gradient(90deg,rgba(5,5,5,.82),rgba(5,5,5,.45),rgba(5,5,5,.82))}
+.cart-overlay{overflow:hidden}
+
+@media(max-width:1100px){
+  .cinema-hero .cinema-hero-index{opacity:.42}
+  .collection-chapters span{font-size:16px}
+  body[data-page="catalogo"] .catalog-title{grid-template-columns:100px 1fr}
+  body[data-page="catalogo"] .catalog-title>p{grid-column:2;margin-top:22px}
+}
+@media(max-width:900px){
+  .cinema-hero{min-height:900px}
+  .cinema-hero-footer{align-items:flex-start}
+  .cinema-stats{gap:22px}
+  .collection-chapters{position:static;display:flex;overflow-x:auto;scroll-snap-type:x mandatory}
+  .collection-chapters a{min-width:260px;scroll-snap-align:start}
+  body[data-page="catalogo"] .products.grid-4{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+  .cinema-hero{min-height:880px;padding:124px 22px 28px}
+  .cinema-hero:before{animation:none;transform:scale(1.04)}
+  .collection-hero:before{background-position:60% center}
+  .catalog-hero:before{background-position:48% center}
+  .collection-hero h1,.catalog-hero h1{font-size:clamp(63px,18.5vw,76px);line-height:.8}
+  .cinema-hero>.hero-intro{font-size:13.5px;line-height:1.75;margin-top:26px}
+  .cinema-hero .cinema-hero-index{right:0;bottom:190px;font-size:220px;opacity:.24}
+  .cinema-hero-footer{display:block;margin-top:26px;padding-top:18px}
+  .cinema-stats{justify-content:space-between;margin-top:24px;gap:8px;padding-right:52px}
+  .cinema-stats span{text-align:left;font-size:7px;white-space:normal}
+  .cinema-stats b{font-size:20px}
+  .collection-chapters a{min-width:225px;min-height:86px;padding:18px 20px}
+  body[data-page="colecciones"] .linea{padding-left:14px;padding-right:14px}
+  body[data-page="colecciones"] .linea-head{min-height:630px;margin-bottom:42px}
+  body[data-page="colecciones"] .linea:after{top:620px;font-size:260px}
+  body[data-page="catalogo"] .catalog{padding-left:14px;padding-right:14px;background-attachment:scroll}
+  body[data-page="catalogo"] .catalog-title{display:block;padding-bottom:36px}
+  body[data-page="catalogo"] .catalog-title>span{display:block;font-size:72px;margin-bottom:22px}
+  body[data-page="catalogo"] .catalog-title h2{font-size:54px}
+  body[data-page="catalogo"] .catalog-title>p{margin-top:24px}
+  body[data-page="catalogo"] .filters{padding:18px 14px;margin-bottom:40px}
+  body[data-page="catalogo"] .filter-group{gap:7px}
+  body[data-page="catalogo"] .chip{padding:8px 10px;font-size:8px}
+  body[data-page="colecciones"] .products.grid-4,body[data-page="catalogo"] .products.grid-4{gap:10px}
+  body[data-page="colecciones"] .product,body[data-page="catalogo"] .product{padding:7px 7px 15px}
+  body[data-page="colecciones"] .product h3,body[data-page="catalogo"] .product h3{font-size:19px}
+  body[data-page="colecciones"] .product:hover,body[data-page="catalogo"] .product:hover{transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .cinema-hero:before{animation:none;transform:scale(1.035)}
+  .collection-chapters a,.collection-chapters i,body[data-page="colecciones"] .product,body[data-page="catalogo"] .product{transition:none}
+}
+
+html{overflow-x:clip}
+
+/* ═══════════════════════════════════════════════════════════════
+   SISTEMA CINEMATOGRÁFICO GLOBAL / 2026-08-14
+   Una sola paleta, módulos en espejo, fotografía velada y ritmo
+   editorial consistente en portada, subpáginas y módulos de ayuda.
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --cinema-black:#070707;
+  --cinema-coal:#10100f;
+  --cinema-paper:#f1ede4;
+  --cinema-gold:#d2a62f;
+  --cinema-crimson:#761914;
+  --cinema-rule:rgba(210,166,47,.26);
+  --cinema-white:#f5f0e7;
+  --cinema-copy:#b9b3a8;
+}
+
+body{background:var(--cinema-black)}
+main{position:relative}
+.section{position:relative;isolation:isolate}
+.kicker{color:var(--cinema-gold)}
+.button{backdrop-filter:blur(8px)}
+.button.ghost{background:rgba(7,7,7,.18)}
+.button.ghost:hover{background:rgba(210,166,47,.08);box-shadow:0 14px 36px rgba(0,0,0,.2)}
+.text-link{transition:color .25s,border-color .25s,transform .25s}
+.text-link:hover{color:var(--cinema-gold);transform:translateX(4px)}
+
+/* Héroes: mismo lenguaje, escenas distintas */
+.page-hero:not(.cinema-hero){min-height:90svh;padding-bottom:clamp(62px,8vh,96px);box-shadow:inset 0 0 0 1px rgba(210,166,47,.14),inset 0 -170px 130px -95px #050505}
+.page-hero:not(.cinema-hero):before{filter:saturate(.9) contrast(1.17) brightness(.73)}
+.page-hero:not(.cinema-hero):after{background:linear-gradient(90deg,rgba(5,5,5,.96) 0%,rgba(5,5,5,.79) 36%,rgba(5,5,5,.2) 70%,rgba(5,5,5,.54) 100%),linear-gradient(0deg,#070707 0%,rgba(7,7,7,.07) 52%,rgba(7,7,7,.38) 100%)!important}
+.page-hero:not(.cinema-hero) h1{max-width:980px;text-wrap:balance}
+.page-hero:not(.cinema-hero)>p:last-child{max-width:620px;color:#d4cec3}
+.page-hero:not(.cinema-hero) .kicker{margin:0 0 10px}
+
+/* Manifiesto y tallas funcionan como contraplanos: arte a la izquierda,
+   titulares a la derecha. En móvil vuelven al eje natural. */
+.manifesto-hero:before{background-image:url('img/manifesto-hero-catrina-bg.png');background-position:center center}
+.size-hero:before{background-image:url('img/caballero-jaguar-bg.png');background-position:left center}
+.manifesto-hero,.size-hero{padding-left:52%;padding-right:var(--pad);align-items:flex-start}
+.manifesto-hero:after,.size-hero:after{background:linear-gradient(90deg,rgba(5,5,5,.2) 0%,rgba(5,5,5,.52) 38%,rgba(5,5,5,.93) 62%,rgba(5,5,5,.98) 100%),linear-gradient(0deg,#070707,transparent 50%)!important}
+.manifesto-hero h1,.size-hero h1{font-size:clamp(72px,8.8vw,136px);max-width:700px}
+.contact-hero:before{background-position:center 45%}
+.shipping-hero:before{background-position:center 54%}
+.legal-hero:before{background-image:url('img/tecnicas-process-bg.png');background-position:center}
+
+/* Aperturas editoriales y respiración de portada */
+body[data-page="index"] .statement{background:linear-gradient(90deg,rgba(241,237,228,.99) 0%,rgba(241,237,228,.96) 58%,rgba(241,237,228,.8)),url('img/home-souvenir-bg.png') right center/auto 100% no-repeat,var(--cinema-paper)}
+body[data-page="index"] .worlds{background:radial-gradient(circle at 90% 0%,rgba(210,166,47,.1),transparent 24%),linear-gradient(180deg,#0a0a0a,#11100f)}
+body[data-page="index"] #destacadas{background:linear-gradient(90deg,rgba(241,237,228,.99),rgba(241,237,228,.92)),url('img/tecnicas-process-bg.png') center/cover no-repeat,var(--cinema-paper)}
+body[data-page="index"] .split-feature{border-top:1px solid var(--cinema-rule);border-bottom:1px solid var(--cinema-rule)}
+body[data-page="index"] .feature-copy{background:linear-gradient(135deg,rgba(117,20,15,.98),rgba(49,10,8,.94)),url('img/tecnicas-process-bg.png') center/cover no-repeat}
+
+/* Manifiesto: lectura cálida y tres pilares con imagen real */
+.manifesto-body{background:linear-gradient(90deg,rgba(241,237,228,.99) 0%,rgba(241,237,228,.97) 58%,rgba(241,237,228,.82)),url('img/dama-jaguar-bg.png') right center/56% auto no-repeat,var(--cinema-paper)}
+.manifesto-text{padding-left:clamp(0px,3vw,46px);border-left:1px solid rgba(118,25,20,.18)}
+.manifesto-text blockquote{color:var(--cinema-crimson)}
+.pillars{background:#090909;border-top:1px solid var(--cinema-rule);border-bottom:1px solid var(--cinema-rule)}
+.pillars article{position:relative;isolation:isolate;overflow:hidden;min-height:500px;display:flex;flex-direction:column;justify-content:flex-end;background-position:center;background-size:cover;transition:transform .45s,border-color .35s}
+.pillars article:after{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(0deg,rgba(5,5,5,.97) 0%,rgba(5,5,5,.63) 50%,rgba(5,5,5,.22) 100%)}
+.pillars article:nth-child(1){background-image:url('img/jaguar.png')}
+.pillars article:nth-child(2){background-image:url('img/xolo.png')}
+.pillars article:nth-child(3){background-image:url('img/frida.png')}
+.pillars article:hover{transform:translateY(-6px);border-color:rgba(210,166,47,.5)}
+.pillars h3{text-shadow:0 10px 34px rgba(0,0,0,.9)}
+.quote-section{background:linear-gradient(90deg,rgba(55,8,6,.95),rgba(107,22,17,.68),rgba(10,8,7,.78)),url('img/mockup-neon.jpg') center/cover no-repeat;box-shadow:inset 0 0 160px rgba(0,0,0,.42)}
+
+/* Técnicas: el papel conserva aire y la cuadrícula gana profundidad */
+.tech-intro{background:url('img/tecnicas-intro-pattern-bg.png?v=20260811-225129') center/cover no-repeat,var(--cinema-paper)}
+.tech-grid{background:radial-gradient(circle at 85% 8%,rgba(210,166,47,.08),transparent 20%),#0a0a0a}
+.tech-card{background:linear-gradient(145deg,rgba(255,255,255,.025),transparent);transition:background .35s,border-color .35s,transform .4s}
+.tech-card:hover{background:linear-gradient(145deg,rgba(210,166,47,.08),transparent 64%);border-color:rgba(210,166,47,.35);transform:translateY(-4px)}
+.tech-shot{box-shadow:0 26px 55px rgba(0,0,0,.28)}
+
+/* Documentos: fondos específicos y una retícula común */
+.doc{overflow:hidden;background-color:var(--cinema-paper)}
+body[data-page="tallas"] #medidas{background:linear-gradient(90deg,rgba(241,237,228,.995) 0%,rgba(241,237,228,.965) 55%,rgba(241,237,228,.82)),url('img/caballero-jaguar-bg.png') right top/58% auto no-repeat,var(--cinema-paper)}
+body[data-page="tallas"] #cuidado{background:linear-gradient(90deg,rgba(241,237,228,.995) 0%,rgba(241,237,228,.96) 52%,rgba(241,237,228,.82)),url('img/dama-jaguar-bg.png') right center/58% auto no-repeat,var(--cinema-paper)}
+body[data-page="envios"] #tiempos{background:linear-gradient(90deg,rgba(241,237,228,.995) 0%,rgba(241,237,228,.96) 58%,rgba(241,237,228,.82)),url('img/destinos-cta-bg.png') right center/55% auto no-repeat,var(--cinema-paper)}
+body[data-page="envios"] #devoluciones{background:linear-gradient(90deg,rgba(241,237,228,.995) 0%,rgba(241,237,228,.96) 54%,rgba(241,237,228,.82)),url('img/liquidacion-jaguar-bg.png') right center/58% auto no-repeat,var(--cinema-paper)}
+.doc-head{grid-template-columns:minmax(74px,.18fr) minmax(300px,1fr) minmax(280px,.7fr);padding-bottom:42px;border-bottom:1px solid rgba(17,17,17,.18)}
+.doc-head>span{font-size:clamp(70px,8vw,118px);-webkit-text-stroke-color:rgba(118,25,20,.45)}
+.table-wrap{background:rgba(241,237,228,.72);backdrop-filter:blur(12px);border:1px solid rgba(17,17,17,.1);padding:0 clamp(16px,2vw,30px);box-shadow:0 24px 60px rgba(33,20,10,.08)}
+.data-table tbody tr{transition:background .25s,transform .25s}
+.data-table tbody tr:hover{background:rgba(210,166,47,.09)}
+.care-grid{gap:18px}
+.care-grid article{padding:clamp(24px,3vw,40px);background:rgba(241,237,228,.7);backdrop-filter:blur(12px);border:1px solid rgba(17,17,17,.11);box-shadow:0 22px 50px rgba(31,20,12,.06)}
+.care-grid h3{padding-bottom:15px;border-bottom:2px solid var(--cinema-crimson)}
+
+/* Bandas de proceso: escenas distintas, estructura idéntica */
+.steps-band{position:relative;isolation:isolate;overflow:hidden;padding-left:var(--pad);padding-right:var(--pad);border-top:1px solid var(--cinema-rule);border-bottom:1px solid var(--cinema-rule);box-shadow:inset 0 0 150px rgba(0,0,0,.45)}
+body[data-page="tallas"] .steps-band{background:linear-gradient(90deg,rgba(5,5,5,.94),rgba(5,5,5,.64),rgba(5,5,5,.82)),url('img/caballero-jaguar-bg.png') center/cover no-repeat}
+body[data-page="envios"] .steps-band{background:linear-gradient(90deg,rgba(5,5,5,.95),rgba(5,5,5,.62),rgba(5,5,5,.82)),url('img/cinematic-workshop.jpg') center/cover no-repeat}
+.steps-band:after{content:"";position:absolute;z-index:-1;inset:18px;border:1px solid rgba(255,255,255,.15);pointer-events:none}
+.steps-row article{padding-right:clamp(22px,3vw,42px);padding-left:clamp(0px,2vw,30px);transition:background .3s}
+.steps-row article:hover{background:linear-gradient(135deg,rgba(210,166,47,.12),transparent)}
+.steps-row h3{text-shadow:0 6px 24px rgba(0,0,0,.85)}
+.steps-row p{color:#bbb5aa}
+
+/* Contacto y preguntas: cristal oscuro sobre escenas reales */
+.retail{grid-template-columns:minmax(0,1.1fr) minmax(310px,.9fr);position:relative;isolation:isolate;border-top:1px solid var(--cinema-rule);border-bottom:1px solid var(--cinema-rule)}
+.retail:after{content:"";position:absolute;z-index:-1;inset:18px;border:1px solid rgba(255,255,255,.13);pointer-events:none}
+.retail>div:last-child{padding:clamp(26px,4vw,48px);background:rgba(7,7,7,.38);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.13)}
+.faq{border-top:1px solid rgba(210,166,47,.22);border-bottom:1px solid rgba(210,166,47,.22)}
+body[data-page="envios"] .faq{background:linear-gradient(90deg,rgba(8,8,8,.97),rgba(8,8,8,.82)),url('img/destinos-cta-bg.png') center/cover no-repeat}
+.faq-list{background:rgba(7,7,7,.34);backdrop-filter:blur(10px);padding:0 clamp(18px,3vw,42px);border:1px solid rgba(255,255,255,.1)}
+.faq details[open]{background:linear-gradient(90deg,rgba(210,166,47,.07),transparent)}
+.faq summary{padding-left:12px}
+.faq details p{padding-left:12px}
+.contact-grid{grid-template-columns:minmax(0,1fr) minmax(360px,1fr);border-top:1px solid var(--cinema-rule)}
+.contact-form-col{padding:clamp(24px,4vw,54px);background:rgba(7,7,7,.48);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.13)}
+.contact-grid .info-card{position:relative;overflow:hidden;transition:transform .35s,border-color .35s,background .35s}
+.contact-grid .info-card:before{content:"";position:absolute;left:0;top:0;width:2px;height:0;background:var(--cinema-gold);box-shadow:0 0 16px rgba(210,166,47,.45);transition:height .4s}
+.contact-grid .info-card:hover{transform:translateX(-6px);background:rgba(210,166,47,.07);border-color:rgba(210,166,47,.45)}
+.contact-grid .info-card:hover:before{height:100%}
+
+/* Cierres y pie: cada final se siente como el último plano */
+body[data-page="tecnicas"] .closing{background-image:url('img/tecnicas-hero-bg.png');background-position:center}
+body[data-page="tallas"] .closing{background-image:url('img/caballero-jaguar-bg.png');background-position:left center}
+body[data-page="envios"] .closing{background-image:url('img/destinos-cta-bg.png');background-position:center}
+.closing{border-top:1px solid var(--cinema-rule)}
+.closing:before{background:linear-gradient(90deg,rgba(5,5,5,.88),rgba(5,5,5,.48),rgba(5,5,5,.88))}
+.site-footer{position:relative;background:linear-gradient(90deg,rgba(7,7,7,.98),rgba(7,7,7,.92)),url('img/tecnicas-process-bg.png') center/cover no-repeat;border-top:1px solid var(--cinema-rule)}
+.footer-grid{position:relative}
+.footer-col h4{color:var(--cinema-gold)}
+
+/* Producto, bolsa y textos legales mantienen el mismo material */
+.product-detail{background:radial-gradient(circle at 82% 18%,rgba(210,166,47,.1),transparent 25%),linear-gradient(rgba(7,7,7,.91),rgba(7,7,7,.98)),url('img/tecnicas-process-bg.png') center/cover fixed no-repeat}
+.detail-media{padding:12px;border:1px solid rgba(210,166,47,.22);background:rgba(255,255,255,.02);box-shadow:0 34px 80px rgba(0,0,0,.35)}
+.checkout{background:radial-gradient(circle at 86% 8%,rgba(210,166,47,.09),transparent 22%),linear-gradient(rgba(7,7,7,.94),rgba(7,7,7,.99)),url('img/tecnicas-process-bg.png') center/cover fixed no-repeat}
+.checkout-summary{box-shadow:0 30px 70px rgba(0,0,0,.3);border-top:3px solid var(--cinema-gold)}
+.legal-body{background:linear-gradient(90deg,rgba(241,237,228,.995),rgba(241,237,228,.94)),url('img/tecnicas-process-bg.png') right top/62% auto repeat-y,var(--cinema-paper)}
+
+@media(max-width:900px){
+  .manifesto-hero,.size-hero{padding-left:46%;padding-right:24px}
+  .manifesto-hero h1,.size-hero h1{font-size:clamp(64px,10vw,94px)}
+  .doc-head{grid-template-columns:68px 1fr}
+  .doc-head>p{grid-column:2}
+  .contact-grid,.retail{grid-template-columns:1fr}
+  .pillars article{min-height:430px}
+}
+@media(max-width:560px){
+  .page-hero:not(.cinema-hero){min-height:82svh;padding:124px 22px 54px}
+  .manifesto-hero,.size-hero{padding-left:22px;padding-right:22px;align-items:stretch}
+  .manifesto-hero:before{background-position:31% center}
+  .size-hero:before{background-position:28% center}
+  .manifesto-hero:after,.size-hero:after{background:linear-gradient(0deg,rgba(5,5,5,.98),rgba(5,5,5,.5) 72%,rgba(5,5,5,.42)),linear-gradient(90deg,rgba(5,5,5,.78),rgba(5,5,5,.08))!important}
+  .manifesto-hero h1,.size-hero h1{font-size:58px}
+  .manifesto-text{padding-left:0;border-left:0}
+  .pillars article{min-height:390px;padding:58px 24px}
+  .doc{background-size:auto 100%!important}
+  .doc-head{display:block;padding-bottom:30px}
+  .doc-head>span{display:block;font-size:64px;margin-bottom:20px}
+  .table-wrap{padding:0 14px}
+  .care-grid article{padding:26px 22px}
+  .steps-band{padding-left:14px;padding-right:14px}
+  .steps-band:after,.retail:after{inset:10px}
+  .steps-row article{padding-left:22px}
+  .retail>div:last-child{padding:26px 22px}
+  .faq-list{padding:0 15px}
+  .contact-form-col{padding:30px 20px}
+  .contact-grid .info-card:hover{transform:none}
+  .legal-body{background-size:auto 100%}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CAPÍTULOS DE COLECCIÓN — DOSSIER VISUAL V2
+   Profundidad, ficha técnica, numeración y llamadas a explorar.
+   ═══════════════════════════════════════════════════════════════ */
+body[data-page="colecciones"] .linea{
+  --chapter-accent:#d2a62f;
+  --chapter-glow:rgba(210,166,47,.2);
+}
+body[data-page="colecciones"] #caballero{--chapter-glow:rgba(151,39,27,.3)}
+body[data-page="colecciones"] #dama{--chapter-glow:rgba(22,112,126,.24)}
+body[data-page="colecciones"] #liquidacion{--chapter-glow:rgba(160,35,24,.3)}
+
+body[data-page="colecciones"] .linea-head{
+  min-height:clamp(640px,76svh,780px);
+  grid-template-columns:minmax(0,1.08fr) minmax(330px,.72fr);
+  gap:clamp(42px,6vw,96px);
+  align-items:end;
+  padding:clamp(46px,6vw,90px);
+  overflow:hidden;
+  isolation:isolate;
+  border:1px solid rgba(210,166,47,.46);
+  background-size:cover;
+  box-shadow:0 46px 120px rgba(0,0,0,.62),0 0 0 1px rgba(255,255,255,.025),inset 0 0 150px rgba(0,0,0,.34);
+  transition:transform .65s cubic-bezier(.2,.72,.25,1),border-color .4s,box-shadow .65s;
+}
+body[data-page="colecciones"] .linea-head:before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 74% 72%,var(--chapter-glow),transparent 32%),
+    linear-gradient(0deg,rgba(4,4,4,.88) 0%,rgba(4,4,4,.12) 44%,rgba(4,4,4,.18) 100%),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.028) 0 1px,transparent 1px 122px);
+  opacity:.88;
+  transition:opacity .45s;
+}
+body[data-page="colecciones"] .linea-head:after{
+  inset:14px;
+  border:1px solid rgba(255,255,255,.19);
+  box-shadow:inset 0 0 0 1px rgba(210,166,47,.035);
+}
+body[data-page="colecciones"] .linea-head:hover{
+  transform:translateY(-7px);
+  border-color:rgba(210,166,47,.82);
+  box-shadow:0 58px 145px rgba(0,0,0,.72),0 0 45px var(--chapter-glow),inset 0 0 160px rgba(0,0,0,.29);
+}
+body[data-page="colecciones"] .linea-head:hover:before{opacity:.72}
+
+body[data-page="colecciones"] .linea-number{
+  position:absolute;
+  z-index:0;
+  top:clamp(20px,3.2vw,48px);
+  right:clamp(28px,4.5vw,72px);
+  font:clamp(150px,20vw,310px)/.72 var(--f-display);
+  letter-spacing:-.07em;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(210,166,47,.23);
+  text-shadow:0 0 60px var(--chapter-glow);
+  opacity:.78;
+  pointer-events:none;
+  transition:transform .7s cubic-bezier(.2,.7,.25,1),opacity .45s;
+}
+body[data-page="colecciones"] .linea-head:hover .linea-number{transform:translate3d(-8px,-7px,0);opacity:1}
+
+body[data-page="colecciones"] .linea-title{
+  position:relative;
+  z-index:2;
+  align-self:end;
+  max-width:720px;
+  padding-left:clamp(0px,1.4vw,22px);
+}
+body[data-page="colecciones"] .linea-title:after{
+  content:"";
+  display:block;
+  width:clamp(84px,10vw,156px);
+  height:2px;
+  margin-top:clamp(24px,3vw,42px);
+  background:linear-gradient(90deg,var(--chapter-accent),transparent);
+  box-shadow:0 0 22px rgba(210,166,47,.42);
+}
+body[data-page="colecciones"] .linea-title .kicker{
+  display:inline-flex;
+  align-items:center;
+  min-height:34px;
+  margin:0 0 22px;
+  padding:0 14px;
+  border:1px solid rgba(210,166,47,.5);
+  background:rgba(5,5,5,.56);
+  color:#e0b63b;
+  box-shadow:0 12px 35px rgba(0,0,0,.25);
+  backdrop-filter:blur(10px);
+}
+body[data-page="colecciones"] .linea-title h2{
+  margin:0;
+  max-width:760px;
+  font-size:clamp(70px,7.8vw,122px);
+  line-height:.76;
+  letter-spacing:-.035em;
+  text-wrap:balance;
+  text-shadow:0 18px 55px rgba(0,0,0,.82);
+}
+body[data-page="colecciones"] #liquidacion .linea-title h2{font-size:clamp(64px,7.2vw,112px)}
+
+body[data-page="colecciones"] .linea-side{
+  position:relative;
+  z-index:3;
+  align-self:end;
+  padding:clamp(28px,3.4vw,46px);
+  border:1px solid rgba(255,255,255,.2);
+  border-top:3px solid var(--chapter-accent);
+  background:linear-gradient(145deg,rgba(8,8,8,.82),rgba(8,8,8,.56));
+  box-shadow:0 28px 75px rgba(0,0,0,.5),inset 0 1px rgba(255,255,255,.05);
+  backdrop-filter:blur(16px) saturate(1.08);
+  transition:background .4s,border-color .4s,transform .55s cubic-bezier(.2,.7,.25,1);
+}
+body[data-page="colecciones"] .linea-head:hover .linea-side{
+  transform:translateY(-3px);
+  border-color:rgba(210,166,47,.48);
+  background:linear-gradient(145deg,rgba(8,8,8,.88),rgba(18,13,8,.62));
+}
+body[data-page="colecciones"] .linea-side:before{
+  display:block;
+  margin-bottom:18px;
+  color:var(--chapter-accent);
+  font:600 8px/1 var(--f-body);
+  letter-spacing:.24em;
+}
+body[data-page="colecciones"] #\32 026 .linea-side:before{content:"FICHA DE LÍNEA / 01"}
+body[data-page="colecciones"] #caballero .linea-side:before{content:"FICHA DE LÍNEA / 02"}
+body[data-page="colecciones"] #dama .linea-side:before{content:"FICHA DE LÍNEA / 03"}
+body[data-page="colecciones"] #liquidacion .linea-side:before{content:"FICHA DE LÍNEA / 04"}
+body[data-page="colecciones"] .linea-side>p{
+  max-width:54ch;
+  margin:0 0 26px;
+  color:#e4ded3;
+  font-size:clamp(15px,1.2vw,17px);
+  line-height:1.82;
+  text-shadow:0 3px 20px rgba(0,0,0,.9);
+}
+body[data-page="colecciones"] .linea-specs{gap:0;border-top:1px solid rgba(255,255,255,.2)}
+body[data-page="colecciones"] .linea-specs li{
+  min-height:44px;
+  align-items:center;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.16);
+}
+body[data-page="colecciones"] .linea-specs span{color:#a9a398;font-size:8px;letter-spacing:.22em}
+body[data-page="colecciones"] .linea-specs b{color:#f2eee6;font-size:12px;letter-spacing:.01em}
+
+body[data-page="colecciones"] .linea-cta{
+  min-height:50px;
+  margin-top:24px;
+  padding:0 7px 0 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  border:1px solid rgba(210,166,47,.62);
+  background:linear-gradient(90deg,rgba(210,166,47,.15),rgba(210,166,47,.035));
+  color:#e3b63b;
+  font:600 9px/1 var(--f-body);
+  letter-spacing:.18em;
+  transition:color .3s,background .3s,border-color .3s,transform .3s;
+}
+body[data-page="colecciones"] .linea-cta span{
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  background:var(--chapter-accent);
+  color:#0a0a0a;
+  font-size:16px;
+  transition:transform .35s cubic-bezier(.2,.7,.25,1);
+}
+body[data-page="colecciones"] .linea-cta:hover{
+  color:#0a0a0a;
+  border-color:var(--chapter-accent);
+  background:var(--chapter-accent);
+  transform:translateX(3px);
+}
+body[data-page="colecciones"] .linea-cta:hover span{transform:rotate(45deg);background:#0a0a0a;color:var(--chapter-accent)}
+
+@media(max-width:1000px){
+  body[data-page="colecciones"] .linea-head{
+    min-height:820px;
+    grid-template-columns:1fr;
+    gap:34px;
+    padding:clamp(38px,6vw,62px);
+    align-content:end;
+  }
+  body[data-page="colecciones"] .linea-title{max-width:650px}
+  body[data-page="colecciones"] .linea-side{width:min(100%,620px);justify-self:end}
+  body[data-page="colecciones"] .linea-head:hover{transform:none}
+}
+@media(max-width:620px){
+  body[data-page="colecciones"] .linea-head{
+    min-height:850px;
+    gap:24px;
+    padding:34px 22px 28px;
+    margin-bottom:44px;
+  }
+  body[data-page="colecciones"] .linea-head:after{inset:8px}
+  body[data-page="colecciones"] .linea-number{top:32px;right:20px;font-size:150px;opacity:.48}
+  body[data-page="colecciones"] .linea-title{padding-left:0}
+  body[data-page="colecciones"] .linea-title .kicker{min-height:30px;margin-bottom:18px;padding:0 10px;font-size:7.5px}
+  body[data-page="colecciones"] .linea-title h2,
+  body[data-page="colecciones"] #liquidacion .linea-title h2{font-size:clamp(55px,16vw,74px);line-height:.78}
+  body[data-page="colecciones"] .linea-title:after{margin-top:22px}
+  body[data-page="colecciones"] .linea-side{padding:24px 20px;backdrop-filter:blur(12px)}
+  body[data-page="colecciones"] .linea-side>p{font-size:14px;line-height:1.7;margin-bottom:20px}
+  body[data-page="colecciones"] .linea-cta{width:100%;font-size:8px;letter-spacing:.14em}
+}
+@media(prefers-reduced-motion:reduce){
+  body[data-page="colecciones"] .linea-head,
+  body[data-page="colecciones"] .linea-number,
+  body[data-page="colecciones"] .linea-side,
+  body[data-page="colecciones"] .linea-cta,
+  body[data-page="colecciones"] .linea-cta span{transition:none!important}
+}
+
+/* ————————————————————————————————————————————————————————————
+   HEROES · ANCHO COMPLETO, SIN DEFORMAR NI RECORTAR
+   Los fondos se recortaban por tres motivos que se acumulaban:
+   background-size:cover, insets negativos (-3% a -5%) y un scale()
+   de parallax que llegaba a 1.11. Aquí se anulan los tres.
+
+   `100% auto` hace que la imagen ocupe todo el ancho y calcule su
+   altura sola, así que nunca se estira ni se aplasta. Para que
+   además no sobre ni falte alto, cada hero recibe el aspect-ratio
+   exacto de su imagen (más abajo): el marco se adapta a la foto en
+   vez de al revés. `min-height` es solo el piso que necesita el
+   texto en pantallas angostas.
+
+   También se quitan los filtros: cada capa traía su propia mezcla de
+   saturate, contrast y brightness (hasta .72 de brillo), así que las
+   fotos se veían apagadas y oscurecidas. Ahora salen en color real.
+   ———————————————————————————————————————————————————————————— */
+.hero-art,
+.page-hero:before,
+.page-hero:not(.cinema-hero):before,
+.cinema-hero:before{
+  background-size:100% auto;
+  background-repeat:no-repeat;
+  background-position:center top;
+  background-color:#080808;
+  transform:none;
+  animation:none;
+  filter:none;
+}
+.page-hero:before,
+.page-hero:not(.cinema-hero):before,
+.cinema-hero:before{inset:0}
+
+/* El marco toma la proporción de su propia imagen, de modo que la
+   foto cubre el ancho y el alto exactos y no queda franja sobrante. */
+.page-hero,
+.page-hero:not(.cinema-hero),
+.cinema-hero{
+  height:auto;
+  min-height:clamp(540px,64svh,760px);
+}
+.collection-hero,
+.catalog-hero,
+.technique-hero,
+.destination-hero,
+.contact-hero,
+.manifesto-hero{aspect-ratio:1672/941;--hero-h:56.28vw}
+.size-hero{aspect-ratio:1983/793;--hero-h:39.99vw}
+.shipping-hero{aspect-ratio:1344/768;--hero-h:57.14vw}
+.legal-hero{aspect-ratio:1536/1024;--hero-h:66.67vw}
+
+/* En pantallas angostas la proporción de la foto y la del texto ya no
+   caben en el mismo marco: a 375px una imagen 16/9 mide 211px de alto
+   y el titular necesita el triple. En vez de recortarla, el hero pasa
+   a medir foto + texto: la imagen se ve entera arriba (debajo de la
+   barra flotante) y el texto cae completo sobre el fondo sólido.
+   --hero-h es justo el alto que ocupa cada imagen a todo el ancho. */
+@media(max-width:900px){
+  .page-hero:before,
+  .page-hero:not(.cinema-hero):before,
+  .cinema-hero:before{background-position:center 92px}
+  .page-hero,
+  .page-hero:not(.cinema-hero),
+  .cinema-hero{
+    aspect-ratio:auto;
+    min-height:0;
+    padding-top:calc(92px + var(--hero-h,56.28vw) + 30px);
+    padding-bottom:48px;
+  }
+}
+
+/* ————————————————————————————————————————————————————————————
+   HEADER · RITMO SIMÉTRICO
+   La barra reparte marca / navegación / herramientas con
+   space-between, así que la navegación quedaba descentrada: la
+   marca y los botones no miden lo mismo. Dándoles la misma base
+   flexible, el bloque central queda centrado de verdad y los
+   botones respiran.
+   ———————————————————————————————————————————————————————————— */
+@media(min-width:901px){
+  .site-header .brand{flex:1 1 0;justify-content:flex-start}
+  .site-header .nav-tools{flex:1 1 0;justify-content:flex-end}
+  .site-header .nav{
+    flex:0 0 auto;
+    gap:6px;
+    padding:4px 8px;
+  }
+  .site-header .nav a{padding:0 clamp(13px,1.5vw,22px)}
+  .nav-tools{gap:14px}
+  .search-btn,.bag-btn{padding:0 18px}
+}

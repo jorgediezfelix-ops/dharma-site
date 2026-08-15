@@ -1,24 +1,79 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-MX">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Detalle de pieza DHARMA — técnica de serigrafía, material, tallas y compra.">
+  <!--#include seo-->
   <title>Pieza — DHARMA</title>
-  <meta property="og:type" content="product">
+  <meta name="description" content="Ficha de pieza DHARMA.">
+  <meta name="robots" content="noindex,follow">
+  <link rel="canonical" href="https://kinvitalgroup.com/dharma-site/pieza.html">
+  <meta property="og:type" content="website">
   <meta property="og:site_name" content="DHARMA — Wear Mexico">
+  <meta property="og:locale" content="es_MX">
   <meta property="og:title" content="Pieza — DHARMA">
-  <meta property="og:description" content="Detalle de pieza DHARMA — técnica, material, tallas y compra.">
-  <meta property="og:image" content="https://dharma.mx/img/editorial-caballero.jpg">
+  <meta property="og:description" content="Ficha de pieza DHARMA.">
+  <meta property="og:image" content="https://kinvitalgroup.com/dharma-site/img/editorial-caballero.jpg">
+  <meta property="og:image:alt" content="DHARMA — Wear Mexico">
+  <meta property="og:url" content="https://kinvitalgroup.com/dharma-site/pieza.html">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pieza — DHARMA">
+  <meta name="twitter:description" content="Ficha de pieza DHARMA.">
+  <meta name="twitter:image" content="https://kinvitalgroup.com/dharma-site/img/editorial-caballero.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://kinvitalgroup.com/dharma-site/#organization",
+        "name": "DHARMA",
+        "alternateName": "DHARMA — Wear Mexico",
+        "url": "https://kinvitalgroup.com/dharma-site/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://kinvitalgroup.com/dharma-site/img/imagotipo.png"
+        },
+        "image": "https://kinvitalgroup.com/dharma-site/img/editorial-caballero.jpg",
+        "description": "Playeras de autor que reinterpretan símbolos de la cultura mexicana, impresas a mano en la Ciudad de México con once técnicas de serigrafía.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ciudad de México",
+          "addressCountry": "MX"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "email": "hola@dharma.mx",
+          "telephone": "+5215512345678",
+          "availableLanguage": [
+            "es",
+            "en"
+          ],
+          "areaServed": "MX"
+        }
+      }
+    ]
+  }
+  </script>
+<!--/include-->
+  <script>
+    /* Dirección antigua: cada pieza ya tiene su propia URL estática en /pieza/.
+       El salto ocurre antes de pintar nada, así que no se ve el cambio.
+       El id se valida para que el parámetro no pueda armar otra ruta. */
+    (function () {
+      var p = new URLSearchParams(location.search).get('p');
+      if (p && /^[a-z0-9-]+$/.test(p)) location.replace('pieza/' + p + '.html');
+    })();
+  </script>
   <meta name="theme-color" content="#0b0b0b">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="icon" href="img/favicon.png" sizes="64x64">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260813-logo">
+  <link rel="stylesheet" href="styles.css?v=20260815-heroes-4">
 </head>
 
 <body data-page="pieza">
@@ -26,7 +81,6 @@
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 <header class="site-header"><div class="scroll-progress"></div>
   <a class="brand" href="index.html">
-    <img class="brand-mark" src="img/imagotipo.png" alt="" width="46" height="38">
     <span><b>DHARMA</b><small>WEAR MEXICO</small></span>
   </a>
   <nav class="nav" id="site-nav" aria-label="Navegación principal">
@@ -45,41 +99,14 @@
 </header>
 <!--/include-->
   <main id="contenido">
-    <div class="product-detail" id="product-detail">
-      <div class="detail-media">
-        <img class="detail-img" id="detail-img" src="" alt="">
+    <section class="page-hero">
+      <p class="kicker">DHARMA · WEAR MEXICO</p>
+      <h1>ELIGE<br><em>TU PIEZA.</em></h1>
+      <p>Cada pieza tiene ahora su propia dirección. Si llegaste aquí desde un enlace guardado, entra al catálogo y encuéntrala en un par de clics.</p>
+      <div class="actions">
+        <a class="button gold" href="catalogo.html">VER LAS 51 PIEZAS ↗</a>
+        <a class="button ghost" href="colecciones.html">VER COLECCIONES</a>
       </div>
-      <div class="detail-copy">
-        <nav class="crumbs">
-          <a href="catalogo.html">CATÁLOGO</a><i>/</i><a href="colecciones.html" id="detail-linea">LÍNEA</a>
-        </nav>
-        <p class="kicker" id="detail-tecnica">TÉCNICA</p>
-        <h1 id="detail-name">PIEZA</h1>
-        <p class="detail-tagline" id="detail-tagline">SÍMBOLO</p>
-        <p class="detail-desc" id="detail-desc">Descripción de la pieza.</p>
-        <ul class="detail-specs" id="detail-specs"></ul>
-        <div class="detail-price" id="detail-price">$0 MXN</div>
-        <p class="detail-field-label">TALLA <i id="detail-tallas-nota"></i></p>
-        <div class="detail-sizes" id="detail-sizes"></div>
-        <a class="detail-size-link" href="tallas.html">¿QUÉ TALLA SOY? VER GUÍA DE TALLAS →</a>
-        <button class="button gold detail-add" id="add-to-cart">AGREGAR A LA BOLSA +</button>
-        <button class="whatsapp-order" id="buy-whatsapp"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>COMPRAR POR WHATSAPP</button>
-        <ul class="detail-meta">
-          <li>Envío a México desde $150 MXN · gratis desde $1,500</li>
-          <li>Cambio de talla sin costo dentro de México</li>
-          <li>30 días para cambios y devoluciones · <a href="envios.html">ver detalles</a></li>
-        </ul>
-      </div>
-    </div>
-    <section class="related section" id="related" hidden>
-      <div class="section-head">
-        <div>
-          <p class="kicker">SIGUE EXPLORANDO</p>
-          <h2>PIEZAS<br>HERMANAS.</h2>
-        </div>
-        <a class="text-link" href="catalogo.html">VER TODO EL CATÁLOGO →</a>
-      </div>
-      <div class="products grid-4" id="related-grid"></div>
     </section>
   </main>
   <!--#include footer-->
@@ -87,7 +114,6 @@
   <div class="footer-grid">
     <div class="footer-brand-col">
       <div class="footer-lockup">
-        <img class="footer-logo" src="img/logo-dharma.png" alt="" width="74" height="75">
         <div class="footer-brand">DHARMA<span>WEAR MEXICO</span></div>
       </div>
       <p>Playeras de autor impresas a mano en México. Diseño contemporáneo, algodón de calidad y once técnicas de serigrafía.</p>
@@ -139,7 +165,7 @@
 </footer>
 <!--/include-->
   <script src="products.js"></script>
-  <script src="script.js?v=20260813-cinema"></script>
+  <script src="script.js?v=20260815-heroes-4"></script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
+# Generado por build.js · el dominio sale de SITE.origin en seo.js
 User-agent: *
 Allow: /
 Disallow: /carrito.html
 
-# AJUSTAR: cambia el dominio por el definitivo antes de publicar
-Sitemap: https://dharma.mx/sitemap.xml
+Sitemap: https://kinvitalgroup.com/dharma-site/sitemap.xml
