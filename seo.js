@@ -38,7 +38,7 @@ const SITE = {
   // Token de caché de styles.css y script.js. Súbelo al tocar cualquiera de los
   // dos: build.js lo reescribe en todas las páginas y así nadie se queda con una
   // versión vieja guardada en el navegador.
-  assetVersion: '20260815-heroes-4'
+  assetVersion: '20260815-colores'
 };
 
 const abs = ruta =>
@@ -260,8 +260,11 @@ const breadcrumbNode = (crumbs, actual) => ({
   }))
 });
 
-const productNode = p => {
+const productNode = (p, colores = {}) => {
   const agotable = p.linea === 'liquidacion';
+  const nombresColor = (p.colores || [])
+    .map(c => colores[c]?.nombre)
+    .filter(Boolean);
   return {
     '@type': 'Product',
     '@id': `${abs(productUrl(p))}#product`,
@@ -274,10 +277,14 @@ const productNode = p => {
     material: p.material,
     category: `Ropa > Playeras > ${p.lineaNombre}`,
     countryOfOrigin: { '@type': 'Country', name: 'México' },
+    ...(nombresColor.length ? { color: nombresColor.join(', ') } : {}),
     additionalProperty: [
       { '@type': 'PropertyValue', name: 'Técnica de impresión', value: p.tecnicaNombre },
       { '@type': 'PropertyValue', name: 'Tema', value: p.tema },
-      { '@type': 'PropertyValue', name: 'Tallas', value: p.tallas.join(', ') }
+      { '@type': 'PropertyValue', name: 'Tallas', value: p.tallas.join(', ') },
+      ...(nombresColor.length
+        ? [{ '@type': 'PropertyValue', name: 'Colores', value: nombresColor.join(', ') }]
+        : [])
     ],
     offers: {
       '@type': 'Offer',
@@ -400,7 +407,7 @@ const seoHead = (meta, extra = []) => {
  * Renderiza en HTML lo que antes solo existía tras ejecutar JavaScript:
  * cada pieza tiene su propia URL, su <h1>, su precio y sus piezas hermanas.
  */
-const productPage = (p, { linea, tecnicas, header, footer, relacionadas }) => {
+const productPage = (p, { linea, tecnicas, colores, header, footer, relacionadas }) => {
   const meta = {
     url: productUrl(p),
     title: productTitle(p),
@@ -418,7 +425,7 @@ const productPage = (p, { linea, tecnicas, header, footer, relacionadas }) => {
 
   const head = seoHead(meta, [
     orgNode(),
-    productNode(p),
+    productNode(p, colores),
     breadcrumbNode(crumbs, [p.name, productUrl(p)])
   ]);
 
@@ -432,6 +439,16 @@ const productPage = (p, { linea, tecnicas, header, footer, relacionadas }) => {
   const tallaPorDefecto = p.tallas[Math.min(1, p.tallas.length - 1)];
   const sizes = p.tallas
     .map(t => `<button type="button" data-size="${t}"${t === tallaPorDefecto ? ' class="selected"' : ''}>${t}</button>`)
+    .join('');
+
+  // El primer color de la lista es el que viene seleccionado.
+  const colorPorDefecto = colores[p.colores[0]];
+  const swatches = p.colores
+    .map(c => {
+      const col = colores[c];
+      const activo = c === p.colores[0];
+      return `<button type="button" data-color="${c}" class="swatch${activo ? ' selected' : ''}" aria-pressed="${activo}" title="${esc(col.nombre)}"><span style="background:${col.hex}"></span><i class="sr-only">${esc(col.nombre)}</i></button>`;
+    })
     .join('');
 
   const hermanas = relacionadas
@@ -482,6 +499,8 @@ ${header}
 ${specs}
         </ul>
         <div class="detail-price" id="detail-price">$${p.price.toLocaleString('es-MX')} MXN</div>
+        <p class="detail-field-label">COLOR <i id="detail-color-nombre">${esc(colorPorDefecto.nombre)}</i></p>
+        <div class="detail-colors" id="detail-colors" role="group" aria-label="Color de la prenda">${swatches}</div>
         <p class="detail-field-label">TALLA <i id="detail-tallas-nota">${p.linea === 'liquidacion' ? '· SUJETO A EXISTENCIA' : ''}</i></p>
         <div class="detail-sizes" id="detail-sizes">${sizes}</div>
         <a class="detail-size-link" href="../tallas.html">¿QUÉ TALLA SOY? VER GUÍA DE TALLAS →</a>

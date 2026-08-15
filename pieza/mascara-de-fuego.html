@@ -72,6 +72,7 @@
           "@type": "Country",
           "name": "México"
         },
+        "color": "NEGRO, BLANCO, GRIS JASPE, AZUL MARINO, ROJO, ARENA",
         "additionalProperty": [
           {
             "@type": "PropertyValue",
@@ -87,6 +88,11 @@
             "@type": "PropertyValue",
             "name": "Tallas",
             "value": "CH, MD, GD, XL, XXL"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Colores",
+            "value": "NEGRO, BLANCO, GRIS JASPE, AZUL MARINO, ROJO, ARENA"
           }
         ],
         "offers": {
@@ -172,7 +178,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=20260815-heroes-4">
+  <link rel="stylesheet" href="../styles.css?v=20260815-colores">
 </head>
 
 <body data-page="pieza" data-base="../">
@@ -215,6 +221,8 @@
           <li><span>TEMA</span><b>ANCESTRALES</b></li>
         </ul>
         <div class="detail-price" id="detail-price">$490 MXN</div>
+        <p class="detail-field-label">COLOR <i id="detail-color-nombre">NEGRO</i></p>
+        <div class="detail-colors" id="detail-colors" role="group" aria-label="Color de la prenda"><button type="button" data-color="NEGRO" class="swatch selected" aria-pressed="true" title="NEGRO"><span style="background:#131313"></span><i class="sr-only">NEGRO</i></button><button type="button" data-color="BLANCO" class="swatch" aria-pressed="false" title="BLANCO"><span style="background:#f0ece2"></span><i class="sr-only">BLANCO</i></button><button type="button" data-color="GRIS" class="swatch" aria-pressed="false" title="GRIS JASPE"><span style="background:#8c8c8c"></span><i class="sr-only">GRIS JASPE</i></button><button type="button" data-color="MARINO" class="swatch" aria-pressed="false" title="AZUL MARINO"><span style="background:#1d2b45"></span><i class="sr-only">AZUL MARINO</i></button><button type="button" data-color="ROJO" class="swatch" aria-pressed="false" title="ROJO"><span style="background:#8d231f"></span><i class="sr-only">ROJO</i></button><button type="button" data-color="ARENA" class="swatch" aria-pressed="false" title="ARENA"><span style="background:#b9a88c"></span><i class="sr-only">ARENA</i></button></div>
         <p class="detail-field-label">TALLA <i id="detail-tallas-nota">· SUJETO A EXISTENCIA</i></p>
         <div class="detail-sizes" id="detail-sizes"><button type="button" data-size="CH">CH</button><button type="button" data-size="MD" class="selected">MD</button><button type="button" data-size="GD">GD</button><button type="button" data-size="XL">XL</button><button type="button" data-size="XXL">XXL</button></div>
         <a class="detail-size-link" href="../tallas.html">¿QUÉ TALLA SOY? VER GUÍA DE TALLAS →</a>
@@ -333,7 +341,7 @@
   </div>
 </footer>
   <script src="../products.js"></script>
-  <script src="../script.js?v=20260815-heroes-4"></script>
+  <script src="../script.js?v=20260815-colores"></script>
 </body>
 
 </html>

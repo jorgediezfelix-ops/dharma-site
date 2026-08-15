@@ -20,9 +20,17 @@ const BASE = document.body.dataset.base || '';
 const asset = ruta => `${BASE}${ruta}`;
 const piezaUrl = id => `${BASE}pieza/${id}.html`;
 
-// PRODUCTS, LINEAS y TECNICAS se cargan desde products.js
+// PRODUCTS, LINEAS, TECNICAS y COLORES se cargan desde products.js
+const colorNombre = clave => COLORES[clave]?.nombre || clave;
+
+// Una línea de la bolsa es una combinación de pieza + talla + color.
+const mismaLinea = (i, id, size, color) => i.id === id && i.size === size && i.color === color;
+
 const cart = {
-  items: JSON.parse(localStorage.getItem('dharma-cart') || '[]'),
+  items: JSON.parse(localStorage.getItem('dharma-cart') || '[]')
+    // Las bolsas guardadas antes de que existieran los colores no traen color;
+    // se les asigna el primero de la pieza para que no queden huérfanas.
+    .map(i => ({ ...i, color: i.color || PRODUCTS[i.id]?.colores?.[0] || 'NEGRO' })),
 
   // Lo asigna initCheckout() para repintar carrito.html junto con el drawer.
   onChange: null,
@@ -31,30 +39,30 @@ const cart = {
     localStorage.setItem('dharma-cart', JSON.stringify(this.items));
   },
 
-  add(id, size) {
-    const existing = this.items.find(i => i.id === id && i.size === size);
+  add(id, size, color) {
+    const existing = this.items.find(i => mismaLinea(i, id, size, color));
     if (existing) {
       existing.qty += 1;
     } else {
-      this.items.push({ id, size, qty: 1 });
+      this.items.push({ id, size, color, qty: 1 });
     }
     this.save();
     this.render();
     openCart();
   },
 
-  remove(id, size) {
-    this.items = this.items.filter(i => !(i.id === id && i.size === size));
+  remove(id, size, color) {
+    this.items = this.items.filter(i => !mismaLinea(i, id, size, color));
     this.save();
     this.render();
   },
 
-  changeQty(id, size, delta) {
-    const item = this.items.find(i => i.id === id && i.size === size);
+  changeQty(id, size, color, delta) {
+    const item = this.items.find(i => mismaLinea(i, id, size, color));
     if (!item) return;
     item.qty += delta;
     if (item.qty <= 0) {
-      this.remove(id, size);
+      this.remove(id, size, color);
     } else {
       this.save();
       this.render();
@@ -89,16 +97,16 @@ const cart = {
             <div class="cart-item-img" style="background-image:url('${asset(p.img)}')"></div>
             <div class="cart-item-info">
               <b>${p.name}</b>
-              <span>${p.tecnicaNombre} · Talla ${item.size}</span>
+              <span>${p.tecnicaNombre} · Talla ${item.size} · ${colorNombre(item.color)}</span>
               <span>$${(p.price * item.qty).toLocaleString('es-MX')} MXN</span>
             </div>
             <div class="cart-item-actions">
               <div class="cart-item-qty">
-                <button data-dec data-id="${item.id}" data-size="${item.size}">−</button>
+                <button data-dec data-id="${item.id}" data-size="${item.size}" data-color="${item.color}">−</button>
                 <span>${item.qty}</span>
-                <button data-inc data-id="${item.id}" data-size="${item.size}">+</button>
+                <button data-inc data-id="${item.id}" data-size="${item.size}" data-color="${item.color}">+</button>
               </div>
-              <button class="cart-remove" data-remove data-id="${item.id}" data-size="${item.size}">ELIMINAR</button>
+              <button class="cart-remove" data-remove data-id="${item.id}" data-size="${item.size}" data-color="${item.color}">ELIMINAR</button>
             </div>
           </div>`;
       }).join('');
@@ -152,10 +160,10 @@ const injectCart = () => {
   overlay.querySelector('.cart-items').addEventListener('click', e => {
     const target = e.target.closest('[data-inc],[data-dec],[data-remove]');
     if (!target) return;
-    const { id, size } = target.dataset;
-    if (target.hasAttribute('data-inc')) cart.changeQty(id, size, 1);
-    if (target.hasAttribute('data-dec')) cart.changeQty(id, size, -1);
-    if (target.hasAttribute('data-remove')) cart.remove(id, size);
+    const { id, size, color } = target.dataset;
+    if (target.hasAttribute('data-inc')) cart.changeQty(id, size, color, 1);
+    if (target.hasAttribute('data-dec')) cart.changeQty(id, size, color, -1);
+    if (target.hasAttribute('data-remove')) cart.remove(id, size, color);
   });
 
   overlay.querySelector('.cart-checkout').addEventListener('click', () => {
@@ -352,6 +360,24 @@ const initProductPage = () => {
     ['TEMA', product.tema]
   ].map(([k, v]) => `<li><span>${k}</span><b>${v}</b></li>`).join('');
 
+  // Color: los circulitos ya vienen pintados en el HTML; aquí solo se
+  // registra cuál está elegido y se mueve el estado al que se oprime.
+  let color = product.colores[0];
+  const colores = document.getElementById('detail-colors');
+  const colorLabel = document.getElementById('detail-color-nombre');
+  colores?.addEventListener('click', e => {
+    const btn = e.target.closest('button[data-color]');
+    if (!btn) return;
+    colores.querySelectorAll('button').forEach(b => {
+      b.classList.remove('selected');
+      b.setAttribute('aria-pressed', 'false');
+    });
+    btn.classList.add('selected');
+    btn.setAttribute('aria-pressed', 'true');
+    color = btn.dataset.color;
+    if (colorLabel) colorLabel.textContent = colorNombre(color);
+  });
+
   let size = product.tallas[Math.min(1, product.tallas.length - 1)];
   const sizes = document.getElementById('detail-sizes');
   sizes.innerHTML = product.tallas
@@ -368,10 +394,10 @@ const initProductPage = () => {
     size = btn.dataset.size;
   });
 
-  document.getElementById('add-to-cart').addEventListener('click', () => cart.add(product.id, size));
+  document.getElementById('add-to-cart').addEventListener('click', () => cart.add(product.id, size, color));
 
   document.getElementById('buy-whatsapp').addEventListener('click', () => {
-    const msg = `Hola DHARMA, quiero la pieza ${product.name} (${product.tecnicaNombre}) en talla ${size}.`;
+    const msg = `Hola DHARMA, quiero la pieza ${product.name} (${product.tecnicaNombre}) en talla ${size}, color ${colorNombre(color)}.`;
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   });
 
@@ -611,15 +637,15 @@ const initCheckout = () => {
           <div class="co-item-img" style="background-image:url('${asset(p.img)}')"></div>
           <div class="co-item-info">
             <b>${p.name}</b>
-            <span>${p.tecnica} · TALLA ${item.size}</span>
-            <a data-remove data-id="${item.id}" data-size="${item.size}">ELIMINAR</a>
+            <span>${p.tecnica} · TALLA ${item.size} · ${colorNombre(item.color)}</span>
+            <a data-remove data-id="${item.id}" data-size="${item.size}" data-color="${item.color}">ELIMINAR</a>
           </div>
           <div class="co-item-right">
             <div class="co-item-price">${money(p.price * item.qty)}</div>
             <div class="co-qty">
-              <button type="button" data-dec data-id="${item.id}" data-size="${item.size}" aria-label="Quitar una">−</button>
+              <button type="button" data-dec data-id="${item.id}" data-size="${item.size}" data-color="${item.color}" aria-label="Quitar una">−</button>
               <span>${item.qty}</span>
-              <button type="button" data-inc data-id="${item.id}" data-size="${item.size}" aria-label="Agregar una">+</button>
+              <button type="button" data-inc data-id="${item.id}" data-size="${item.size}" data-color="${item.color}" aria-label="Agregar una">+</button>
             </div>
           </div>
         </div>`;
@@ -632,10 +658,10 @@ const initCheckout = () => {
   list.addEventListener('click', e => {
     const target = e.target.closest('[data-inc],[data-dec],[data-remove]');
     if (!target) return;
-    const { id, size } = target.dataset;
-    if (target.hasAttribute('data-inc')) cart.changeQty(id, size, 1);
-    if (target.hasAttribute('data-dec')) cart.changeQty(id, size, -1);
-    if (target.hasAttribute('data-remove')) cart.remove(id, size);
+    const { id, size, color } = target.dataset;
+    if (target.hasAttribute('data-inc')) cart.changeQty(id, size, color, 1);
+    if (target.hasAttribute('data-dec')) cart.changeQty(id, size, color, -1);
+    if (target.hasAttribute('data-remove')) cart.remove(id, size, color);
   });
 
   pais.addEventListener('change', renderSummary);
@@ -669,7 +695,7 @@ const initCheckout = () => {
       String(now.getDate()).padStart(2, '0')
     ].join('');
     const number = `DH-${stamp}-${Math.floor(1000 + Math.random() * 9000)}`;
-    const lines = cart.items.map(i => `${i.qty}× ${PRODUCTS[i.id].name} (talla ${i.size})`);
+    const lines = cart.items.map(i => `${i.qty}× ${PRODUCTS[i.id].name} (talla ${i.size}, ${colorNombre(i.color)})`);
     const address = `${data.calle}${data.colonia ? ', ' + data.colonia : ''}, ${data.ciudad}, ${data.estado}, CP ${data.cp} (${pais.options[pais.selectedIndex].text})`;
 
     localStorage.setItem('dharma-last-order', JSON.stringify({

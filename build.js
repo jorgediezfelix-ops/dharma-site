@@ -23,7 +23,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { PRODUCTS, LINEAS, TECNICAS, DESTINOS } = require('./products.js');
+const { PRODUCTS, LINEAS, TECNICAS, COLORES, DESTINOS } = require('./products.js');
 const seo = require('./seo.js');
 const { SITE, PAGES } = seo;
 
@@ -271,6 +271,7 @@ for (const p of all) {
     seo.productPage(p, {
       linea: LINEAS[p.linea],
       tecnicas: TECNICAS,
+      colores: COLORES,
       header,
       footer,
       relacionadas: hermanasDe(p)

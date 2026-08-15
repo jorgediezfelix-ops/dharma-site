@@ -14,6 +14,28 @@ const PRECIOS = {
   liquidacion: 490    // hasta agotar existencias
 };
 
+/*  Colores de prenda disponibles.
+ *
+ *  `hex` es solo el color del circulito que se ve en la ficha; el nombre es lo
+ *  que viaja al pedido. NEGRO va primero porque es el que aparece en todas las
+ *  fotos del catálogo.
+ *
+ *  AJUSTAR ANTES DE PUBLICAR: confirma qué colores existen de verdad en el
+ *  taller. Para dejar una pieza en un solo color, añádele
+ *  `colores: ['NEGRO']`; para quitar uno de todo el catálogo, bórralo de aquí.
+ */
+const COLORES = {
+  NEGRO: { nombre: 'NEGRO', hex: '#131313' },
+  BLANCO: { nombre: 'BLANCO', hex: '#f0ece2' },
+  GRIS: { nombre: 'GRIS JASPE', hex: '#8c8c8c' },
+  MARINO: { nombre: 'AZUL MARINO', hex: '#1d2b45' },
+  ROJO: { nombre: 'ROJO', hex: '#8d231f' },
+  ARENA: { nombre: 'ARENA', hex: '#b9a88c' }
+};
+
+// Los que se ofrecen en una pieza cuando no declara los suyos.
+const COLORES_BASE = ['NEGRO', 'BLANCO', 'GRIS', 'MARINO', 'ROJO', 'ARENA'];
+
 const LINEAS = {
   '2026': {
     id: '2026',
@@ -390,11 +412,12 @@ for (const [id, p] of Object.entries(PRODUCTS)) {
   p.tecnicas = p.tecnicas || [p.tecnica];
   p.material = LINEAS[p.linea].material;
   p.tallas = p.tallas || LINEAS[p.linea].tallas;
+  p.colores = p.colores || COLORES_BASE;
   p.price = p.price || PRECIOS[p.linea];
   p.lineaNombre = LINEAS[p.linea].nombre;
   p.tecnicaNombre = p.tecnicas.map(t => TECNICAS[t].nombre).join(' + ');
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { PRODUCTS, LINEAS, TECNICAS, PRECIOS, DESTINOS };
+  module.exports = { PRODUCTS, LINEAS, TECNICAS, COLORES, COLORES_BASE, PRECIOS, DESTINOS };
 }
