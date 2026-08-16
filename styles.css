@@ -686,43 +686,26 @@ body.overlay-open,body.menu-open{overflow:hidden}
 /* Header flotante */
 /* El header vive ahora en un solo bloque al final del archivo. */
 
-/* Footer monumental */
+/* Footer monumental
+   El fondo eran cuatro capas peleándose: una mancha roja arriba a la
+   izquierda, otra dorada arriba a la derecha, un degradado en diagonal
+   y encima una cuadrícula de 72px. Juntas no leían como una decisión,
+   leían como suciedad: la diagonal viraba el negro a un pardo verdoso
+   y la cuadrícula lo dejaba con aire de papel milimetrado.
+
+   Queda una sola idea: la luz entra por el filete de arriba —donde la
+   página termina— y se apaga en las primeras pantallas. Debajo, negro
+   que baja. El carácter no lo pone el fondo; lo ponen el lockup, el
+   filete dorado y los rombos, que sobre un fondo limpio por fin se
+   ven. */
 .footer-advanced{
   position:relative;
-  isolation:isolate;
   overflow:hidden;
   padding:0 var(--pad) 30px;
-  border-top:1px solid rgba(216,171,50,.5);
+  border-top:1px solid rgba(216,171,50,.34);
   background:
-    radial-gradient(circle at 10% 12%,rgba(141,35,31,.24),transparent 28%),
-    radial-gradient(circle at 88% 8%,rgba(216,171,50,.13),transparent 24%),
-    linear-gradient(115deg,rgba(6,6,6,.98),rgba(12,10,9,.96) 52%,rgba(6,6,6,.99));
-  box-shadow:inset 0 1px rgba(255,255,255,.04),inset 0 90px 120px -110px rgba(216,171,50,.34);
-}
-.footer-advanced:before{
-  content:"DHARMA";
-  position:absolute;
-  z-index:-1;
-  right:-.035em;
-  top:-.16em;
-  font:clamp(170px,26vw,430px)/.8 var(--f-display);
-  letter-spacing:-.055em;
-  color:transparent;
-  -webkit-text-stroke:1px rgba(216,171,50,.08);
-  opacity:.85;
-  pointer-events:none;
-}
-.footer-advanced:after{
-  content:"";
-  position:absolute;
-  z-index:-1;
-  inset:0;
-  background-image:
-    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-  background-size:72px 72px;
-  mask-image:linear-gradient(90deg,transparent,black 35%,black 82%,transparent);
-  pointer-events:none;
+    radial-gradient(128% 60% at 50% 0,rgba(216,171,50,.085),transparent 58%),
+    linear-gradient(180deg,#0c0b0a,#080808 46%,#040404);
 }
 .footer-grid{
   position:relative;
@@ -845,12 +828,18 @@ body.overlay-open,body.menu-open{overflow:hidden}
   opacity:1;
   transform:none;
 }
+/* El boletín es la cuarta columna, no una tarjeta encima del pie.
+   Tenía marco, relleno dorado y una sombra de 70px que lo despegaba
+   del fondo; era lo único con caja en un pie donde todo lo demás se
+   separa con filetes —el campo de correo de dentro ya se había
+   aplanado, pero la tarjeta de fuera se quedó—. El peso de llamada lo
+   carga el botón dorado, que para eso es el único relleno del pie. */
 .footer-news{
   align-self:start;
-  padding:32px;
-  border:1px solid rgba(216,171,50,.32);
-  background:linear-gradient(145deg,rgba(216,171,50,.08),rgba(255,255,255,.018));
-  box-shadow:0 28px 70px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.04);
+  padding:38px 0 0;
+  border:0;
+  background:none;
+  box-shadow:none;
 }
 .footer-news h4{margin-bottom:20px}
 .footer-news>p{
@@ -940,8 +929,6 @@ body.overlay-open,body.menu-open{overflow:hidden}
 @media(max-width:620px){
   html{scroll-padding-top:82px}
   .footer-advanced{padding-left:20px;padding-right:20px}
-  .footer-advanced:before{top:.05em;font-size:150px}
-  .footer-advanced:after{background-size:46px 46px}
   .footer-grid{grid-template-columns:1fr 1fr;gap:44px 22px;padding:76px 0 58px}
   .footer-brand-col{grid-column:1/-1}
   .footer-brand-col:before{margin-bottom:22px}
@@ -949,7 +936,7 @@ body.overlay-open,body.menu-open{overflow:hidden}
   .footer-brand-col>p{font-size:12.5px}
   .footer-col{padding-top:0}
   .footer-col>a{font-size:11px}
-  .footer-news{display:block;padding:24px;grid-column:1/-1}
+  .footer-news{display:block;padding:0;grid-column:1/-1}
   .news-form{display:grid;grid-template-columns:1fr;min-height:0}
   .news-form input{min-height:52px}
   .news-btn{min-height:48px;width:100%}
@@ -1315,8 +1302,11 @@ body[data-page="tallas"] .closing{background-image:url('img/caballero-jaguar-bg.
 body[data-page="envios"] .closing{background-image:url('img/destinos-cta-bg.png');background-position:center}
 .closing{border-top:1px solid var(--cinema-rule)}
 .closing:before{background:linear-gradient(90deg,rgba(5,5,5,.88),rgba(5,5,5,.48),rgba(5,5,5,.88))}
-.site-footer{position:relative;background:linear-gradient(90deg,rgba(7,7,7,.98),rgba(7,7,7,.92)),url('img/tecnicas-process-bg.png') center/cover no-repeat;border-top:1px solid var(--cinema-rule)}
-.footer-grid{position:relative}
+/* El pie no lleva foto de fondo. Aquí había una copia de la textura de
+   taller a .92 de opacidad, que es lo que se veía como cuadrícula sucia
+   detrás de los enlaces; y como esta regla va después, ganaba a la del
+   bloque SHELL aunque las dos clases estén en el mismo <footer>. El
+   fondo del pie vive en .footer-advanced y solo ahí. */
 .footer-col h4{color:var(--cinema-gold)}
 
 /* Producto, bolsa y textos legales mantienen el mismo material */

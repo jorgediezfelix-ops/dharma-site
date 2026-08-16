@@ -39,7 +39,7 @@ const SITE = {
   // dos y vuelve a construir: build.js lo reescribe en todas las páginas y así
   // nadie se queda con una versión vieja guardada en el navegador. Si se te
   // olvida, los cambios están en el archivo pero nadie los ve.
-  assetVersion: '20260816-suaje-redondo'
+  assetVersion: '20260816-pie-limpio'
 };
 
 const abs = ruta =>
