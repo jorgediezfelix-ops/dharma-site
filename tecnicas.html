@@ -154,18 +154,42 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260815-colores-img">
+  <link rel="stylesheet" href="styles.css?v=20260815-v5-colibri">
 </head>
 
 <body data-page="tecnicas">
   <!--#include header-->
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
-<header class="site-header"><div class="scroll-progress"></div>
+<header class="site-header">
   <a class="brand" href="index.html">
     <span><b>DHARMA</b><small>WEAR MEXICO</small></span>
   </a>
   <nav class="nav" id="site-nav" aria-label="Navegación principal">
-    <a href="colecciones.html">Colecciones</a>
+    <div class="nav-item" data-submenu>
+      <a href="colecciones.html">Colecciones</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-colecciones">
+        <span aria-hidden="true"></span>
+        <i class="sr-only">Ver las líneas de la colección</i>
+      </button>
+      <div class="nav-menu" id="menu-colecciones">
+        <a href="colecciones.html#2026">
+          <b>NUEVA COLECCIÓN</b>
+          <span>33 piezas · 2026</span>
+        </a>
+        <a href="colecciones.html#caballero">
+          <b>CABALLERO</b>
+          <span>12 piezas · 2025</span>
+        </a>
+        <a href="colecciones.html#dama">
+          <b>DAMA</b>
+          <span>4 piezas · 2025</span>
+        </a>
+        <a href="colecciones.html#liquidacion">
+          <b>LIQUIDACIÓN</b>
+          <span>2 piezas · 2025</span>
+        </a>
+      </div>
+    </div>
     <a href="catalogo.html">Catálogo</a>
     <a href="tecnicas.html">Técnicas</a>
     <a href="manifiesto.html">Manifiesto</a>
@@ -173,10 +197,13 @@
     <a href="contacto.html">Contacto</a>
   </nav>
   <div class="nav-tools">
-    <button class="search-btn" type="button" aria-label="Buscar en el catálogo">BUSCAR</button>
-    <button class="bag-btn" type="button" aria-label="Abrir bolsa de compra">BOLSA <span class="bag-count">0</span></button>
+    <button class="search-btn" type="button" aria-label="Buscar en el catálogo" aria-haspopup="dialog" aria-expanded="false">BUSCAR</button>
+    <button class="bag-btn" type="button" aria-label="Abrir bolsa de compra">BOLSA <span class="bag-count" aria-hidden="true">0</span></button>
+    <!-- Solo para lectores de pantalla: avisa cuando cambia la cantidad. -->
+    <span class="sr-only" role="status" data-bag-status></span>
   </div>
   <button class="menu-btn" type="button" aria-label="Abrir menú" aria-controls="site-nav" aria-expanded="false"><span></span><span></span></button>
+  <div class="scroll-progress"></div>
 </header>
 <!--/include-->
   <main id="contenido">
@@ -391,7 +418,7 @@
 </footer>
 <!--/include-->
   <script src="products.js"></script>
-  <script src="script.js?v=20260815-colores-img"></script>
+  <script src="script.js?v=20260815-v5-colibri"></script>
 </body>
 
 </html>

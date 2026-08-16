@@ -103,14 +103,38 @@
 <!--/include-->
   <meta name="theme-color" content="#0b0b0b">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="icon" href="img/favicon.png" sizes="64x64"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css?v=20260815-colores-img"></head><body data-page="destinos"><!--#include header-->
+  <link rel="icon" href="img/favicon.png" sizes="64x64"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css?v=20260815-v5-colibri"></head><body data-page="destinos"><!--#include header-->
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
-<header class="site-header"><div class="scroll-progress"></div>
+<header class="site-header">
   <a class="brand" href="index.html">
     <span><b>DHARMA</b><small>WEAR MEXICO</small></span>
   </a>
   <nav class="nav" id="site-nav" aria-label="Navegación principal">
-    <a href="colecciones.html">Colecciones</a>
+    <div class="nav-item" data-submenu>
+      <a href="colecciones.html">Colecciones</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-colecciones">
+        <span aria-hidden="true"></span>
+        <i class="sr-only">Ver las líneas de la colección</i>
+      </button>
+      <div class="nav-menu" id="menu-colecciones">
+        <a href="colecciones.html#2026">
+          <b>NUEVA COLECCIÓN</b>
+          <span>33 piezas · 2026</span>
+        </a>
+        <a href="colecciones.html#caballero">
+          <b>CABALLERO</b>
+          <span>12 piezas · 2025</span>
+        </a>
+        <a href="colecciones.html#dama">
+          <b>DAMA</b>
+          <span>4 piezas · 2025</span>
+        </a>
+        <a href="colecciones.html#liquidacion">
+          <b>LIQUIDACIÓN</b>
+          <span>2 piezas · 2025</span>
+        </a>
+      </div>
+    </div>
     <a href="catalogo.html">Catálogo</a>
     <a href="tecnicas.html">Técnicas</a>
     <a href="manifiesto.html">Manifiesto</a>
@@ -118,10 +142,13 @@
     <a href="contacto.html">Contacto</a>
   </nav>
   <div class="nav-tools">
-    <button class="search-btn" type="button" aria-label="Buscar en el catálogo">BUSCAR</button>
-    <button class="bag-btn" type="button" aria-label="Abrir bolsa de compra">BOLSA <span class="bag-count">0</span></button>
+    <button class="search-btn" type="button" aria-label="Buscar en el catálogo" aria-haspopup="dialog" aria-expanded="false">BUSCAR</button>
+    <button class="bag-btn" type="button" aria-label="Abrir bolsa de compra">BOLSA <span class="bag-count" aria-hidden="true">0</span></button>
+    <!-- Solo para lectores de pantalla: avisa cuando cambia la cantidad. -->
+    <span class="sr-only" role="status" data-bag-status></span>
   </div>
   <button class="menu-btn" type="button" aria-label="Abrir menú" aria-controls="site-nav" aria-expanded="false"><span></span><span></span></button>
+  <div class="scroll-progress"></div>
 </header>
 <!--/include--><main id="contenido"><section class="page-hero destination-hero"><p class="kicker">CULTURA EN MOVIMIENTO</p><h1>LLEVA<br><em>MÉXICO</em><br>CONTIGO.</h1><p>Una colección pensada para los lugares donde México recibe al mundo.</p></section><section class="destination-list"><article id="cabo" class="destination destination-cabo"><span>01 / BAJA CALIFORNIA SUR</span><div><h2>LOS<br>CABOS</h2><p>Desierto, océano y una energía sin fronteras.</p></div><i>23.05° N</i></article><article id="vallarta" class="destination destination-vallarta"><span>02 / JALISCO</span><div><h2>PUERTO<br>VALLARTA</h2><p>Tradición, costa y vida contemporánea.</p></div><i>20.65° N</i></article><article id="cozumel" class="destination destination-cozumel"><span>03 / QUINTANA ROO</span><div><h2>COZUMEL</h2><p>Color caribeño y memoria maya.</p></div><i>20.42° N</i></article><article id="pueblos" class="destination destination-pueblos"><span>04 / TODO MÉXICO</span><div><h2>PUEBLOS<br>MÁGICOS</h2><p>Historias locales que merecen viajar.</p></div><i>132 DESTINOS</i></article></section><section class="retail section"><div><p class="kicker">DHARMA PARA RETAIL</p><h2>UNA MARCA<br>QUE CONVIERTE<br><em>DESTINO EN DESEO.</em></h2></div><div><p>Colecciones adaptables por región, exhibición de alto impacto y piezas diseñadas para convertirse en el recuerdo más deseado del viaje.</p><a class="button gold" href="mailto:hola@dharma.mx">HABLEMOS DE TU DESTINO ↗</a></div></section></main><!--#include footer-->
 <footer class="site-footer footer-advanced">
@@ -178,4 +205,4 @@
   </div>
 </footer>
 <!--/include--><script src="products.js"></script>
-  <script src="script.js?v=20260815-colores-img"></script></body></html>
+  <script src="script.js?v=20260815-v5-colibri"></script></body></html>

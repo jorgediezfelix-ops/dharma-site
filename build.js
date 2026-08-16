@@ -186,9 +186,16 @@ const seoBlock = (pageKey, html) => {
   return seo.seoHead(meta, nodos);
 };
 
+// Desplegable de Colecciones: sale de LINEAS, así que no se desincroniza.
+const menuLineas = () => Object.values(LINEAS)
+  .map(l => `        <a href="colecciones.html#${l.id}">
+          <b>${l.nombre}</b>
+          <span>${byLinea(l.id).length} piezas · ${l.año}</span>
+        </a>`).join('\n');
+
 const blocks = {
   seo: seoBlock,
-  header: () => read('_header.html'),
+  header: () => read('_header.html').replace('<!--LINEAS-->', menuLineas().trim()),
   footer: () => read('_footer.html'),
   filtros,
   productos: () => grid(all),

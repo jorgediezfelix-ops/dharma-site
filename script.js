@@ -35,6 +35,9 @@ const cart = {
   // Lo asigna initCheckout() para repintar carrito.html junto con el drawer.
   onChange: null,
 
+  // Última cuenta anunciada; undefined hasta la primera pintada.
+  anunciado: undefined,
+
   save() {
     localStorage.setItem('dharma-cart', JSON.stringify(this.items));
   },
@@ -78,9 +81,27 @@ const cart = {
   },
 
   render() {
+    const n = this.count();
     document.querySelectorAll('.bag-count').forEach(el => {
-      el.textContent = this.count();
+      el.textContent = n;
     });
+    // El número de la burbuja va oculto para lectores de pantalla (es
+    // decorativo junto al texto BOLSA), así que la cuenta viaja en la
+    // etiqueta del botón y los cambios se anuncian por el status.
+    const piezas = n === 1 ? '1 pieza' : `${n} piezas`;
+    document.querySelectorAll('.bag-btn').forEach(el => {
+      el.setAttribute('aria-label', n
+        ? `Abrir bolsa de compra, ${piezas}`
+        : 'Abrir bolsa de compra, vacía');
+    });
+    // En la primera pintada solo dejamos el estado puesto: anunciarlo
+    // al cargar sería ruido, porque el usuario no ha hecho nada.
+    if (this.anunciado !== undefined && this.anunciado !== n) {
+      document.querySelectorAll('[data-bag-status]').forEach(el => {
+        el.textContent = n ? `Bolsa actualizada: ${piezas}.` : 'Bolsa vacía.';
+      });
+    }
+    this.anunciado = n;
     if (this.onChange) this.onChange();
 
     const list = document.querySelector('.cart-items');
@@ -227,27 +248,39 @@ const injectSearch = () => {
       </a>`).join('');
   };
 
+  // El botón declara aria-haspopup="dialog"; hay que mantener su estado
+  // en sintonía con el overlay o siempre dirá "contraído".
+  const marcarBotones = abierto => document.querySelectorAll('.search-btn')
+    .forEach(b => b.setAttribute('aria-expanded', String(abierto)));
+
   const open = () => {
     el.classList.add('open');
     el.setAttribute('aria-hidden', 'false');
     el.inert = false;
     document.body.classList.add('overlay-open');
+    marcarBotones(true);
     renderResults('');
     setTimeout(() => input.focus(), 150);
   };
-  const close = () => {
+  const close = ({ devolverFoco = false } = {}) => {
+    if (!el.classList.contains('open')) return;
     el.classList.remove('open');
     el.setAttribute('aria-hidden', 'true');
     el.inert = true;
     document.body.classList.remove('overlay-open');
+    marcarBotones(false);
+    // Al cerrar con teclado el foco vuelve al botón, no al principio.
+    if (devolverFoco) document.querySelector('.search-btn')?.focus();
   };
 
   document.addEventListener('click', e => {
     if (e.target.closest('.search-btn')) open();
   });
-  el.querySelector('.search-close').addEventListener('click', close);
+  el.querySelector('.search-close').addEventListener('click', () => close({ devolverFoco: true }));
   el.addEventListener('click', e => { if (e.target === el) close(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') close({ devolverFoco: true });
+  });
   input.addEventListener('input', () => renderResults(input.value));
 };
 
@@ -748,25 +781,62 @@ const initCheckout = () => {
   });
 };
 
+// Páginas que no están en el menú pero pertenecen a una que sí lo está:
+// navegando una pieza, lo que corresponde marcar es Catálogo.
+const PAGINA_EN_MENU = { pieza: 'catalogo' };
+
 const initHeader = () => {
   const currentPage = document.body.dataset.page || 'inicio';
-  const navLink = document.querySelector(`.nav a[href*="${currentPage}.html"]`);
+  const enMenu = PAGINA_EN_MENU[currentPage] || currentPage;
+  // Solo los enlaces de primer nivel: los del desplegable apuntan al mismo
+  // archivo con ancla y marcarían Colecciones por error.
+  const navLink = [...document.querySelectorAll('.nav > a, .nav-item > a')]
+    .find(a => a.getAttribute('href').split('#')[0].endsWith(`${enMenu}.html`));
   navLink?.classList.add('active');
   navLink?.setAttribute('aria-current', 'page');
 
   const main = document.querySelector('main');
   if (main && !main.id) main.id = 'contenido';
 
+  // Desplegable de Colecciones. El enlace sigue llevando a la página; el
+  // botón de al lado solo abre la lista, que es el patrón que esperan los
+  // lectores de pantalla. Bajo 980px el CSS la muestra siempre desplegada.
+  const submenu = document.querySelector('.nav-item[data-submenu]');
+  const submenuBtn = submenu?.querySelector('.nav-toggle');
+  const cerrarSubmenu = () => {
+    submenu?.classList.remove('open');
+    submenuBtn?.setAttribute('aria-expanded', 'false');
+  };
+  submenuBtn?.addEventListener('click', () => {
+    const abierto = !submenu.classList.contains('open');
+    submenu.classList.toggle('open', abierto);
+    submenuBtn.setAttribute('aria-expanded', String(abierto));
+  });
+  document.addEventListener('click', e => {
+    if (submenu && !submenu.contains(e.target)) cerrarSubmenu();
+  });
+
   const menuBtn = document.querySelector('.menu-btn');
   const nav = document.querySelector('.nav');
   if (menuBtn && nav) {
-    const closeMenu = () => {
+    // Con el menú cerrado el panel sigue ocupando sitio (solo está oculto),
+    // así que offsetParent no basta para saber si algo es enfocable.
+    const visible = el => el.offsetParent !== null &&
+      getComputedStyle(el).visibility !== 'hidden';
+    const foco = () => [...nav.querySelectorAll('a,button')].filter(visible);
+
+    const closeMenu = ({ devolverFoco = false } = {}) => {
+      if (!nav.classList.contains('open')) return;
       nav.classList.remove('open');
       menuBtn.classList.remove('open');
       menuBtn.setAttribute('aria-expanded', 'false');
       menuBtn.setAttribute('aria-label', 'Abrir menú');
       document.body.classList.remove('menu-open');
+      // Al cerrar con teclado, el foco vuelve al botón que lo abrió;
+      // si no, saltaría al principio de la página.
+      if (devolverFoco) menuBtn.focus();
     };
+
     menuBtn.addEventListener('click', () => {
       const open = !nav.classList.contains('open');
       nav.classList.toggle('open', open);
@@ -774,9 +844,31 @@ const initHeader = () => {
       menuBtn.setAttribute('aria-expanded', String(open));
       menuBtn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
       document.body.classList.toggle('menu-open', open);
+      // Se espera un fotograma: el panel acaba de dejar de estar oculto y
+      // enfocar algo invisible no hace nada.
+      if (open) requestAnimationFrame(() => foco()[0]?.focus());
     });
+
     nav.addEventListener('click', e => { if (e.target.closest('a')) closeMenu(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        cerrarSubmenu();
+        closeMenu({ devolverFoco: true });
+        return;
+      }
+      // Mientras el menú está abierto ocupa toda la pantalla, así que el
+      // tabulador tiene que dar la vuelta dentro y no colarse a la página.
+      if (e.key !== 'Tab' || !nav.classList.contains('open')) return;
+      const items = [menuBtn, ...foco()];
+      const i = items.indexOf(document.activeElement);
+      if (i === -1) return;
+      const siguiente = e.shiftKey
+        ? (i === 0 ? items.length - 1 : i - 1)
+        : (i === items.length - 1 ? 0 : i + 1);
+      e.preventDefault();
+      items[siguiente].focus();
+    });
   }
 
   const headerEl = document.querySelector('.site-header');
@@ -814,6 +906,41 @@ const initScrollReveal = () => {
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -5% 0px' });
   nodes.forEach(node => observer.observe(node));
+};
+
+// La foto de la pieza se transforma en la foto de la ficha al navegar.
+// Solo se bautiza la que se acaba de pulsar: el nombre tiene que ser
+// único en la página, y nombrar las 51 de golpe obligaría al navegador
+// a capturar 51 capas en cada transición para usar una.
+const initTransicionPieza = () => {
+  if (!document.startViewTransition) return;
+  const MARCA = 'pieza-activa';
+  const limpiar = () => document.querySelectorAll(`[style*="${MARCA}"]`)
+    .forEach(el => { el.style.viewTransitionName = ''; });
+
+  document.addEventListener('click', e => {
+    const media = e.target.closest('.product-media');
+    if (!media) return;
+    limpiar();
+    const img = media.querySelector('img');
+    if (img) img.style.viewTransitionName = MARCA;
+  });
+
+  // Al volver atrás la página se restaura tal cual la dejamos; sin esto
+  // el nombre se quedaría puesto en una foto que ya no toca.
+  window.addEventListener('pageshow', e => { if (e.persisted) limpiar(); });
+
+  // Si se pulsa otro enlace antes de que termine la transición, el
+  // navegador la cancela y su promesa queda rechazada sin dueño. No es
+  // un fallo —la navegación sigue— pero ensucia la consola y taparía
+  // errores de verdad.
+  const silenciar = e => {
+    if (!e.viewTransition) return;
+    e.viewTransition.finished.catch(() => {});
+    e.viewTransition.ready.catch(() => {});
+  };
+  window.addEventListener('pageswap', silenciar);
+  window.addEventListener('pagereveal', silenciar);
 };
 
 const initCinematicScenes = () => {
@@ -859,4 +986,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initCheckout();
   initScrollReveal();
   initCinematicScenes();
+  initTransicionPieza();
 });

@@ -36,9 +36,10 @@ const SITE = {
   // Datos de envío y devolución declarados en envios.html.
   envio: { costo: 150, gratisDesde: 1500, preparacionDias: [1, 2], transitoDias: [2, 6], devolucionDias: 30 },
   // Token de caché de styles.css y script.js. Súbelo al tocar cualquiera de los
-  // dos: build.js lo reescribe en todas las páginas y así nadie se queda con una
-  // versión vieja guardada en el navegador.
-  assetVersion: '20260815-colores-img'
+  // dos y vuelve a construir: build.js lo reescribe en todas las páginas y así
+  // nadie se queda con una versión vieja guardada en el navegador. Si se te
+  // olvida, los cambios están en el archivo pero nadie los ve.
+  assetVersion: '20260815-v5-colibri'
 };
 
 const abs = ruta =>
@@ -485,7 +486,7 @@ ${header}
   <main id="contenido">
     <div class="product-detail" id="product-detail" data-product="${p.id}">
       <div class="detail-media">
-        <img class="detail-img" id="detail-img" src="../${imagenes[p.colores[0]] || p.img}" alt="Playera ${p.name} en ${esc(colorPorDefecto.nombre.toLowerCase())} — DHARMA" fetchpriority="high" decoding="async" data-imagenes="${esc(JSON.stringify(imagenes))}">
+        <img class="detail-img" id="detail-img" src="../${imagenes[p.colores[0]] || p.img}" alt="Playera ${p.name} en ${esc(colorPorDefecto.nombre.toLowerCase())} — DHARMA" fetchpriority="high" decoding="async" data-imagenes="${esc(JSON.stringify(imagenes))}" style="view-transition-name:pieza-activa">
       </div>
       <div class="detail-copy">
         <nav class="crumbs" aria-label="Ruta de navegación">

@@ -385,23 +385,6 @@ body.overlay-open,body.menu-open{overflow:hidden}
 .skip-link:focus{transform:none}
 :where(a,button,input,select,textarea,summary):focus-visible{outline:2px solid var(--gold);outline-offset:4px}
 
-/* Navegación más limpia y estable */
-.site-header{height:82px;background:linear-gradient(180deg,rgba(6,6,6,.56),rgba(6,6,6,.08));isolation:isolate}
-.site-header.scrolled{height:68px;background:rgba(8,8,8,.94);box-shadow:0 12px 38px rgba(0,0,0,.18)}
-.brand b{font:23px/1 var(--f-display);letter-spacing:.025em}
-.brand small{margin-top:4px}
-.nav{gap:clamp(17px,2vw,30px)}
-.nav a{font-size:10px;font-weight:500;letter-spacing:.13em}
-.nav a:after{bottom:-11px}
-.nav-tools{gap:18px}
-.search-btn,.bag-btn{min-height:42px;padding:0 2px}
-.bag-count{min-width:23px;height:23px;padding:0 6px;display:grid;place-items:center;font-size:10px}
-.menu-btn{width:42px;height:42px;padding:0;place-items:center;position:relative;cursor:pointer}
-.menu-btn span{position:absolute;width:20px;height:1px;background:#fff;transition:transform .25s,top .25s}
-.menu-btn span:first-child{top:17px}
-.menu-btn span:last-child{top:24px}
-.menu-btn.open span:first-child{top:21px;transform:rotate(45deg)}
-.menu-btn.open span:last-child{top:21px;transform:rotate(-45deg)}
 
 /* Portada: propuesta de valor y prueba inmediata */
 .hero{padding-top:118px;padding-bottom:82px}
@@ -419,9 +402,7 @@ body.overlay-open,body.menu-open{overflow:hidden}
 .hero-proof li{font-size:9px;font-weight:600;letter-spacing:.15em;padding:0 16px;border-left:1px solid rgba(255,255,255,.3)}
 .hero-proof li:first-child{padding-left:0;border-left:0}
 .hero .actions{margin-top:28px}
-.button{position:relative;overflow:hidden;min-height:54px;padding:0 27px;border-color:rgba(255,255,255,.34)}
-.button.gold{box-shadow:0 10px 30px rgba(210,166,47,.12)}
-.button.gold:hover{background:#e1b63c;box-shadow:0 14px 36px rgba(210,166,47,.25)}
+/* .button vive ahora en el bloque BOTONES del final. */
 .ticker{height:58px;font-size:20px;border-top:1px solid rgba(0,0,0,.15);border-bottom:1px solid rgba(0,0,0,.15)}
 
 .proof-band{display:grid;grid-template-columns:repeat(4,1fr);background:#141414;border-bottom:1px solid var(--line)}
@@ -483,24 +464,12 @@ body.overlay-open,body.menu-open{overflow:hidden}
 .footer-meta-bar{line-height:1.6}
 
 @media(max-width:1180px){
-  .nav{gap:16px}
-  .nav-tools{gap:12px}
   .proof-band{grid-template-columns:1fr 1fr}
   .proof-band article:nth-child(2){border-right:0}
   .proof-band article:nth-child(-n+2){border-bottom:1px solid var(--line)}
 }
 
 @media(max-width:900px){
-  .site-header,.site-header.scrolled{height:68px;padding-left:22px;padding-right:14px}
-  .brand-mark{width:44px}
-  .brand{gap:10px}
-  .brand b{font-size:21px}
-  .nav{position:fixed;inset:68px 0 0;background:rgba(9,9,9,.98);padding:42px 28px 36px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:0;border:0;visibility:hidden;opacity:0;transform:translateY(-10px);pointer-events:none;transition:opacity .25s,transform .25s,visibility .25s}
-  .nav.open{display:flex;visibility:visible;opacity:1;transform:none;pointer-events:auto}
-  .nav a{width:100%;padding:15px 0;border-bottom:1px solid var(--line);font:clamp(34px,8vw,56px)/1 var(--f-display);letter-spacing:.01em}
-  .nav a:after{display:none}
-  .nav a.active{color:var(--gold)}
-  .menu-btn{display:grid;flex:0 0 42px}
   .statement,.tech-intro{grid-template-columns:1fr;grid-template-rows:auto;gap:16px}
   .statement>.kicker,.statement>h2,.statement-side,.tech-intro>.kicker,.tech-intro>h2,.tech-intro>p:last-child{grid-column:1;grid-row:auto}
   .statement-side,.tech-intro>p:last-child{margin-top:24px;max-width:620px;align-self:start}
@@ -510,13 +479,6 @@ body.overlay-open,body.menu-open{overflow:hidden}
 
 @media(max-width:560px){
   html{scroll-padding-top:72px}
-  .brand small{font-size:7px}
-  .nav-tools{margin-left:auto;gap:13px}
-  .search-btn{width:38px;font-size:0;padding:0}
-  .search-btn:before{content:"⌕";font:25px/1 var(--f-body);display:block;transform:rotate(-15deg)}
-  .bag-btn{font-size:9px;gap:6px}
-  .site-header,.site-header.scrolled{padding-left:16px;padding-right:9px}
-  .brand-mark{width:48px}
   .hero{min-height:880px;padding:112px 22px 142px;align-items:flex-end}
   .hero-art{left:0;background-position:59% top;opacity:.58}
   .hero-text-bg{width:100%;opacity:.86}
@@ -565,7 +527,6 @@ body.overlay-open,body.menu-open{overflow:hidden}
 }
 
 @media(max-width:340px){
-  .brand span{display:none}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -723,161 +684,7 @@ body.overlay-open,body.menu-open{overflow:hidden}
 }
 
 /* Header flotante */
-.site-header,
-.site-header.scrolled{
-  inset:12px 18px auto;
-  width:auto;
-  height:72px;
-  padding:0 clamp(18px,2.2vw,34px);
-  background:linear-gradient(135deg,rgba(16,16,16,.91),rgba(5,5,5,.78));
-  border:1px solid rgba(255,255,255,.14);
-  box-shadow:0 18px 52px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.05);
-  backdrop-filter:blur(22px) saturate(1.15);
-  -webkit-backdrop-filter:blur(22px) saturate(1.15);
-  isolation:isolate;
-  z-index:50;
-  transition:height .3s,background .3s,border-color .3s,box-shadow .3s,top .3s;
-}
-.site-header.scrolled{
-  top:8px;
-  height:64px;
-  background:rgba(6,6,6,.94);
-  border-color:rgba(216,171,50,.3);
-  box-shadow:0 20px 58px rgba(0,0,0,.48),0 0 0 1px rgba(0,0,0,.25);
-}
-.site-header:before{
-  content:"";
-  position:absolute;
-  left:0;
-  top:-1px;
-  width:clamp(90px,14vw,220px);
-  height:2px;
-  background:linear-gradient(90deg,var(--shell-gold),rgba(216,171,50,0));
-  box-shadow:0 0 18px rgba(216,171,50,.4);
-  pointer-events:none;
-}
-.scroll-progress{
-  top:auto;
-  bottom:-1px;
-  height:2px;
-  background:linear-gradient(90deg,#8e251f,var(--shell-gold),#f0d477);
-  box-shadow:0 0 12px rgba(216,171,50,.46);
-}
-.brand{
-  position:relative;
-  min-height:48px;
-  padding-right:clamp(15px,2vw,30px);
-  border-right:1px solid rgba(255,255,255,.12);
-  flex:0 0 auto;
-}
-.brand:after{
-  content:"";
-  position:absolute;
-  right:-3px;
-  top:50%;
-  width:5px;
-  height:5px;
-  background:var(--shell-gold);
-  transform:translateY(-50%) rotate(45deg);
-  box-shadow:0 0 12px rgba(216,171,50,.65);
-}
-.brand b{
-  display:block;
-  font:27px/.92 var(--f-display);
-  letter-spacing:.035em;
-  color:#f4f0e7;
-  text-shadow:0 4px 24px rgba(0,0,0,.65);
-}
-.brand small{
-  margin-top:6px;
-  color:var(--shell-gold);
-  font-size:7px;
-  font-weight:600;
-  letter-spacing:.32em;
-}
-.site-header .nav{
-  gap:3px;
-  padding:4px;
-  border:1px solid rgba(255,255,255,.09);
-  background:rgba(255,255,255,.025);
-  box-shadow:inset 0 0 24px rgba(0,0,0,.2);
-}
-.site-header .nav a{
-  min-height:40px;
-  padding:0 clamp(9px,1.05vw,16px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#bdb8ae;
-  font-size:9px;
-  font-weight:600;
-  letter-spacing:.14em;
-  transition:color .25s,background .25s,transform .25s;
-}
-.site-header .nav a:after{
-  left:50%;
-  right:50%;
-  bottom:5px;
-  height:1px;
-  box-shadow:0 0 10px rgba(216,171,50,.55);
-}
-.site-header .nav a:hover{
-  color:#f5f1e8;
-  background:rgba(255,255,255,.045);
-}
-.site-header .nav a:hover:after{
-  left:14px;
-  right:14px;
-}
-.site-header .nav a.active,
-.site-header .nav a[aria-current="page"]{
-  color:#0b0b0b;
-  background:var(--shell-gold);
-  box-shadow:0 8px 22px rgba(216,171,50,.16);
-}
-.site-header .nav a.active:after,
-.site-header .nav a[aria-current="page"]:after{display:none}
-.nav-tools{
-  gap:8px;
-  flex:0 0 auto;
-}
-.search-btn,.bag-btn{
-  min-height:42px;
-  padding:0 13px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.025);
-  color:#d2cdc3;
-  font-size:8px;
-  font-weight:600;
-  transition:border-color .25s,color .25s,background .25s,transform .25s;
-}
-.search-btn:hover,.bag-btn:hover{
-  color:var(--shell-gold);
-  border-color:rgba(216,171,50,.55);
-  background:rgba(216,171,50,.06);
-  transform:translateY(-2px);
-}
-.bag-count{
-  min-width:24px;
-  height:24px;
-  padding:0 6px;
-  border-radius:0;
-  background:var(--shell-gold);
-  color:#0b0b0b;
-  font-size:9px;
-  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
-}
-.bag-btn .bag-count{
-  display:grid;
-  place-items:center;
-}
-.bag-btn .bag-count{font-variant-numeric:tabular-nums}
-.menu-btn{
-  border:1px solid rgba(255,255,255,.15);
-  background:rgba(255,255,255,.025);
-}
-.menu-btn:hover{border-color:var(--shell-gold)}
-.menu-btn span{background:#f4f0e7}
+/* El header vive ahora en un solo bloque al final del archivo. */
 
 /* Footer monumental */
 .footer-advanced{
@@ -1115,8 +922,6 @@ body.overlay-open,body.menu-open{overflow:hidden}
 }
 
 @media(max-width:1180px){
-  .site-header .nav a{padding:0 9px;font-size:8px}
-  .search-btn,.bag-btn{padding:0 9px}
   .footer-grid{grid-template-columns:1.25fr .6fr .6fr;}
   .footer-news{grid-column:1/-1;display:grid;grid-template-columns:minmax(220px,.75fr) minmax(330px,1.25fr);gap:8px 38px;align-items:center}
   .footer-news h4,.footer-news>p{grid-column:1}
@@ -1124,55 +929,6 @@ body.overlay-open,body.menu-open{overflow:hidden}
 }
 
 @media(max-width:980px){
-  .site-header,.site-header.scrolled{
-    inset:9px 12px auto;
-    height:64px;
-    padding:0 14px 0 20px;
-  }
-  .site-header.scrolled{top:7px}
-  .brand{min-height:42px}
-  .brand b{font-size:23px}
-  .site-header .nav{
-    position:absolute;
-    inset:calc(100% + 8px) 0 auto;
-    height:calc(100svh - 90px);
-    padding:clamp(32px,7vh,70px) 28px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:flex-start;
-    gap:0;
-    overflow-y:auto;
-    border:1px solid rgba(216,171,50,.28);
-    background:radial-gradient(circle at 86% 12%,rgba(216,171,50,.1),transparent 24%),rgba(7,7,7,.985);
-    box-shadow:0 26px 70px rgba(0,0,0,.54);
-    visibility:hidden;
-    opacity:0;
-    transform:translateY(-10px);
-    pointer-events:none;
-    transition:opacity .25s,transform .25s,visibility .25s;
-  }
-  .site-header .nav.open{
-    visibility:visible;
-    opacity:1;
-    transform:none;
-    pointer-events:auto;
-  }
-  .site-header .nav a{
-    width:100%;
-    min-height:0;
-    padding:14px 0;
-    justify-content:flex-start;
-    border-bottom:1px solid rgba(255,255,255,.12);
-    background:none;
-    color:#d5d0c6;
-    font:clamp(34px,7vw,54px)/.95 var(--f-display);
-    letter-spacing:.01em;
-  }
-  .site-header .nav a:hover{padding-left:12px;color:var(--shell-gold);background:none}
-  .site-header .nav a.active,.site-header .nav a[aria-current="page"]{color:var(--shell-gold);background:none;box-shadow:none}
-  .site-header .nav a:after{display:none}
-  .menu-btn{display:grid;flex:0 0 42px}
   .footer-grid{grid-template-columns:1fr 1fr;padding-top:86px}
   .footer-brand-col{grid-column:1/-1;padding-right:0}
   .footer-brand-col>p{max-width:54ch}
@@ -1183,23 +939,6 @@ body.overlay-open,body.menu-open{overflow:hidden}
 
 @media(max-width:620px){
   html{scroll-padding-top:82px}
-  .site-header,.site-header.scrolled{
-    inset:7px 7px auto;
-    height:60px;
-    padding:0 8px 0 12px;
-  }
-  .brand{min-height:38px;padding-right:13px;border-right:0}
-  .brand:after{display:none}
-  .brand b{font-size:21px}
-  .brand small{font-size:6px;letter-spacing:.24em}
-  .nav-tools{margin-left:auto;gap:6px}
-  .search-btn{width:38px;min-height:40px;padding:0;font-size:0}
-  .search-btn:before{content:"⌕";font:24px/1 var(--f-body);display:block;transform:rotate(-15deg)}
-  .bag-btn{min-height:40px;padding:0 7px;font-size:8px;gap:7px}
-  .bag-count{min-width:21px;height:21px;font-size:8px}
-  .menu-btn{width:40px;height:40px;flex-basis:40px}
-  .site-header .nav{height:calc(100svh - 81px);padding:28px 20px}
-  .site-header .nav a{font-size:clamp(34px,11vw,48px);padding:13px 0}
   .footer-advanced{padding-left:20px;padding-right:20px}
   .footer-advanced:before{top:.05em;font-size:150px}
   .footer-advanced:after{background-size:46px 46px}
@@ -1220,7 +959,6 @@ body.overlay-open,body.menu-open{overflow:hidden}
 }
 
 @media(max-width:390px){
-  .brand small{display:none}
   .footer-grid{grid-template-columns:1fr}
   .footer-brand-col,.footer-news{grid-column:1}
   .footer-brand{font-size:78px}
@@ -1479,9 +1217,6 @@ body{background:var(--cinema-black)}
 main{position:relative}
 .section{position:relative;isolation:isolate}
 .kicker{color:var(--cinema-gold)}
-.button{backdrop-filter:blur(8px)}
-.button.ghost{background:rgba(7,7,7,.18)}
-.button.ghost:hover{background:rgba(210,166,47,.08);box-shadow:0 14px 36px rgba(0,0,0,.2)}
 .text-link{transition:color .25s,border-color .25s,transform .25s}
 .text-link:hover{color:var(--cinema-gold);transform:translateX(4px)}
 
@@ -1916,26 +1651,7 @@ body[data-page="colecciones"] .linea-cta:hover span{transform:rotate(45deg);back
   }
 }
 
-/* ————————————————————————————————————————————————————————————
-   HEADER · RITMO SIMÉTRICO
-   La barra reparte marca / navegación / herramientas con
-   space-between, así que la navegación quedaba descentrada: la
-   marca y los botones no miden lo mismo. Dándoles la misma base
-   flexible, el bloque central queda centrado de verdad y los
-   botones respiran.
-   ———————————————————————————————————————————————————————————— */
-@media(min-width:901px){
-  .site-header .brand{flex:1 1 0;justify-content:flex-start}
-  .site-header .nav-tools{flex:1 1 0;justify-content:flex-end}
-  .site-header .nav{
-    flex:0 0 auto;
-    gap:6px;
-    padding:4px 8px;
-  }
-  .site-header .nav a{padding:0 clamp(13px,1.5vw,22px)}
-  .nav-tools{gap:14px}
-  .search-btn,.bag-btn{padding:0 18px}
-}
+
 
 /* ————————————————————————————————————————————————————————————
    FICHA · SELECTOR DE COLOR
@@ -1973,4 +1689,1280 @@ body[data-page="colecciones"] .linea-cta:hover span{transform:rotate(45deg);back
 .swatch:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 @media(prefers-reduced-motion:reduce){
   .swatch,.swatch:hover{transition:none;transform:none}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HEADER
+   Una barra, no una caja. La versión anterior era una tarjeta
+   flotante enmarcada que además contenía otro marco para el nav y
+   tres más para BUSCAR, BOLSA y el menú: cinco rectángulos
+   apilados en 74px de alto, cada cosa metida en su cajita. Aquí no
+   queda ninguno. La barra ocupa todo el ancho y se apoya en una
+   línea de un pixel —el mismo recurso que ya usan las fichas de
+   destinos y el pie— y la navegación es tipografía suelta con el
+   subrayado dorado que crece desde la izquierda, que es el gesto
+   del resto del sitio.
+
+   Un solo corte: 980px. Por encima, barra completa; por debajo,
+   panel desplegable. Las medidas son variables: para cambiar el
+   alto o el aire basta tocar un número aquí arriba.
+   ═══════════════════════════════════════════════════════════════ */
+.site-header{
+  --h-alto:78px;
+  --h-alto-min:62px;
+  --h-linea:rgba(255,255,255,.14);
+  --h-apagado:#c6c1b7;
+  --h-vivo:#f6f2e9;
+
+  position:fixed;
+  inset:0 0 auto;
+  width:100%;
+  height:var(--h-alto);
+  padding:0 clamp(20px,3.4vw,54px);
+  display:flex;
+  align-items:center;
+  gap:clamp(16px,3vw,44px);
+  background:none;
+  border:0;
+  border-bottom:1px solid transparent;
+  box-shadow:none;
+  isolation:isolate;
+  z-index:50;
+  transition:height .3s,background .3s,border-color .3s;
+}
+/* Velo de arranque: sobre la portada hace falta contraste, pero una
+   banda opaca volvería a dibujar una caja. Este degradado sobresale
+   por debajo de la barra y se disuelve, así que oscurece sin cerrar
+   ningún borde. Al hacer scroll se retira y entra el fondo sólido. */
+.site-header:before{
+  content:"";
+  position:absolute;
+  inset:0 0 auto;
+  height:190%;
+  z-index:-1;
+  background:linear-gradient(180deg,rgba(5,5,5,.92) 0%,rgba(5,5,5,.7) 42%,rgba(5,5,5,.28) 72%,rgba(5,5,5,0) 100%);
+  pointer-events:none;
+  transition:opacity .3s;
+}
+.site-header.scrolled{
+  height:var(--h-alto-min);
+  background:rgba(7,7,7,.93);
+  border-bottom-color:var(--h-linea);
+  backdrop-filter:blur(20px) saturate(1.15);
+  -webkit-backdrop-filter:blur(20px) saturate(1.15);
+}
+.site-header.scrolled:before{opacity:0}
+/* Avance de lectura, montado sobre la línea inferior. */
+.site-header .scroll-progress{
+  position:absolute;
+  left:0;
+  top:auto;
+  bottom:-1px;
+  height:2px;
+  width:0;
+  background:linear-gradient(90deg,var(--red),var(--shell-gold));
+  box-shadow:0 0 12px rgba(216,171,50,.4);
+  z-index:1;
+}
+
+/* ——— marca ——— */
+.site-header .brand{
+  display:flex;
+  align-items:center;
+  flex:1 1 0;
+  min-width:0;
+  padding:0;
+  border:0;
+}
+.site-header .brand:after{display:none}
+.site-header .brand b{
+  display:block;
+  font:27px/.92 var(--f-display);
+  letter-spacing:.04em;
+  color:var(--h-vivo);
+  transition:color .25s;
+}
+.site-header .brand small{
+  display:block;
+  margin-top:5px;
+  color:var(--shell-gold);
+  font-size:7px;
+  font-weight:600;
+  letter-spacing:.32em;
+}
+.site-header .brand:hover b{color:var(--shell-gold)}
+
+/* ——— navegación ———
+   Marca y herramientas comparten la misma base flexible, así que el
+   bloque central queda centrado de verdad y no a ojo. */
+.site-header .nav{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:clamp(18px,2.5vw,40px);
+  position:static;
+  inset:auto;
+  height:auto;
+  padding:0;
+  background:none;
+  border:0;
+  box-shadow:none;
+  visibility:visible;
+  opacity:1;
+  transform:none;
+  pointer-events:auto;
+  overflow:visible;
+}
+.site-header .nav>a,
+.site-header .nav-item>a{
+  position:relative;
+  display:flex;
+  align-items:center;
+  padding:0;
+  background:none;
+  color:var(--h-apagado);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.2em;
+  white-space:nowrap;
+  transition:color .25s;
+}
+/* El subrayado crece desde la izquierda: mismo gesto que los
+   enlaces de texto del resto del sitio. */
+.site-header .nav>a:after,
+.site-header .nav-item>a:after{
+  content:"";
+  display:block;
+  position:absolute;
+  left:0;
+  right:100%;
+  bottom:-10px;
+  height:1px;
+  background:var(--shell-gold);
+  box-shadow:0 0 10px rgba(216,171,50,.5);
+  transition:right .3s;
+}
+.site-header .nav a:hover{color:var(--h-vivo)}
+.site-header .nav>a:hover:after,
+.site-header .nav-item>a:hover:after{right:0}
+.site-header .nav a.active,
+.site-header .nav a[aria-current="page"]{
+  color:var(--shell-gold);
+  background:none;
+  box-shadow:none;
+}
+.site-header .nav>a.active:after,
+.site-header .nav>a[aria-current="page"]:after,
+.site-header .nav-item>a.active:after,
+.site-header .nav-item>a[aria-current="page"]:after{right:0}
+
+/* ——— desplegable de colecciones ——— */
+.site-header .nav-item{position:relative;display:flex;align-items:center;gap:8px}
+.site-header .nav-toggle{
+  display:grid;
+  place-items:center;
+  width:14px;
+  height:34px;
+  padding:0;
+  border:0;
+  background:none;
+  color:var(--h-apagado);
+  cursor:pointer;
+  transition:color .25s;
+}
+.site-header .nav-toggle span{
+  width:5px;
+  height:5px;
+  border-right:1px solid currentColor;
+  border-bottom:1px solid currentColor;
+  transform:translateY(-2px) rotate(45deg);
+  transition:transform .25s;
+}
+.site-header .nav-toggle:hover{color:var(--h-vivo)}
+.site-header .nav-item.open .nav-toggle{color:var(--shell-gold)}
+.site-header .nav-item.open .nav-toggle span{transform:translateY(1px) rotate(-135deg)}
+.site-header .nav-menu{
+  position:absolute;
+  top:calc(100% + 24px);
+  left:-16px;
+  min-width:252px;
+  padding:0;
+  background:rgba(8,8,8,.97);
+  border:0;
+  /* Un filo dorado arriba en lugar de un marco completo. */
+  border-top:2px solid var(--shell-gold);
+  box-shadow:0 30px 70px rgba(0,0,0,.6);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-6px);
+  pointer-events:none;
+  /* visibility sin duración: al cerrar espera a que termine el fundido,
+     al abrir cambia ya, para poder enfocar dentro en el acto. */
+  transition:opacity .22s,transform .22s,visibility 0s .22s;
+}
+.site-header .nav-item.open .nav-menu{
+  opacity:1;
+  visibility:visible;
+  transform:none;
+  pointer-events:auto;
+  transition:opacity .22s,transform .22s,visibility 0s;
+}
+.site-header .nav-menu a{
+  display:block;
+  padding:13px 18px;
+  transition:background .2s,padding .2s;
+}
+.site-header .nav-menu a:after{display:none}
+.site-header .nav-menu a+a{border-top:1px solid rgba(255,255,255,.07)}
+.site-header .nav-menu a:hover{background:rgba(216,171,50,.08);padding-left:24px}
+.site-header .nav-menu b{
+  display:block;
+  color:var(--h-vivo);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.16em;
+}
+.site-header .nav-menu span{
+  display:block;
+  margin-top:5px;
+  color:#8d887e;
+  font-size:9px;
+  letter-spacing:.1em;
+}
+
+/* ——— herramientas ——— */
+.site-header .nav-tools{
+  display:flex;
+  align-items:center;
+  gap:clamp(16px,2.2vw,30px);
+  flex:1 1 0;
+  justify-content:flex-end;
+}
+.site-header .search-btn,
+.site-header .bag-btn{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-height:34px;
+  padding:0;
+  border:0;
+  background:none;
+  color:var(--h-apagado);
+  font:inherit;
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:.2em;
+  cursor:pointer;
+  transition:color .25s;
+}
+.site-header .search-btn:hover,
+.site-header .bag-btn:hover{color:var(--shell-gold)}
+/* El rombo es el mismo gesto del sello de la marca. */
+.site-header .bag-count{
+  display:grid;
+  place-items:center;
+  min-width:22px;
+  height:22px;
+  padding:0 5px;
+  border-radius:0;
+  background:var(--shell-gold);
+  color:#0b0b0b;
+  font-size:9px;
+  font-variant-numeric:tabular-nums;
+  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
+}
+
+/* ——— botón de menú ——— */
+.site-header .menu-btn{
+  display:none;
+  position:relative;
+  width:34px;
+  height:34px;
+  padding:0;
+  place-items:center;
+  flex:0 0 34px;
+  border:0;
+  background:none;
+  cursor:pointer;
+}
+.site-header .menu-btn span{
+  position:absolute;
+  width:22px;
+  height:1px;
+  background:var(--h-vivo);
+  transition:transform .25s,top .25s,background .25s;
+}
+.site-header .menu-btn:hover span{background:var(--shell-gold)}
+.site-header .menu-btn span:first-child{top:14px}
+.site-header .menu-btn span:last-child{top:20px}
+.site-header .menu-btn.open span:first-child{top:17px;transform:rotate(45deg)}
+.site-header .menu-btn.open span:last-child{top:17px;transform:rotate(-45deg)}
+
+/* ═══════════ por debajo de 980px: panel desplegable ═══════════ */
+@media(max-width:980px){
+  .site-header{
+    --h-alto:66px;
+    --h-alto-min:58px;
+    padding:0 clamp(16px,4vw,26px);
+    gap:14px;
+  }
+  .site-header .brand{flex:1 1 auto}
+  .site-header .brand b{font-size:23px}
+  .site-header .nav-tools{flex:0 0 auto;gap:18px}
+
+  .site-header .menu-btn{display:grid}
+
+  /* El panel cae pegado a la barra y de lado a lado: sin marco ni
+     tarjeta, solo la línea que lo separa del contenido. */
+  .site-header .nav{
+    position:absolute;
+    inset:100% 0 auto;
+    /* Se ajusta a lo que hay dentro y solo hace scroll si no cabe:
+       con alto fijo sobraba un palmo de vacío al final que devolvía
+       la sensación de caja. */
+    max-height:min(calc(100svh - var(--h-alto)),660px);
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:flex-start;
+    gap:0;
+    padding:clamp(16px,3.5vh,30px) clamp(20px,5vw,34px) 26px;
+    overflow-y:auto;
+    /* Opaco del todo: con un resto de alfa, la portada se transparenta
+       a través del panel al ir montado sobre la barra fija. */
+    background:radial-gradient(circle at 88% 6%,rgba(216,171,50,.09),transparent 26%),#070707;
+    border:0;
+    border-top:1px solid var(--h-linea);
+    box-shadow:0 30px 60px rgba(0,0,0,.5);
+    visibility:hidden;
+    opacity:0;
+    transform:translateY(-8px);
+    pointer-events:none;
+    transition:opacity .25s,transform .25s,visibility 0s .25s;
+  }
+  .site-header .nav.open{
+    visibility:visible;
+    opacity:1;
+    transform:none;
+    pointer-events:auto;
+    transition:opacity .25s,transform .25s,visibility 0s;
+  }
+  .site-header .nav>a,
+  .site-header .nav-item>a{
+    width:100%;
+    min-height:0;
+    padding:14px 0;
+    border-bottom:1px solid rgba(255,255,255,.1);
+    color:#ddd8ce;
+    font:clamp(30px,7vw,44px)/1 var(--f-display);
+    letter-spacing:.01em;
+  }
+  .site-header .nav>a:after,
+  .site-header .nav-item>a:after{display:none}
+  .site-header .nav a:hover{color:var(--shell-gold)}
+  .site-header .nav a.active,
+  .site-header .nav a[aria-current="page"]{color:var(--shell-gold)}
+
+  /* En táctil no hay hover ni sitio para un desplegable: las líneas
+     se muestran siempre, anidadas bajo Colecciones. */
+  .site-header .nav-item{display:block}
+  .site-header .nav-toggle{display:none}
+  .site-header .nav-menu{
+    position:static;
+    min-width:0;
+    padding:8px 0 12px 16px;
+    margin:0 0 2px;
+    background:none;
+    border:0;
+    border-left:1px solid rgba(216,171,50,.35);
+    box-shadow:none;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    opacity:1;
+    /* Hereda del panel: si pusiera "visible" a secas, estos enlaces
+       seguirían siendo enfocables con el menú cerrado. */
+    visibility:inherit;
+    transform:none;
+    pointer-events:auto;
+    transition:none;
+  }
+  .site-header .nav-menu a{padding:8px 0}
+  .site-header .nav-menu a+a{border-top:0}
+  .site-header .nav-menu a:hover{background:none;padding-left:8px}
+  .site-header .nav-menu b{font-size:11px;letter-spacing:.14em}
+}
+
+@media(max-width:620px){
+  .site-header{
+    --h-alto:60px;
+    --h-alto-min:54px;
+    padding:0 15px;
+  }
+  .site-header .brand b{font-size:20px}
+  .site-header .brand small{font-size:6px;letter-spacing:.24em}
+  .site-header .nav-tools{gap:15px}
+  /* Solo la lupa, pero con área que se pueda tocar: sin recuadro, el
+     ancho se encogía al tamaño del glifo. */
+  .site-header .search-btn{gap:0;font-size:0;min-width:34px;justify-content:center}
+  .site-header .search-btn:before{content:"⌕";font:23px/1 var(--f-body);transform:rotate(-15deg)}
+  .site-header .bag-btn{font-size:8px;gap:7px}
+  .site-header .bag-count{min-width:20px;height:20px;font-size:8px}
+}
+
+/* Sin las cajas sobra sitio, así que el bajo firma sobrevive en el
+   móvil normal; solo desaparece en pantallas muy estrechas. */
+@media(max-width:340px){
+  .site-header .brand small{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .site-header,.site-header *{transition:none!important}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BOTONES
+   Todos los controles del sitio viven aquí. Antes .button estaba
+   definido en tres puntos distintos del archivo (alto 52 en uno, 54
+   en otro, más un backdrop-filter suelto sobre un relleno opaco), y
+   ninguno de los botones —ni los grandes, ni los chips, ni las
+   tallas, ni el carrito— reaccionaba al pulsarlo: se podía hacer
+   clic sin ninguna respuesta visual.
+
+   Tres reglas para todos:
+   · Se pulsan. Cada control tiene :active, y la respuesta es rápida
+     (~.07s) porque una pulsación lenta se siente rota.
+   · El foco se ve sobre cualquier fondo. Sobre relleno dorado el
+     anillo dorado desaparecía, así que ahí se invierte: aro oscuro
+     pegado y halo dorado por fuera.
+   · Se pueden tocar: 44px de alto real donde antes había 30.
+
+   El hover de los botones huecos entra desde la izquierda, igual
+   que el subrayado del menú y que las filas de destinos.
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --btn-alto:54px;
+  --btn-toque:44px;
+  --btn-aire:27px;
+  --btn-curva:cubic-bezier(.2,.7,.3,1);
+  --btn-halo:rgba(216,171,50,.6);
+}
+
+/* ——— botón principal ——— */
+.button{
+  --btn-barrido:var(--gold);
+  position:relative;
+  min-height:var(--btn-alto);
+  padding:0 var(--btn-aire);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  border:1px solid rgba(255,255,255,.34);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-align:center;
+  cursor:pointer;
+  transition:color .25s var(--btn-curva),
+             border-color .25s var(--btn-curva),
+             box-shadow .25s var(--btn-curva),
+             background-size .34s var(--btn-curva),
+             transform .18s var(--btn-curva);
+}
+/* El barrido es el propio fondo del botón creciendo de 0 a 100% de
+   ancho, no una capa aparte. Con un pseudo-elemento por detrás hacía
+   falta z-index negativo, y ahí el navegador lo dejaba de pintar
+   pese a calcularlo bien; así se pinta siempre, por encima del color
+   de fondo y por debajo del texto, sin envolver el texto en un span
+   en las 65 páginas.
+   Los selectores repiten las variantes porque las reglas viejas
+   usan el atajo `background`, que borraría esta imagen. */
+.button,
+.button.gold,
+.button.ghost,
+.button.light{
+  background-image:linear-gradient(var(--btn-barrido),var(--btn-barrido));
+  background-repeat:no-repeat;
+  background-position:left center;
+  background-size:0 100%;
+}
+.button:hover,
+.button:focus-visible{background-size:100% 100%}
+.button:hover{transform:translateY(-3px)}
+.button:active{transform:translateY(0) scale(.985);transition-duration:.07s}
+.button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+
+.button.ghost{background-color:rgba(7,7,7,.18)}
+.button.ghost:hover,
+.button.ghost:focus-visible{color:#0b0b0b;border-color:var(--gold)}
+.button.ghost:hover{box-shadow:0 14px 36px rgba(0,0,0,.28)}
+
+.button.gold{
+  /* Ya viene relleno de oro: el barrido es un oro más claro. */
+  --btn-barrido:#f0cd63;
+  background-color:var(--gold);
+  color:#111;
+  border-color:var(--gold);
+  box-shadow:0 10px 30px rgba(210,166,47,.12);
+}
+.button.gold:hover{box-shadow:0 14px 36px rgba(210,166,47,.28)}
+
+.button.light{background-color:#eee;color:#111;border-color:#eee}
+.button.light:hover,
+.button.light:focus-visible{border-color:var(--gold)}
+
+/* Sobre relleno claro el aro dorado se pierde: se invierte. */
+.button.gold:focus-visible,
+.button.light:focus-visible{
+  outline-color:#0b0b0b;
+  outline-offset:2px;
+  box-shadow:0 0 0 5px var(--btn-halo);
+}
+
+.button.full{width:100%}
+
+.button[disabled],
+.button[aria-disabled="true"]{
+  opacity:.45;
+  cursor:not-allowed;
+  transform:none;
+  box-shadow:none;
+}
+.button[disabled]:hover,
+.button[aria-disabled="true"]:hover{background-size:0 100%}
+
+/* ——— pedir por WhatsApp: mismo tamaño, color de la marca ——— */
+.whatsapp-order{
+  /* Va justo debajo de AGREGAR A LA BOLSA: si no comparten alto, el
+     par se ve desalineado. */
+  min-height:var(--btn-alto);
+  transition:background .25s var(--btn-curva),transform .18s var(--btn-curva),box-shadow .25s var(--btn-curva);
+}
+.whatsapp-order:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(37,211,102,.26)}
+.whatsapp-order:active{transform:translateY(0) scale(.985);transition-duration:.07s}
+.whatsapp-order:focus-visible{outline:2px solid #25d366;outline-offset:4px}
+
+/* ——— filtros del catálogo ——— */
+.chip{
+  min-height:40px;
+  padding:0 16px;
+  display:inline-flex;
+  align-items:center;
+  transition:color .2s,border-color .2s,background .2s,transform .12s var(--btn-curva);
+}
+.chip:active{transform:scale(.95);transition-duration:.07s}
+.chip.on:hover{border-color:#111;color:#f0cd63}
+.chip:focus-visible{outline:2px solid #111;outline-offset:3px}
+.chip.on:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ——— tallas de la ficha ——— */
+.detail-sizes button{
+  transition:border-color .2s,background .2s,color .2s,transform .12s var(--btn-curva);
+}
+.detail-sizes button:hover{background:rgba(216,171,50,.08)}
+.detail-sizes button:active{transform:scale(.95);transition-duration:.07s}
+.detail-sizes button.selected:focus-visible{
+  outline-color:#0b0b0b;
+  outline-offset:2px;
+  box-shadow:0 0 0 4px var(--btn-halo);
+}
+
+/* ——— muestras de color ——— */
+.swatch:active{transform:scale(.94);transition-duration:.07s}
+.swatch.selected:focus-visible{
+  outline-offset:2px;
+  box-shadow:0 0 0 4px var(--btn-halo);
+}
+
+/* ——— bolsa lateral (sobre papel) ——— */
+.cart-item-qty button{
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  transition:border-color .2s,background .2s,color .2s,transform .12s var(--btn-curva);
+}
+.cart-item-qty button:hover{border-color:#111;background:#111;color:var(--paper)}
+.cart-item-qty button:active{transform:scale(.92);transition-duration:.07s}
+.cart-item-qty button:focus-visible{outline:2px solid #111;outline-offset:2px}
+
+.cart-remove{
+  min-height:36px;
+  padding:0 2px;
+  border-bottom:1px solid transparent;
+  transition:color .2s,border-color .2s}
+.cart-remove:hover{border-bottom-color:currentColor}
+.cart-remove:active{opacity:.6}
+.cart-remove:focus-visible{outline:2px solid #8d231f;outline-offset:3px}
+
+/* Aspas de cerrar: el glifo es pequeño, el área no. */
+.cart-close,
+.search-close{
+  display:grid;
+  place-items:center;
+  width:var(--btn-toque);
+  height:var(--btn-toque);
+  padding:0;
+  transition:color .2s,transform .12s var(--btn-curva);
+}
+.cart-close:hover{color:#8d231f}
+.search-close:hover{color:var(--gold)}
+.cart-close:active,
+.search-close:active{transform:scale(.9);transition-duration:.07s}
+.cart-close:focus-visible{outline:2px solid #111;outline-offset:2px}
+
+/* ——— boletín del pie ——— */
+.news-btn{
+  min-height:var(--btn-toque);
+  transition:filter .2s,transform .12s var(--btn-curva);
+}
+.news-btn:active{transform:scale(.97);transition-duration:.07s}
+.news-btn:focus-visible{
+  outline:2px solid #0b0b0b;
+  outline-offset:-4px;
+  box-shadow:0 0 0 3px var(--btn-halo);
+}
+
+/* ——— redes del pie ——— */
+.footer-social a{
+  display:inline-flex;
+  align-items:center;
+  min-height:38px;
+  transition:color .2s,border-color .2s,background .2s,transform .12s var(--btn-curva);
+}
+.footer-social a:hover{background:rgba(216,171,50,.07)}
+.footer-social a:active{transform:scale(.96);transition-duration:.07s}
+
+/* ——— volver arriba ——— */
+.to-top{
+  display:grid;
+  place-items:center;
+  transition:opacity .3s,background .25s,color .25s,transform .14s var(--btn-curva);
+}
+.to-top:active{transform:scale(.9);transition-duration:.07s}
+.to-top:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+.whatsapp-float:active{transform:scale(.94);transition-duration:.07s}
+.whatsapp-float:focus-visible{outline:2px solid #25d366;outline-offset:4px}
+
+/* ——— enlaces con forma de botón ——— */
+.text-link:active,
+.product-link:active,
+.detail-size-link:active{opacity:.6;transition-duration:.07s}
+.product-link{
+  display:inline-flex;
+  align-items:center;
+  min-height:34px;
+  transition:color .2s,border-color .2s}
+
+@media(max-width:620px){
+  :root{--btn-alto:52px;--btn-aire:22px}
+  /* En móvil los botones sueltos ocupan el ancho: repartidos en una
+     fila quedaban a media pulsación de distancia. */
+  .actions .button{flex:1 1 100%}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .button,
+  .whatsapp-order,
+  .chip,
+  .detail-sizes button,
+  .cart-item-qty button,
+  .cart-close,
+  .search-close,
+  .news-btn,
+  .footer-social a,
+  .to-top,
+  .whatsapp-float{transition:none!important}
+  .button:hover,
+  .button:active,
+  .whatsapp-order:hover,
+  .whatsapp-order:active,
+  .chip:active,
+  .detail-sizes button:active,
+  .cart-item-qty button:active,
+  .cart-close:active,
+  .search-close:active,
+  .news-btn:active,
+  .footer-social a:active,
+  .to-top:active,
+  .whatsapp-float:active{transform:none}
+  /* Sin animación el barrido se aplica de golpe, no desaparece. */
+  .button:hover,
+  .button:focus-visible{background-size:100% 100%}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   V4 · TIPOGRAFÍA
+   El sitio tenía veinte tamaños de titular inventados uno a uno
+   —clamp(75,11vw,170), clamp(76,12vw,180), clamp(75,12vw,180)…—
+   que a ojo son el mismo pero nunca coinciden. Aquí hay cinco
+   escalones y todos los titulares eligen uno. Las medidas quedan
+   a pocos píxeles de las de antes: lo que cambia es que ahora
+   riman entre páginas.
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --curva:cubic-bezier(.2,.7,.3,1);
+  --curva-salida:cubic-bezier(.6,0,.35,1);
+}
+
+/* Aquí NO se tocan los tamaños. Probé a unificarlos en cinco
+   escalones y el resultado fue peor: el héroe de colecciones está
+   puesto más grande a propósito, el de catálogo distinto, y los de
+   manifiesto y tallas más pequeños porque su texto va en una
+   columna del 48%. La escala los aplanaba a todos —y sacaba dos
+   titulares fuera de la pantalla, que body{overflow-x:hidden} se
+   encargaba de esconder—. Lo que sí falta en todos es el reparto
+   de líneas, y eso es lo que se arregla aquí. */
+:where(.hero,.page-hero) h1,
+:where(.closing,.destination,.destinations-preview,.statement,
+       .section-head,.feature-copy,.tech-intro,.manifesto-lead,
+       .retail,.catalog-title) h2,
+.detail-copy h1,
+.quote-section .quote-line{
+  /* Reparte las líneas en vez de dejar una palabra colgando sola. */
+  text-wrap:balance;
+}
+
+/* Y el cuerpo, sin líneas huérfanas al final del párrafo. */
+p,
+.manifesto-text,
+.detail-desc,
+li{text-wrap:pretty}
+
+/* Las cifras alineadas: precios, totales y contadores no deben
+   bailar de ancho al cambiar. */
+.detail-price,
+.product-foot b,
+.cart-total b,
+.checkout-summary b,
+.cinema-stats b,
+.hero-stamp b{font-variant-numeric:tabular-nums}
+
+/* ═══════════════════════════════════════════════════════════════
+   V4 · ENTRADA DE PÁGINA
+   El héroe llegaba entero y de golpe. Ahora entra por partes: el
+   titular se descubre como un telón y el resto sube detrás, con
+   unas centésimas de diferencia. Es lo primero que se ve de cada
+   página, así que es donde más rinde la animación.
+   ═══════════════════════════════════════════════════════════════ */
+@keyframes v4Sube{from{opacity:0;transform:translateY(26px)}}
+/* Solo se mueve el borde de abajo. Los otros tres van en negativo y
+   quietos: con interlineado .8 las mayúsculas acentuadas sobresalen
+   por encima de su caja, y un recorte a 0 por arriba se comía la
+   tilde de MÉXICO. */
+@keyframes v4Telon{
+  from{opacity:0;clip-path:inset(-45% -8% 105% -8%);transform:translateY(.1em)}
+  to{opacity:1;clip-path:inset(-45% -8% -25% -8%);transform:none}
+}
+
+.hero-copy>*,
+.page-hero>.kicker,
+.page-hero>h1,
+.page-hero>p,
+.page-hero>.actions{
+  animation:v4Sube .85s var(--curva) both;
+  animation-delay:calc(var(--v4-orden,0) * 90ms + 60ms);
+}
+.hero-copy>:nth-child(1),.page-hero>:nth-child(1){--v4-orden:0}
+.hero-copy>:nth-child(2),.page-hero>:nth-child(2){--v4-orden:1}
+.hero-copy>:nth-child(3),.page-hero>:nth-child(3){--v4-orden:2}
+.hero-copy>:nth-child(4),.page-hero>:nth-child(4){--v4-orden:3}
+.hero-copy>:nth-child(5),.page-hero>:nth-child(5){--v4-orden:4}
+.hero-copy>:nth-child(n+6),.page-hero>:nth-child(n+6){--v4-orden:5}
+
+/* El titular no sube: se descubre. */
+.hero-copy>h1,
+.page-hero>h1{animation-name:v4Telon;animation-duration:1.05s}
+
+/* ═══════════════════════════════════════════════════════════════
+   V4 · REVELADO AL DESPLAZAR
+   El revelado existente subía 24px y aparecía. Se le añade un
+   punto de escala: entra "desde el fondo" en vez de deslizarse, y
+   con eso las rejillas de producto dejan de moverse en bloque.
+   El disparo sigue siendo el IntersectionObserver de script.js.
+   ═══════════════════════════════════════════════════════════════ */
+.motion-ready .animate-in{
+  opacity:0;
+  transform:translateY(30px) scale(.982);
+  transition:opacity .75s var(--curva) var(--reveal-delay,0ms),
+             transform .75s var(--curva) var(--reveal-delay,0ms);
+}
+.motion-ready .animate-in.is-visible{opacity:1;transform:none}
+
+/* El filo dorado de los encabezados se dibuja al entrar. */
+.section-head{position:relative}
+.motion-ready .section-head.animate-in:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:-18px;
+  height:2px;
+  width:0;
+  background:linear-gradient(90deg,var(--gold),rgba(210,166,47,0));
+  transition:width .9s var(--curva) calc(var(--reveal-delay,0ms) + 180ms);
+}
+.motion-ready .section-head.animate-in.is-visible:before{width:min(220px,38%)}
+
+/* ═══════════════════════════════════════════════════════════════
+   V4 · ANIMACIÓN LIGADA AL SCROLL
+   Sin JavaScript: el navegador ata la animación al avance del
+   elemento por la pantalla, así que no hay listener de scroll ni
+   trabajo en el hilo principal. Va dentro de @supports porque
+   donde no exista, simplemente no pasa nada.
+   ═══════════════════════════════════════════════════════════════ */
+@supports (animation-timeline:view()){
+  @keyframes v4Acerca{from{transform:scale(1.16)}to{transform:scale(1.01)}}
+  @keyframes v4Respira{
+    from{opacity:.55;transform:translateY(30px)}
+    to{opacity:1;transform:none}
+  }
+
+  /* La foto de la sección partida se acerca despacio mientras pasa.
+     Solo ella: las del catálogo tienen el zoom en el hover y se
+     pisarían, y las de destinos llevan el titular dentro, así que
+     escalarlas agrandaría también el texto (ahí el movimiento lo
+     hace el background-position desde script.js). */
+  .feature-image{
+    animation:v4Acerca linear both;
+    animation-timeline:view();
+    animation-range:entry 0% exit 100%;
+  }
+  /* La cita a pantalla completa se asienta al llegar al centro. */
+  .quote-section .quote-line{
+    animation:v4Respira linear both;
+    animation-timeline:view();
+    animation-range:entry 15% cover 45%;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   V4 · TRANSICIÓN ENTRE PÁGINAS
+   Es un sitio estático de 64 páginas: cada enlace recargaba con
+   el parpadeo en blanco de siempre. Con esto el navegador funde
+   una página con la siguiente, y la cabecera y el botón flotante
+   se quedan quietos porque son los mismos elementos a ambos lados.
+   Donde no haya soporte, la navegación es la de toda la vida.
+   ═══════════════════════════════════════════════════════════════ */
+@view-transition{navigation:auto}
+
+@keyframes v4Sale{to{opacity:0;transform:translateY(-12px)}}
+@keyframes v4Entra{from{opacity:0;transform:translateY(20px)}}
+
+/* La que sale se va rápido y la que entra espera un pelín: si se
+   solapan mucho tiempo se ven los dos titulares a la vez y el cambio
+   se lee como un borrón en vez de como un corte limpio. */
+::view-transition-old(root){
+  animation:v4Sale .2s var(--curva-salida) both;
+}
+::view-transition-new(root){
+  animation:v4Entra .38s var(--curva) .14s both;
+}
+
+/* Elementos que persisten: no se funden, se quedan. */
+.site-header{view-transition-name:v4-cabecera}
+.whatsapp-float{view-transition-name:v4-whatsapp}
+.to-top{view-transition-name:v4-arriba}
+
+/* ═══════════════════════════════════════════════════════════════
+   V4 · SIN MOVIMIENTO
+   Quien pida menos animación recibe la página quieta y completa:
+   nada de contenido escondido esperando un disparo que no llega.
+   ═══════════════════════════════════════════════════════════════ */
+@media(prefers-reduced-motion:reduce){
+  @view-transition{navigation:none}
+  .hero-copy>*,
+  .page-hero>.kicker,
+  .page-hero>h1,
+  .page-hero>p,
+  .page-hero>.actions{animation:none;opacity:1;clip-path:none;transform:none}
+  .motion-ready .animate-in,
+  .motion-ready .animate-in.is-visible{opacity:1;transform:none;transition:none}
+  .motion-ready .section-head.animate-in:before{transition:none;width:min(220px,38%)}
+  .feature-image,
+  .quote-section .quote-line{animation:none}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CIERRE DEL MANIFIESTO
+   Antes: la foto de una playera magenta a pantalla completa con un
+   lavado rojo encima. El titular caía justo sobre la prenda, que es
+   la zona más clara y más ocupada de la imagen, así que se leía mal;
+   y la línea en cursiva llegaba casi al marco por los dos lados.
+
+   Ahora el fondo es el agavar —México sin tener que explicarlo, y
+   con el horizonte alto: el titular cae sobre cielo, no sobre
+   textura—. El velo oscurece de verdad en el centro en vez de por
+   los bordes, y el bloque tiene tres alturas: dato, frase y remate.
+   ═══════════════════════════════════════════════════════════════ */
+.quote-section{
+  padding:clamp(110px,14vw,180px) clamp(22px,5vw,60px);
+  background:
+    radial-gradient(120% 95% at 50% 46%,rgba(6,6,6,.58),rgba(4,4,4,.93) 74%),
+    linear-gradient(180deg,rgba(8,8,8,.5),rgba(74,16,12,.26) 50%,rgba(6,6,6,.8)),
+    url('img/cinematic-workshop.jpg') center 44%/cover no-repeat;
+  box-shadow:inset 0 0 170px rgba(0,0,0,.55);
+}
+.quote-section:before{border-color:rgba(210,166,47,.3)}
+.quote-section>*{
+  max-width:min(1020px,100%);
+  margin-inline:auto;
+}
+.quote-section .quote-kicker{
+  margin:0 0 clamp(26px,3vw,40px);
+  font:600 10px/1 var(--f-body);
+  letter-spacing:.3em;
+  color:var(--gold);
+}
+/* Un pelín menor que antes (9vw): la segunda línea va en Cormorant,
+   que es ancha, y a 9vw rozaba el marco por los dos lados. */
+.quote-section .quote-line{
+  margin:0;
+  font:clamp(50px,7.4vw,116px)/.92 var(--f-display);
+  letter-spacing:-.02em;
+}
+.quote-section .quote-line em{
+  display:block;
+  margin-top:.06em;
+}
+/* Rombo dorado: el mismo sello que la marca y la bolsa. */
+.quote-section .quote-sub{
+  position:relative;
+  margin:clamp(34px,4vw,52px) auto 0;
+  padding-top:clamp(30px,3.5vw,44px);
+  max-width:46ch;
+  font:400 clamp(14px,1.2vw,16px)/1.85 var(--f-body);
+  color:#cfc9bd;
+}
+.quote-section .quote-sub:before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:0;
+  width:7px;
+  height:7px;
+  background:var(--gold);
+  transform:translateX(-50%) rotate(45deg);
+  box-shadow:0 0 16px rgba(216,171,50,.7);
+}
+.quote-section .button{margin-top:clamp(34px,4vw,50px)}
+
+@media(max-width:620px){
+  .quote-section{padding:88px 20px}
+  .quote-section .quote-kicker{font-size:9px;letter-spacing:.22em}
+  .quote-section .quote-sub{padding-top:26px;margin-top:28px}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LÍNEAS DE COLECCIÓN (01 · 02 · 03 · 04)
+   Eran cajas dentro de cajas: marco exterior dorado, un segundo
+   marco por dentro a 14px, la etiqueta "01 / NUEVA COLECCIÓN" en su
+   propio recuadro, la ficha lateral en otro, y el botón partido en
+   dos rectángulos. Cinco marcos por módulo, y todo ello flotando
+   dentro del acolchado de la sección, sin llegar a los bordes.
+
+   Ahora cada línea ocupa la pantalla completa, de canto a canto, y
+   lo que separa las cosas son filetes y veladuras, no bordes.
+   ═══════════════════════════════════════════════════════════════ */
+body[data-page="colecciones"] .linea{
+  /* Un solo sitio donde vive el acolchado lateral, para que el
+     módulo pueda cancelarlo exactamente en cualquier pantalla. */
+  --linea-pad:var(--pad);
+  padding-inline:var(--linea-pad);
+}
+
+body[data-page="colecciones"] .linea-head{
+  margin-inline:calc(var(--linea-pad) * -1);
+  width:auto;
+  min-height:100svh;
+  padding:clamp(96px,12vh,150px) clamp(24px,5vw,86px) clamp(46px,6vh,88px);
+  border:0;
+  box-shadow:none;
+  transform:none;
+}
+/* El marco interior de 14px y el aro exterior: fuera. */
+body[data-page="colecciones"] .linea-head:after{display:none}
+body[data-page="colecciones"] .linea-head:hover{
+  transform:none;
+  border:0;
+  box-shadow:none;
+}
+/* Sin tarjeta que sostenga el texto, el degradado de abajo tiene que
+   trabajar más: es lo único que separa la letra de la foto. */
+body[data-page="colecciones"] .linea-head:before{
+  background:
+    radial-gradient(circle at 74% 68%,var(--chapter-glow),transparent 34%),
+    linear-gradient(0deg,rgba(4,4,4,.94) 0%,rgba(4,4,4,.72) 28%,rgba(4,4,4,.16) 62%,rgba(4,4,4,.3) 100%);
+  opacity:1;
+}
+body[data-page="colecciones"] .linea-head:hover:before{opacity:1}
+
+/* La etiqueta deja de ser una pastilla y pasa a ser un rótulo con
+   filete, como los antetítulos del resto del sitio. */
+body[data-page="colecciones"] .linea-title .kicker{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  min-height:0;
+  padding:0;
+  border:0;
+  background:none;
+  box-shadow:none;
+  backdrop-filter:none;
+}
+body[data-page="colecciones"] .linea-title .kicker:after{
+  content:"";
+  flex:0 0 auto;
+  width:clamp(40px,6vw,96px);
+  height:1px;
+  background:linear-gradient(90deg,var(--chapter-accent),transparent);
+}
+
+/* La ficha pierde el recuadro: se queda el filete superior dorado
+   como única marca de dónde empieza. */
+body[data-page="colecciones"] .linea-side{
+  padding:clamp(22px,2.4vw,32px) 0 0;
+  border:0;
+  border-top:2px solid var(--chapter-accent);
+  background:none;
+  box-shadow:none;
+  backdrop-filter:none;
+}
+body[data-page="colecciones"] .linea-head:hover .linea-side{
+  transform:none;
+  border-color:var(--chapter-accent);
+  background:none;
+}
+body[data-page="colecciones"] .linea-side>p{
+  text-shadow:0 3px 24px rgba(0,0,0,.95);
+}
+
+/* Y el botón deja de ser dos rectángulos: texto, flecha y el
+   subrayado que crece desde la izquierda, como el menú. */
+body[data-page="colecciones"] .linea-cta{
+  position:relative;
+  min-height:44px;
+  margin-top:28px;
+  padding:0;
+  display:inline-flex;
+  justify-content:flex-start;
+  gap:12px;
+  border:0;
+  background:none;
+  font-size:10px;
+  letter-spacing:.2em;
+}
+body[data-page="colecciones"] .linea-cta:after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:100%;
+  bottom:8px;
+  height:1px;
+  background:var(--chapter-accent);
+  transition:right .35s cubic-bezier(.2,.7,.3,1);
+}
+body[data-page="colecciones"] .linea-cta:hover:after{right:0}
+body[data-page="colecciones"] .linea-cta span{
+  width:auto;
+  height:auto;
+  border:0;
+  background:none;
+  transition:transform .3s cubic-bezier(.2,.7,.3,1);
+}
+body[data-page="colecciones"] .linea-cta:hover span{transform:translate(4px,-4px)}
+
+@media(max-width:900px){
+  body[data-page="colecciones"] .linea{--linea-pad:16px}
+  body[data-page="colecciones"] .linea-head{
+    min-height:92svh;
+    padding:clamp(84px,11vh,120px) 22px 40px;
+  }
+}
+@media(max-width:620px){
+  body[data-page="colecciones"] .linea{--linea-pad:14px}
+  body[data-page="colecciones"] .linea-head{padding:78px 20px 36px}
+}
+
+/* El numeral es lo que da nombre a cada módulo (01 · 02 · 03 · 04),
+   pero a pantalla completa arrancaba a 38px del borde: es decir,
+   detrás de la barra fija. Y con un trazo al 23% no se veía. Baja
+   hasta despejar la cabecera y se marca más. */
+body[data-page="colecciones"] .linea-number{
+  top:clamp(92px,11vh,140px);
+  -webkit-text-stroke:1.5px rgba(210,166,47,.42);
+  opacity:.9;
+}
+@media(max-width:900px){
+  body[data-page="colecciones"] .linea-number{top:clamp(78px,10vh,104px)}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MÓDULOS ENCADENADOS · SIN COSTURAS
+   Cada línea traía su propio degradado vertical que terminaba en
+   #080808, y la siguiente arrancaba en #0a0a0a: dos niveles de
+   diferencia, invisibles por separado pero una raya perfectamente
+   visible al juntarse. Encima, el resplandor de color de cada
+   módulo estaba anclado al 9-10% de SU altura, es decir, justo
+   debajo de cada juntura: de ahí la franja rojiza.
+
+   La solución no es suavizar cada borde uno por uno, sino que deje
+   de haber bordes: el fondo se va de los módulos a la página, y lo
+   que queda en cada uno es un halo centrado en su propia altura,
+   ya transparente mucho antes de llegar a los extremos. Así el
+   color sigue cambiando de un módulo a otro, pero sin que exista
+   ninguna línea donde cambie.
+   ═══════════════════════════════════════════════════════════════ */
+body[data-page="colecciones"]{
+  background:
+    linear-gradient(180deg,#0a0a0a 0%,#0b0a09 26%,#090808 62%,#080808 100%)
+    no-repeat fixed,
+    #080808;
+}
+body[data-page="colecciones"] .linea,
+body[data-page="colecciones"] .linea.dark-section{
+  /* Sin base propia: la de la página se ve a través y es la misma
+     para los cuatro, así que no hay escalón posible. */
+  background:none;
+}
+/* El halo, ahora centrado y apagado en los bordes. */
+body[data-page="colecciones"] .linea:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:radial-gradient(58% 40% at 86% 50%,rgba(210,166,47,.075),transparent 72%);
+}
+body[data-page="colecciones"] .linea.dark-section:before{
+  background:radial-gradient(58% 40% at 12% 50%,rgba(122,25,21,.15),transparent 72%);
+}
+/* El recorte de la sección se queda: el halo va a inset:0, así que no
+   necesita salirse, y sin él la marca de agua gigante («01», «02»…)
+   se derramaría fuera y abriría scroll horizontal. */
+
+/* El cierre llegaba con su propio #090909 y su foto a cara descubierta:
+   se le pone una entrada en degradado para que nazca del módulo
+   anterior en vez de empezar de golpe. */
+.closing{
+  position:relative;
+  /* Tono del que nace el cierre: por defecto el de la página, y allí
+     donde la sección anterior es más clara, el suyo. */
+  --cierre-desde:#0b0b0b;
+}
+body[data-page="catalogo"] .closing{--cierre-desde:#141414}
+body[data-page="colecciones"] .closing{--cierre-desde:#080808;background-color:transparent}
+.closing:after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:clamp(90px,14vh,190px);
+  background:linear-gradient(180deg,var(--cierre-desde),transparent);
+  pointer-events:none;
+  z-index:0;
+}
+.closing>*{position:relative;z-index:1}
+
+/* ═══════════════════════════════════════════════════════════════
+   SUAJE Y FIN DE LOS MARCOS
+   Quedaban cinco recuadros sueltos: el panel de filtros, la ficha
+   de producto, el formulario del boletín, la fila de avisos legales
+   y los cuatro botones de redes. Todos eran lo mismo: una caja de
+   1px alrededor de cosas que ya se entendían solas.
+
+   Los contenedores pierden el marco y se apoyan en filetes, que es
+   como se separa todo lo demás en el sitio. Los botones, en vez de
+   redondearse —que sería ajeno a una marca de canto duro—, se
+   troquelan: esquina cortada en diagonal, como el suaje de una
+   etiqueta impresa. Con corner-shape el borde sigue el corte solo;
+   donde no exista, la esquina se queda recta y no pasa nada.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ——— fuera los marcos de sección ——— */
+body[data-page="catalogo"] .filters{
+  padding:26px 0;
+  border:0;
+  border-top:1px solid rgba(255,255,255,.14);
+  border-bottom:1px solid rgba(255,255,255,.14);
+  background:none;
+  box-shadow:none;
+  backdrop-filter:none;
+}
+body[data-page="colecciones"] .product,
+body[data-page="catalogo"] .product{
+  padding:0 0 4px;
+  border:0;
+  background:none;
+  box-shadow:none;
+}
+body[data-page="colecciones"] .product:hover,
+body[data-page="catalogo"] .product:hover{
+  border:0;
+  box-shadow:none;
+}
+/* El correo se convierte en una línea sobre la que se escribe, no
+   en una caja. */
+.news-form{
+  border:0;
+  border-bottom:1px solid rgba(255,255,255,.24);
+  background:none;
+  box-shadow:none;
+}
+.news-form:focus-within{
+  border-color:var(--shell-gold);
+  box-shadow:0 1px 0 var(--shell-gold);
+}
+/* Los avisos legales son enlaces, no una barra. */
+.footer-legal{
+  padding:0;
+  border:0;
+  background:none;
+}
+
+/* ——— suaje ——— */
+@supports (corner-shape:bevel){
+  .button,
+  .whatsapp-order,
+  .chip,
+  .detail-sizes button,
+  .news-btn,
+  .footer-social a,
+  .search-result{
+    corner-shape:bevel;
+    border-radius:9px;
+  }
+  /* En los pequeños el corte va a escala, si no se los come. */
+  .chip,
+  .footer-social a,
+  .detail-sizes button{border-radius:7px}
+  /* El troquel también recorta el barrido dorado del hover, que va
+     en el fondo del propio botón. */
+  .button{background-origin:border-box}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PREGUNTAS FRECUENTES · CONTACTO
+   El colibrí bordado sobre la greca. La foto tiene el ave a la
+   derecha y penumbra a la izquierda, así que el titular cae sobre
+   lo oscuro y el bordado queda al lado de las preguntas, sin
+   pelearse con ninguno de los dos.
+
+   La lista pierde el recuadro que le quedaba y conserva solo una
+   veladura: sin ella el texto se apoyaría directamente sobre el
+   plumaje, que es la parte más clara y saturada de la imagen.
+   ═══════════════════════════════════════════════════════════════ */
+body[data-page="contacto"] .faq{
+  background:
+    linear-gradient(90deg,rgba(6,6,6,.96) 0%,rgba(6,6,6,.86) 34%,rgba(6,6,6,.62) 60%,rgba(6,6,6,.9) 100%),
+    linear-gradient(180deg,rgba(6,6,6,.55),rgba(6,6,6,.2) 40%,rgba(6,6,6,.75)),
+    url('img/colecciones-hero-colibri-bg.png') center 42%/cover no-repeat;
+}
+body[data-page="contacto"] .faq-list{
+  border:0;
+  background:rgba(6,6,6,.52);
+  backdrop-filter:blur(14px) saturate(1.05);
+  -webkit-backdrop-filter:blur(14px) saturate(1.05);
 }
