@@ -38,7 +38,7 @@ const SITE = {
   // Token de caché de styles.css y script.js. Súbelo al tocar cualquiera de los
   // dos: build.js lo reescribe en todas las páginas y así nadie se queda con una
   // versión vieja guardada en el navegador.
-  assetVersion: '20260815-colores'
+  assetVersion: '20260815-colores-img'
 };
 
 const abs = ruta =>
@@ -407,7 +407,7 @@ const seoHead = (meta, extra = []) => {
  * Renderiza en HTML lo que antes solo existía tras ejecutar JavaScript:
  * cada pieza tiene su propia URL, su <h1>, su precio y sus piezas hermanas.
  */
-const productPage = (p, { linea, tecnicas, colores, header, footer, relacionadas }) => {
+const productPage = (p, { linea, tecnicas, colores, imagenes, header, footer, relacionadas }) => {
   const meta = {
     url: productUrl(p),
     title: productTitle(p),
@@ -485,7 +485,7 @@ ${header}
   <main id="contenido">
     <div class="product-detail" id="product-detail" data-product="${p.id}">
       <div class="detail-media">
-        <img class="detail-img" id="detail-img" src="../${p.img}" alt="Playera ${p.name} — DHARMA" fetchpriority="high" decoding="async">
+        <img class="detail-img" id="detail-img" src="../${imagenes[p.colores[0]] || p.img}" alt="Playera ${p.name} en ${esc(colorPorDefecto.nombre.toLowerCase())} — DHARMA" fetchpriority="high" decoding="async" data-imagenes="${esc(JSON.stringify(imagenes))}">
       </div>
       <div class="detail-copy">
         <nav class="crumbs" aria-label="Ruta de navegación">

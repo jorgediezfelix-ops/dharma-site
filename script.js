@@ -341,8 +341,13 @@ const initProductPage = () => {
   const linea = LINEAS[product.linea];
 
   const img = document.getElementById('detail-img');
-  img.src = asset(product.img);
-  img.alt = `Playera ${product.name} — DHARMA`;
+  // build.js deja aquí las fotos que sí existen por color. Si un color no
+  // tiene la suya, se queda la principal en vez de pedir un archivo ausente.
+  const imagenesColor = JSON.parse(img.dataset.imagenes || '{}');
+  const mostrarColor = clave => {
+    img.src = asset(imagenesColor[clave] || product.img);
+    img.alt = `Playera ${product.name} en ${colorNombre(clave).toLowerCase()} — DHARMA`;
+  };
   document.getElementById('detail-tecnica').textContent = product.tecnicaNombre;
   document.getElementById('detail-name').textContent = product.name;
   document.getElementById('detail-tagline').textContent = product.tagline;
@@ -363,6 +368,8 @@ const initProductPage = () => {
   // Color: los circulitos ya vienen pintados en el HTML; aquí solo se
   // registra cuál está elegido y se mueve el estado al que se oprime.
   let color = product.colores[0];
+  mostrarColor(color);
+
   const colores = document.getElementById('detail-colors');
   const colorLabel = document.getElementById('detail-color-nombre');
   colores?.addEventListener('click', e => {
@@ -376,6 +383,7 @@ const initProductPage = () => {
     btn.setAttribute('aria-pressed', 'true');
     color = btn.dataset.color;
     if (colorLabel) colorLabel.textContent = colorNombre(color);
+    mostrarColor(color);
   });
 
   let size = product.tallas[Math.min(1, product.tallas.length - 1)];

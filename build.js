@@ -243,6 +243,30 @@ const rebase = (html, prefijo) =>
     (_, attr, url) => `${attr}="${prefijo}${url}"`
   );
 
+/* Fotos por color.
+ *
+ * Convención: img/prod/<pieza>-<color>.jpg — por ejemplo
+ * img/prod/jaguar-azteca-blanco.jpg. El color es la clave de COLORES en
+ * minúsculas (negro, blanco, gris, marino, rojo, arena).
+ *
+ * Se busca en el disco al construir, así que el navegador nunca pide una
+ * foto que no existe. Basta con dejar el archivo en img/prod/ y volver a
+ * correr `node build.js` para que el circulito empiece a cambiar la imagen.
+ */
+const EXTENSIONES = ['jpg', 'jpeg', 'png', 'webp'];
+
+const imagenesPorColor = p => {
+  const mapa = {};
+  for (const c of p.colores) {
+    const base = `img/prod/${p.id}-${c.toLowerCase()}`;
+    const ext = EXTENSIONES.find(e => fs.existsSync(path.join(dir, `${base}.${e}`)));
+    if (ext) mapa[c] = `${base}.${ext}`;
+  }
+  // La foto principal hace de color por defecto cuando no tiene la suya.
+  if (!mapa[p.colores[0]]) mapa[p.colores[0]] = p.img;
+  return mapa;
+};
+
 // Piezas hermanas: mismo tema primero, luego misma técnica (igual que en script.js).
 const hermanasDe = p => {
   const pool = all.filter(o => o.id !== p.id);
@@ -265,13 +289,19 @@ for (const f of fs.readdirSync(piezaDir)) {
   }
 }
 
+let fotosColor = 0;
+
 for (const p of all) {
+  const imagenes = imagenesPorColor(p);
+  // El color por defecto siempre está; solo cuentan las fotos propias.
+  fotosColor += Object.keys(imagenes).length - 1;
   fs.writeFileSync(
     path.join(piezaDir, `${p.id}.html`),
     seo.productPage(p, {
       linea: LINEAS[p.linea],
       tecnicas: TECNICAS,
       colores: COLORES,
+      imagenes,
       header,
       footer,
       relacionadas: hermanasDe(p)
@@ -311,3 +341,9 @@ Sitemap: ${SITE.origin}/sitemap.xml
 
 console.log(`\n${touched} de ${pages.length} páginas actualizadas · ${all.length} fichas en pieza/ · ${urls.length} URLs en sitemap.xml`);
 console.log(`Dominio actual: ${SITE.origin} (cámbialo en seo.js → SITE.origin)`);
+console.log(
+  fotosColor
+    ? `Fotos por color: ${fotosColor} detectadas en img/prod/`
+    : 'Fotos por color: ninguna todavía. Deja img/prod/<pieza>-<color>.jpg\n' +
+      '  (p. ej. img/prod/jaguar-azteca-blanco.jpg) y vuelve a correr este script.'
+);
