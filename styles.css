@@ -2146,6 +2146,10 @@ body[data-page="colecciones"] .linea-cta:hover span{transform:rotate(45deg);back
   --btn-aire:27px;
   --btn-curva:cubic-bezier(.2,.7,.3,1);
   --btn-halo:rgba(216,171,50,.6);
+  /* Suaje de las esquinas. Se aplica al final del archivo, en el
+     bloque del mismo nombre; aquí solo vive el número. */
+  --btn-suaje:12px;
+  --btn-suaje-chico:9px;
 }
 
 /* ——— botón principal ——— */
@@ -2874,11 +2878,11 @@ body[data-page="colecciones"] .closing{--cierre-desde:#080808;background-color:t
    1px alrededor de cosas que ya se entendían solas.
 
    Los contenedores pierden el marco y se apoyan en filetes, que es
-   como se separa todo lo demás en el sitio. Los botones, en vez de
-   redondearse —que sería ajeno a una marca de canto duro—, se
-   troquelan: esquina cortada en diagonal, como el suaje de una
-   etiqueta impresa. Con corner-shape el borde sigue el corte solo;
-   donde no exista, la esquina se queda recta y no pasa nada.
+   como se separa todo lo demás en el sitio. Los botones llevan la
+   esquina redondeada: el resto del sitio ya es todo canto duro
+   —titulares en Anton, fotos a sangre, filetes rectos—, así que la
+   curva basta para distinguir lo que se pulsa de lo que solo se lee.
+   El número exacto está en el bloque «suaje», al final del archivo.
    ═══════════════════════════════════════════════════════════════ */
 
 /* ——— fuera los marcos de sección ——— */
@@ -2922,26 +2926,34 @@ body[data-page="catalogo"] .product:hover{
   background:none;
 }
 
-/* ——— suaje ——— */
-@supports (corner-shape:bevel){
-  .button,
-  .whatsapp-order,
-  .chip,
-  .detail-sizes button,
-  .news-btn,
-  .footer-social a,
-  .search-result{
-    corner-shape:bevel;
-    border-radius:9px;
-  }
-  /* En los pequeños el corte va a escala, si no se los come. */
-  .chip,
-  .footer-social a,
-  .detail-sizes button{border-radius:7px}
-  /* El troquel también recorta el barrido dorado del hover, que va
-     en el fondo del propio botón. */
-  .button{background-origin:border-box}
-}
+/* ——— suaje ———
+   Esquinas redondeadas, y sin condicionar a nada: antes esto vivía
+   dentro de @supports (corner-shape:bevel), que casi ningún navegador
+   entiende todavía, así que en la práctica los botones salían a
+   escuadra en todas partes. border-radius lo entiende cualquiera.
+
+   En los controles pequeños la curva va a escala: los 12px de un
+   botón de 54px de alto, puestos en un chip de 40px, se comen la
+   pieza entera y la dejan con forma de pastilla. */
+.button,
+.whatsapp-order,
+.search-result{border-radius:var(--btn-suaje)}
+
+.chip,
+.detail-sizes button,
+.footer-social a,
+.cart-item-qty button,
+/* En el carrito el marco es del grupo −/1/+, no de cada botón: los de
+   dentro no tienen borde ni fondo, así que la curva se ve en la caja. */
+.co-qty{border-radius:var(--btn-suaje-chico)}
+
+/* El campo del boletín es una pieza sola —caja y botón pegados—, así
+   que la curva va en el marco y recorta lo de dentro. */
+.news-form{border-radius:var(--btn-suaje);overflow:hidden}
+
+/* El barrido dorado del hover va en el fondo del propio botón: sin
+   esto se sale por las esquinas que acabamos de redondear. */
+.button{background-origin:border-box}
 
 /* ═══════════════════════════════════════════════════════════════
    PREGUNTAS FRECUENTES · CONTACTO
